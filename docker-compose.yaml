@@ -1,0 +1,19 @@
+version: "3.8"
+services:
+  postgresql:
+    image: postgres:latest
+    container_name: postgresql
+    ports:
+      - "5434:5432"
+    environment:
+      - POSTGRES_DB=db
+      - POSTGRES_USER=euller
+      - POSTGRES_PASSWORD=12345
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
+    networks:
+      - api_pagamento-network
+
+networks:
+  api_pagamento-network:
+    driver: bridge

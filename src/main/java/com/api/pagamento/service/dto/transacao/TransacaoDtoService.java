@@ -21,7 +21,11 @@ public class TransacaoDtoService {
     private final DescricaoRepository descricaoRepository;
     private final TransacaoConverter transacaoConverter;
 
-    public TransacaoDTO procurarPeloId(Long id) throws TransacaoInexistenteException {
+    /**
+     * Realiza um pagamento
+     *
+     */
+    public TransacaoDTO buscarTransacaoPeloId(Long id) throws TransacaoInexistenteException {
         /*
         TransacaoDTO transacaoDTO = (TransacaoDTO) transacaoRepository.findById(id).map(t -> ModelMapperUtilService.convert(t, TransacaoDTO.class)).orElse(null);
         if(transacaoDTO != null){
@@ -33,6 +37,10 @@ public class TransacaoDtoService {
         return null;
     }
 
+    /**
+     * Realiza um pagamento
+     *
+     */
     public List<TransacaoDTO> listarTranscacoes() throws TransacaoInexistenteException {
         /*
         List<TransacaoDTO> transacaoDTO = transacaoRepository.findAll().stream().map(t -> (TransacaoDTO) ModelMapperUtilService.convert(t, TransacaoDTO.class)).collect(Collectors.toList());
@@ -45,6 +53,10 @@ public class TransacaoDtoService {
         return null;
     }
 
+    /**
+     * Realiza um pagamento
+     *
+     */
     public TransacaoDTO pagar(SingleTransacaoRequest request) {
 
         TransacaoDTO transacaoDTO = transacaoConverter.requestToDTO(request);
@@ -57,6 +69,10 @@ public class TransacaoDtoService {
 
     }
 
+    /**
+     * Realiza um pagamento
+     *
+     */
     public TransacaoDTO estornar(Long id) throws TransacaoInexistenteException {
         /*
         try{

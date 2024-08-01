@@ -8,6 +8,11 @@ import lombok.NoArgsConstructor;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+/**
+ * Realiza um estorno
+ *
+ * @author Euller Henrique
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

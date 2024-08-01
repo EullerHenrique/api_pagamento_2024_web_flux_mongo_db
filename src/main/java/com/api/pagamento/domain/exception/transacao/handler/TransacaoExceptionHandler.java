@@ -10,10 +10,16 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class TransacaoExceptionHandler {
 
+	/**
+	 * Realiza um estorno
+	 *
+	 * @author Euller Henrique
+	 */
 	@ExceptionHandler(TransacaoInexistenteException.class)
 	public ResponseEntity<ResponseMessage> transcaoInexistenteException(TransacaoInexistenteException ex) {
 
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getResponseError());
 
 	}
+
 }

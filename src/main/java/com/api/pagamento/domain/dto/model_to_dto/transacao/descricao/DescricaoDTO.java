@@ -7,11 +7,15 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Realiza um estorno
+ *
+ * @author Euller Henrique
+ */
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-
 public class DescricaoDTO {
 
     @JsonIgnore

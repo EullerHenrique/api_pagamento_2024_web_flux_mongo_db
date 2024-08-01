@@ -5,9 +5,19 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
+/**
+ * Realiza um estorno
+ *
+ * @author Euller Henrique
+ */
 @Configuration
 public class ModelMapperConfig {
 
+    /**
+     * Realiza um estorno
+     *
+     * @author Euller Henrique
+     */
     @Bean
     public ModelMapper modelMapper() {
         return new ModelMapper();

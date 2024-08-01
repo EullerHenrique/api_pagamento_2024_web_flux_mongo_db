@@ -11,9 +11,20 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+/**
+ * Realiza um estorno
+ *
+ * @author Euller Henrique
+ */
 @EnableSwagger2
 @Configuration
 public class SwaggerConfig {
+
+	/**
+	 * Realiza um estorno
+	 *
+	 * @author Euller Henrique
+	 */
 	@Bean
 	public Docket api() {
 		return new Docket(DocumentationType.SWAGGER_2)
@@ -23,6 +34,12 @@ public class SwaggerConfig {
 				.build()
 				.apiInfo(apiInfo());
 	}
+
+	/**
+	 * Realiza um estorno
+	 *
+	 * @author Euller Henrique
+	 */
 	private ApiInfo apiInfo() {
 		return new ApiInfoBuilder()
 				.title("API De Pagamento")

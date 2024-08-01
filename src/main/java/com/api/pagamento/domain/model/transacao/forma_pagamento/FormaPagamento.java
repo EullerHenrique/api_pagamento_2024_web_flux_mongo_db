@@ -13,6 +13,11 @@ import javax.validation.constraints.NotNull;
 
 import java.io.Serializable;
 
+/**
+ * Realiza um estorno
+ *
+ * @author Euller Henrique
+ */
 @Data
 @Entity
 @Builder

@@ -2,7 +2,6 @@ package com.api.pagamento.controller.transacao;
 
 import com.api.pagamento.domain.dto.model_to_dto.transacao.TransacaoDTO;
 import com.api.pagamento.domain.dto.request_response.request.transacao.SingleTransacaoRequest;
-import com.api.pagamento.domain.exception.transacao.InsercaoNaoPermitidaException;
 import com.api.pagamento.domain.exception.transacao.TransacaoInexistenteException;
 import com.api.pagamento.service.dto.transacao.TransacaoDtoService;
 import io.swagger.annotations.ApiOperation;
@@ -29,7 +28,8 @@ public class TransacaoController {
     @GetMapping(value = "/{id}", produces = "application/json")
     public ResponseEntity<TransacaoDTO> procurarPeloId(@PathVariable Long id) throws TransacaoInexistenteException {
 
-       return ResponseEntity.ok().body(transacaoDtoService.procurarPeloId(id));
+        TransacaoDTO transacaoDTO = transacaoDtoService.procurarPeloId(id);
+       return ResponseEntity.ok().body(transacaoDTO);
 
     }
 
@@ -40,9 +40,10 @@ public class TransacaoController {
             @ApiResponse(code = 500, message = "Internal Server Error")
     })
     @GetMapping(produces = "application/json")
-    public ResponseEntity<List<TransacaoDTO>> procurarTodos() throws TransacaoInexistenteException {
+    public ResponseEntity<List<TransacaoDTO>> listarTranscacoes() throws TransacaoInexistenteException {
 
-        return ResponseEntity.ok().body(transacaoDtoService.procurarTodos());
+        List<TransacaoDTO> transacaoDTOS = transacaoDtoService.listarTranscacoes();
+        return ResponseEntity.ok().body(transacaoDTOS);
 
     }
 
@@ -54,7 +55,7 @@ public class TransacaoController {
             @ApiResponse(code = 500, message = "Internal Server Error")
     })
     @PostMapping(value = "/pagamento", produces = "application/json", consumes = "application/json")
-    public ResponseEntity<TransacaoDTO> pagar(@RequestBody @Valid SingleTransacaoRequest request) throws InsercaoNaoPermitidaException {
+    public ResponseEntity<TransacaoDTO> pagar(@RequestBody @Valid SingleTransacaoRequest request) {
 
         TransacaoDTO transacaoDTO = transacaoDtoService.pagar(request);
         return ResponseEntity.ok().body(transacaoDTO);
@@ -71,7 +72,8 @@ public class TransacaoController {
     @PutMapping(value = "/estorno/{id}", produces = "application/json")
     public ResponseEntity<TransacaoDTO> estornar(@PathVariable Long id) throws TransacaoInexistenteException {
 
-        return ResponseEntity.ok().body(transacaoDtoService.estornar(id));
+        TransacaoDTO transacaoDto = transacaoDtoService.estornar(id);
+        return ResponseEntity.ok().body(transacaoDto);
     }
 
 }

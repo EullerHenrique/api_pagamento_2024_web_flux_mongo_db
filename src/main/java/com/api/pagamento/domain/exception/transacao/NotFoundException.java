@@ -1,17 +1,17 @@
 package com.api.pagamento.domain.exception.transacao;
 
-import com.api.pagamento.domain.dto.request_response.response.ResponseMessage;
+import com.api.pagamento.domain.dto.request_response.response.error.ErrorMessageResponse;
 
-public class TransacaoInexistenteException extends Exception{
-    public TransacaoInexistenteException() {}
+public class NotFoundException extends Exception{
+    public NotFoundException() {}
 
     /**
      * Realiza um estorno
      *
      * @author Euller Henrique
      */
-    public ResponseMessage getResponseError(){
-        ResponseMessage rmDTO = new ResponseMessage();
+    public ErrorMessageResponse getResponseError(){
+        ErrorMessageResponse rmDTO = new ErrorMessageResponse();
         rmDTO.setStatus(404);
         rmDTO.setError("Not Found");
         rmDTO.setMessage("Transação(ões) inexistente(s)");

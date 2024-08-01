@@ -3,7 +3,7 @@ package com.api.pagamento.service.dto.transacao;
 import com.api.pagamento.domain.converter.transacao.TransacaoConverter;
 import com.api.pagamento.domain.dto.model_to_dto.transacao.TransacaoDTO;
 import com.api.pagamento.domain.dto.request_response.request.transacao.SingleTransacaoRequest;
-import com.api.pagamento.domain.exception.transacao.TransacaoInexistenteException;
+import com.api.pagamento.domain.exception.transacao.NotFoundException;
 import com.api.pagamento.domain.model.transacao.Transacao;
 import com.api.pagamento.repository.transacao.descricao.DescricaoRepository;
 import com.api.pagamento.repository.transacao.TransacaoRepository;
@@ -25,7 +25,7 @@ public class TransacaoDtoService {
      * Realiza um pagamento
      *
      */
-    public TransacaoDTO buscarTransacaoPeloId(Long id) throws TransacaoInexistenteException {
+    public TransacaoDTO buscarTransacaoPeloId(Long id) throws NotFoundException {
         /*
         TransacaoDTO transacaoDTO = (TransacaoDTO) transacaoRepository.findById(id).map(t -> ModelMapperUtilService.convert(t, TransacaoDTO.class)).orElse(null);
         if(transacaoDTO != null){
@@ -41,7 +41,7 @@ public class TransacaoDtoService {
      * Realiza um pagamento
      *
      */
-    public List<TransacaoDTO> listarTranscacoes() throws TransacaoInexistenteException {
+    public List<TransacaoDTO> listarTranscacoes() throws NotFoundException {
         /*
         List<TransacaoDTO> transacaoDTO = transacaoRepository.findAll().stream().map(t -> (TransacaoDTO) ModelMapperUtilService.convert(t, TransacaoDTO.class)).collect(Collectors.toList());
         if(transacaoDTO.size() != 0){
@@ -73,7 +73,7 @@ public class TransacaoDtoService {
      * Realiza um pagamento
      *
      */
-    public TransacaoDTO estornar(Long id) throws TransacaoInexistenteException {
+    public TransacaoDTO estornar(Long id) throws NotFoundException {
         /*
         try{
 

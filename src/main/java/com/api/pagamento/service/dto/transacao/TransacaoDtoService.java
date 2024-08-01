@@ -3,7 +3,6 @@ package com.api.pagamento.service.dto.transacao;
 import com.api.pagamento.domain.converter.transacao.TransacaoConverter;
 import com.api.pagamento.domain.dto.model_to_dto.transacao.TransacaoDTO;
 import com.api.pagamento.domain.dto.request_response.request.transacao.SingleTransacaoRequest;
-import com.api.pagamento.domain.enumeration.transacao.descricao.StatusEnum;
 import com.api.pagamento.domain.model.transacao.Transacao;
 import com.api.pagamento.service.model.transacao.TransacaoModelService;
 import com.api.pagamento.service.util.transacao.TransacaoUtilService;
@@ -49,7 +48,7 @@ public class TransacaoDtoService {
 
         transacaoDTO.getDescricao().setNsu(transacaoUtilService.obterNsu());
         transacaoDTO.getDescricao().setCodigoAutorizacao(transacaoUtilService.obterCodigoAutorizacao());
-        transacaoDTO.getDescricao().setStatus(transacaoUtilService.obterStatus());
+        transacaoDTO.getDescricao().setStatus(transacaoUtilService.obterStatusAoPagar());
 
         Transacao transacaoNaoSalva = transacaoConverter.dtoToModel(transacaoDTO);
         Long id = transacaoModelService.salvarTransacao(transacaoNaoSalva);
@@ -65,7 +64,7 @@ public class TransacaoDtoService {
      */
     public TransacaoDTO estornar(Long id){
         Transacao transacao = transacaoModelService.buscarTransacao(id);
-        transacao.getDescricao().setStatus(StatusEnum.CANCELADO);
+        transacao.getDescricao().setStatus(transacaoUtilService.obterStatusAoEstornar());
         transacaoModelService.salvarTransacao(transacao);
 
         return transacaoConverter.modelToDTO(transacao);

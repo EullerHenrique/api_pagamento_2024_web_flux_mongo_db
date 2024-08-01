@@ -36,9 +36,14 @@ public class TransacaoUtilService {
 	 * Realiza um pagamento
 	 *
 	 */
-	public StatusEnum obterStatus() {
+	public StatusEnum obterStatusAoPagar() {
 		return StatusEnum.AUTORIZADO;
 	}
+
+	public StatusEnum obterStatusAoEstornar() {
+		return StatusEnum.CANCELADO;
+	}
+
 
 
 }

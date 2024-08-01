@@ -31,7 +31,6 @@ public class Transacao implements Serializable {
     @Id
     @GeneratedValue(strategy= GenerationType.SEQUENCE, generator = "seq_transacao")
     @SequenceGenerator(name = "seq_transacao", sequenceName = "seq_transacao", allocationSize=1)
-
     private Long id;
 
     @NotBlank
@@ -39,12 +38,12 @@ public class Transacao implements Serializable {
 
     @Valid
     @NotNull
-    @OneToOne(cascade= CascadeType.PERSIST)
+    @OneToOne(fetch = FetchType.LAZY, cascade= CascadeType.PERSIST)
     private Descricao descricao;
 
     @Valid
     @NotNull
-    @OneToOne(cascade=CascadeType.PERSIST)
+    @OneToOne(fetch = FetchType.LAZY, cascade=CascadeType.PERSIST)
     private FormaPagamento formaPagamento;
 
 }

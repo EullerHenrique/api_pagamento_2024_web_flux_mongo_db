@@ -28,7 +28,7 @@ import java.io.Serializable;
 public class FormaPagamento implements Serializable {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO, generator = "seq_forma_pagamento")
+    @GeneratedValue(strategy= GenerationType.SEQUENCE, generator = "seq_forma_pagamento")
     @SequenceGenerator(name = "seq_forma_pagamento", sequenceName = "seq_forma_pagamento", allocationSize=1)
     private Long id;
 

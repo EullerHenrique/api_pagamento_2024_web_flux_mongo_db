@@ -2,7 +2,7 @@ package com.api.pagamento.controller.transacao;
 
 import com.api.pagamento.domain.dto.model_to_dto.transacao.TransacaoDTO;
 import com.api.pagamento.domain.dto.request_response.request.transacao.SingleTransacaoRequest;
-import com.api.pagamento.domain.exception.transacao.NotFoundException;
+import com.api.pagamento.domain.exception.http.NotFoundException;
 import com.api.pagamento.service.dto.transacao.TransacaoDtoService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -37,9 +37,9 @@ public class TransacaoController {
 			@ApiResponse(code = 404, message = "A transação com o id em questão não foi encontrada"),
 			@ApiResponse(code = 500, message = "Internal Server Error") })
 	@GetMapping(value = "buscar/{id}", produces = "application/json")
-	public ResponseEntity<TransacaoDTO> buscarTransacaoPeloId(@PathVariable Long id) throws NotFoundException {
+	public ResponseEntity<TransacaoDTO> buscarTransacao(@PathVariable Long id) throws NotFoundException {
 
-		TransacaoDTO transacaoDTO = transacaoDtoService.buscarTransacaoPeloId(id);
+		TransacaoDTO transacaoDTO = transacaoDtoService.buscarTransacao(id);
 		return ResponseEntity.ok().body(transacaoDTO);
 
 	}
@@ -56,9 +56,9 @@ public class TransacaoController {
 			@ApiResponse(code = 404, message = "Nenhuma transação foi encontrada"),
 			@ApiResponse(code = 500, message = "Internal Server Error") })
 	@GetMapping(value = "/listar", produces = "application/json")
-	public ResponseEntity<List<TransacaoDTO>> listarTranscacoes() throws NotFoundException {
+	public ResponseEntity<List<TransacaoDTO>> listarTransacoes() throws NotFoundException {
 
-		List<TransacaoDTO> transacaoDTOS = transacaoDtoService.listarTranscacoes();
+		List<TransacaoDTO> transacaoDTOS = transacaoDtoService.listarTransacoes();
 		return ResponseEntity.ok().body(transacaoDTOS);
 
 	}

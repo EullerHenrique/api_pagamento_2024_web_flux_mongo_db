@@ -2,11 +2,12 @@ package com.api.pagamento.domain.converter.transacao;
 
 import com.api.pagamento.domain.dto.model_to_dto.transacao.TransacaoDTO;
 import com.api.pagamento.domain.dto.request_response.request.transacao.SingleTransacaoRequest;
-import com.api.pagamento.domain.enumeration.transacao.descricao.StatusEnum;
 import com.api.pagamento.domain.model.transacao.Transacao;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 /**
  * Realiza um estorno
@@ -25,11 +26,7 @@ public class TransacaoConverter {
 	 * @author Euller Henrique
 	 */
 	public TransacaoDTO requestToDTO(SingleTransacaoRequest request) {
-		TransacaoDTO transacaoDTO = modelMapper.map(request, TransacaoDTO.class);
-		transacaoDTO.getDescricao().setNsu("1234567890");
-		transacaoDTO.getDescricao().setCodigoAutorizacao("147258369");
-		transacaoDTO.getDescricao().setStatus(StatusEnum.AUTORIZADO);
-		return transacaoDTO;
+		return modelMapper.map(request, TransacaoDTO.class);
 	}
 
 	/**
@@ -48,6 +45,14 @@ public class TransacaoConverter {
 	 */
 	public TransacaoDTO modelToDTO(Transacao transacao) {
 		return modelMapper.map(transacao, TransacaoDTO.class);
+	}
+	/**
+	 * Realiza um estorno
+	 *
+	 * @author Euller Henrique
+	 */
+	public List<TransacaoDTO> modelsToDTOs(List<Transacao> transacoes) {
+		return transacoes.stream().map(this::modelToDTO).toList();
 	}
 
 }

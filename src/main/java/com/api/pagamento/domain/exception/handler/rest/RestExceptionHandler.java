@@ -1,6 +1,6 @@
-package com.api.pagamento.domain.exception.rest;
+package com.api.pagamento.domain.exception.handler.rest;
 
-import com.api.pagamento.domain.dto.request_response.response.error.ErrorMessageResponse;
+import com.api.pagamento.domain.dto.request_response.response.error.ResponseMessageError;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,8 +28,8 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
         String message = "O campo " + field + defaultMessage;
 
-        ErrorMessageResponse error = new ErrorMessageResponse(HttpStatus.BAD_REQUEST.value(), fieldErrors, message);
-        return new ResponseEntity<>(error, HttpStatus.OK);
+        ResponseMessageError error = new ResponseMessageError(HttpStatus.BAD_REQUEST.value(), fieldErrors, message);
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
 
 }

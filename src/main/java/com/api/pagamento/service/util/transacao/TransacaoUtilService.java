@@ -23,7 +23,6 @@ public class TransacaoUtilService {
 	public String obterNsu() {
 		return String.valueOf(RANDOM.nextInt(1000000000));
 	}
-
 	/**
 	 * Realiza um pagamento
 	 *
@@ -39,11 +38,12 @@ public class TransacaoUtilService {
 	public StatusEnum obterStatusAoPagar() {
 		return StatusEnum.AUTORIZADO;
 	}
-
+	/**
+	 * Realiza um pagamento
+	 *
+	 */
 	public StatusEnum obterStatusAoEstornar() {
 		return StatusEnum.CANCELADO;
 	}
-
-
 
 }

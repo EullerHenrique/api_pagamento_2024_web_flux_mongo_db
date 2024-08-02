@@ -10,7 +10,6 @@ import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
@@ -33,7 +32,7 @@ public class Transacao implements Serializable {
     @SequenceGenerator(name = "seq_transacao", sequenceName = "seq_transacao", allocationSize=1)
     private Long id;
 
-    @NotBlank
+    @NotNull
     private String cartao;
 
     @Valid

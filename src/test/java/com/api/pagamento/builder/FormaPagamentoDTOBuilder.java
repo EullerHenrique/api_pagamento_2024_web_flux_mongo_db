@@ -1,5 +1,6 @@
 package com.api.pagamento.builder;
 
+/*
 import com.api.pagamento.domain.dto.model_to_dto.transacao.forma_pagamento.FormaPagamentoDTO;
 import com.api.pagamento.domain.enumeration.transacao.forma_pagamento.TipoEnum;
 import lombok.Builder;
@@ -21,3 +22,4 @@ public class FormaPagamentoDTOBuilder {
     }
 
 }
+*/

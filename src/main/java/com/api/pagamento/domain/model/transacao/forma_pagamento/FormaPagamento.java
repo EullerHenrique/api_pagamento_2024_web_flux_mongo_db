@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import java.io.Serializable;
@@ -33,10 +32,10 @@ public class FormaPagamento implements Serializable {
     private Long id;
 
     @NotNull
-    @Enumerated(EnumType.ORDINAL)
+    @Enumerated(EnumType.STRING)
     private TipoEnum tipo;
 
-    @NotBlank
-    private String parcelas;
+    @NotNull
+    private Integer parcelas;
 
 }

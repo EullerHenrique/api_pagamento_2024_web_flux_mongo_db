@@ -26,7 +26,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         String field = ex.getBindingResult().getFieldErrors().get(0).getField();
         String defaultMessage = ex.getBindingResult().getFieldErrors().get(0).getDefaultMessage();
 
-        String message = "O campo " + field + defaultMessage;
+        String message = "O campo " + field + " " + defaultMessage;
 
         ResponseMessageError error = new ResponseMessageError(HttpStatus.BAD_REQUEST.value(), fieldErrors, message);
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);

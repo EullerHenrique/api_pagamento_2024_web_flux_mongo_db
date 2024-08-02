@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 /**
  * Realiza um estorno
@@ -20,9 +21,12 @@ import javax.validation.constraints.NotBlank;
 public class SingleTransacaoRequest {
 
 	@NotBlank(message = "é obrigatório!")
+	@Size(min = 16, max = 16, message = "deve ter 16 caracteres!")
 	private String cartao;
+
 	@Valid
 	private SingleDescricaoRequest descricao;
+
 	@Valid
 	private SingleFormaPagamentoRequest formaPagamento;
 

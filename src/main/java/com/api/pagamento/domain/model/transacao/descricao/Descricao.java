@@ -8,8 +8,9 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * Realiza um estorno
@@ -30,20 +31,23 @@ public class Descricao implements Serializable {
     @SequenceGenerator(name = "seq_descricao", sequenceName = "seq_descricao", allocationSize=1)
     private Long id;
 
-    @NotBlank
-    private String valor;
+    @NotNull
+    private Double valor;
 
-    @NotBlank
-    private String dataHora;
+    @NotNull
+    private LocalDateTime dataHora;
 
-    @NotBlank
+    @NotNull
     private String estabelecimento;
 
+    @NotNull
     private String nsu;
 
+    @NotNull
     private String codigoAutorizacao;
 
-    @Enumerated(EnumType.ORDINAL)
+    @NotNull
+    @Enumerated(EnumType.STRING)
     private StatusEnum status;
 
 }

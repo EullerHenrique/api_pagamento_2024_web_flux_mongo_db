@@ -1,11 +1,13 @@
 package com.api.pagamento.domain.dto.model_to_dto.transacao.descricao;
 
 import com.api.pagamento.domain.enumeration.transacao.descricao.StatusEnum;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.time.LocalDateTime;
 
 /**
  * Realiza um estorno
@@ -18,10 +20,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class DescricaoDTO {
 
-    @JsonIgnore
-    private Long id;
     private String valor;
-    private String dataHora;
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
+    private LocalDateTime dataHora;
     private String estabelecimento;
     private String nsu;
     private String codigoAutorizacao;

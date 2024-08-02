@@ -1,6 +1,6 @@
 package com.api.pagamento.domain.model.transacao.descricao;
 
-import com.api.pagamento.domain.enumeration.transacao.descricao.StatusEnum;
+import com.api.pagamento.domain.enumeration.transacao.descricao.StatusTransacaoEnum;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -48,6 +48,6 @@ public class Descricao implements Serializable {
 
     @NotNull
     @Enumerated(EnumType.STRING)
-    private StatusEnum status;
+    private StatusTransacaoEnum status;
 
 }

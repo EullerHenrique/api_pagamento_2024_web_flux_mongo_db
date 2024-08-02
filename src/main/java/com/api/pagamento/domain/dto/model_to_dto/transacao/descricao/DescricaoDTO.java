@@ -1,6 +1,6 @@
 package com.api.pagamento.domain.dto.model_to_dto.transacao.descricao;
 
-import com.api.pagamento.domain.enumeration.transacao.descricao.StatusEnum;
+import com.api.pagamento.domain.enumeration.transacao.descricao.StatusTransacaoEnum;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -26,6 +26,6 @@ public class DescricaoDTO {
     private String estabelecimento;
     private String nsu;
     private String codigoAutorizacao;
-    private StatusEnum status;
+    private StatusTransacaoEnum status;
 
 }

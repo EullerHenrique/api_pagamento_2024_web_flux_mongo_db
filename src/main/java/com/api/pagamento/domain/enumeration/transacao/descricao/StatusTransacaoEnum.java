@@ -5,7 +5,7 @@ package com.api.pagamento.domain.enumeration.transacao.descricao;
  *
  * @author Euller Henrique
  */
-public enum StatusEnum {
+public enum StatusTransacaoEnum {
    AUTORIZADO, NEGADO, CANCELADO;
-   StatusEnum() { }
+   StatusTransacaoEnum() { }
 }

@@ -1,6 +1,9 @@
 package com.api.pagamento.service.util.transacao;
 
-import com.api.pagamento.domain.enumeration.transacao.descricao.StatusEnum;
+import com.api.pagamento.domain.dto.request_response.request.transacao.SingleTransacaoRequest;
+import com.api.pagamento.domain.enumeration.transacao.descricao.StatusTransacaoEnum;
+import com.api.pagamento.domain.enumeration.transacao.forma_pagamento.TipoPagamentoEnum;
+import com.api.pagamento.domain.exception.http.BadRequestException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -35,15 +38,27 @@ public class TransacaoUtilService {
 	 * Realiza um pagamento
 	 *
 	 */
-	public StatusEnum obterStatusAoPagar() {
-		return StatusEnum.AUTORIZADO;
+	public StatusTransacaoEnum obterStatusAoPagar() {
+		return StatusTransacaoEnum.AUTORIZADO;
 	}
 	/**
 	 * Realiza um pagamento
 	 *
 	 */
-	public StatusEnum obterStatusAoEstornar() {
-		return StatusEnum.CANCELADO;
+	public StatusTransacaoEnum obterStatusAoEstornar() {
+		return StatusTransacaoEnum.CANCELADO;
 	}
 
+	/**
+	 * Realiza um pagamento
+	 *
+	 */
+	public void validarCoerenciaTipoPagamentoParcelas(SingleTransacaoRequest request) {
+		TipoPagamentoEnum tipoPagamento = request.getFormaPagamento().getTipo();
+		int parcelas = request.getFormaPagamento().getParcelas();
+
+		if (TipoPagamentoEnum.AVISTA.equals(tipoPagamento) && parcelas > 1) {
+			throw new BadRequestException("Pagamento à vista não pode ter mais de uma parcela!");
+		}
+	}
 }

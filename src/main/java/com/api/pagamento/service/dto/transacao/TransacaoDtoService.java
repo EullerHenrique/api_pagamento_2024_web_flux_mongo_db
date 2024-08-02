@@ -43,6 +43,7 @@ public class TransacaoDtoService {
      *
      */
     public TransacaoDTO pagar(SingleTransacaoRequest request) {
+        transacaoUtilService.validarCoerenciaTipoPagamentoParcelas(request);
 
         TransacaoDTO transacaoDTO = transacaoConverter.requestToDTO(request);
 

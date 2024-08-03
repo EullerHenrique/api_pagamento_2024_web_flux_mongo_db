@@ -1,7 +1,7 @@
 package com.api.pagamento.domain.converter.transacao;
 
-import com.api.pagamento.domain.dto.response.transacao.TransacaoDTO;
-import com.api.pagamento.domain.dto.request.transacao.SingleTransacaoRequest;
+import com.api.pagamento.domain.dto.response.transacao.TransacaoResponseTO;
+import com.api.pagamento.domain.dto.request.transacao.TransacaoRequestDTO;
 import com.api.pagamento.domain.model.transacao.Transacao;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -25,8 +25,8 @@ public class TransacaoConverter {
 	 *
 	 * @author Euller Henrique
 	 */
-	public TransacaoDTO requestToDTO(SingleTransacaoRequest request) {
-		return modelMapper.map(request, TransacaoDTO.class);
+	public TransacaoResponseTO requestToResponse(TransacaoRequestDTO request) {
+		return modelMapper.map(request, TransacaoResponseTO.class);
 	}
 
 	/**
@@ -34,7 +34,7 @@ public class TransacaoConverter {
 	 *
 	 * @author Euller Henrique
 	 */
-	public Transacao dtoToModel(TransacaoDTO transacaoDTO) {
+	public Transacao responseToModel(TransacaoResponseTO transacaoDTO) {
 		return modelMapper.map(transacaoDTO, Transacao.class);
 	}
 
@@ -43,16 +43,16 @@ public class TransacaoConverter {
 	 *
 	 * @author Euller Henrique
 	 */
-	public TransacaoDTO modelToDTO(Transacao transacao) {
-		return modelMapper.map(transacao, TransacaoDTO.class);
+	public TransacaoResponseTO modelToResponse(Transacao transacao) {
+		return modelMapper.map(transacao, TransacaoResponseTO.class);
 	}
 	/**
 	 * Realiza um estorno
 	 *
 	 * @author Euller Henrique
 	 */
-	public List<TransacaoDTO> modelsToDTOs(List<Transacao> transacoes) {
-		return transacoes.stream().map(this::modelToDTO).toList();
+	public List<TransacaoResponseTO> modelsToResponses(List<Transacao> transacoes) {
+		return transacoes.stream().map(this::modelToResponse).toList();
 	}
 
 }

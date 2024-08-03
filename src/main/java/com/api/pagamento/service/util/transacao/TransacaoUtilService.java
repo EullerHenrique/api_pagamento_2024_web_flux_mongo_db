@@ -1,6 +1,6 @@
 package com.api.pagamento.service.util.transacao;
 
-import com.api.pagamento.domain.dto.request.transacao.SingleTransacaoRequest;
+import com.api.pagamento.domain.dto.request.transacao.TransacaoRequestDTO;
 import com.api.pagamento.domain.enumeration.transacao.descricao.StatusTransacaoEnum;
 import com.api.pagamento.domain.enumeration.transacao.forma_pagamento.TipoPagamentoEnum;
 import com.api.pagamento.domain.exception.http.BadRequestException;
@@ -56,7 +56,7 @@ public class TransacaoUtilService {
 	 * Realiza um pagamento
 	 *
 	 */
-	public void validarTipoPagamentoAoPagar(SingleTransacaoRequest request) {
+	public void validarTipoPagamentoAoPagar(TransacaoRequestDTO request) {
 		TipoPagamentoEnum tipoPagamento = request.getFormaPagamento().getTipo();
 		int parcelas = request.getFormaPagamento().getParcelas();
 

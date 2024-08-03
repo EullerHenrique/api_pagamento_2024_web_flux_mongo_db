@@ -18,7 +18,7 @@ import static com.api.pagamento.domain.constant.sucess_error.error.word.WordErro
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class SingleFormaPagamentoRequest {
+public class FormaPagamentoRequestDTO {
 
 	@NotNull(message = EH_OBRIGATORIO)
 	private TipoPagamentoEnum tipo;

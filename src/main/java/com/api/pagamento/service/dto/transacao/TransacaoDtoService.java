@@ -1,8 +1,8 @@
 package com.api.pagamento.service.dto.transacao;
 
 import com.api.pagamento.domain.converter.transacao.TransacaoConverter;
-import com.api.pagamento.domain.dto.response.transacao.TransacaoDTO;
-import com.api.pagamento.domain.dto.request.transacao.SingleTransacaoRequest;
+import com.api.pagamento.domain.dto.response.transacao.TransacaoResponseTO;
+import com.api.pagamento.domain.dto.request.transacao.TransacaoRequestDTO;
 import com.api.pagamento.domain.model.transacao.Transacao;
 import com.api.pagamento.service.model.transacao.TransacaoModelService;
 import com.api.pagamento.service.util.transacao.TransacaoUtilService;
@@ -22,34 +22,34 @@ public class TransacaoDtoService {
      * Realiza um pagamento
      *
      */
-    public TransacaoDTO buscarTransacao(Long id) {
+    public TransacaoResponseTO buscarTransacao(Long id) {
         Transacao transacao = transacaoModelService.buscarTransacao(id);
-        return transacaoConverter.modelToDTO(transacao);
+        return transacaoConverter.modelToResponse(transacao);
     }
 
     /**
      * Realiza um pagamento
      *
      */
-    public List<TransacaoDTO> listarTransacoes() {
+    public List<TransacaoResponseTO> listarTransacoes() {
         List<Transacao> transacoes  = transacaoModelService.listarTranscacoes();
-        return transacaoConverter.modelsToDTOs(transacoes);
+        return transacaoConverter.modelsToResponses(transacoes);
     }
 
     /**
      * Realiza um pagamento
      *
      */
-    public TransacaoDTO pagar(SingleTransacaoRequest request) {
+    public TransacaoResponseTO pagar(TransacaoRequestDTO request) {
         transacaoUtilService.validarTipoPagamentoAoPagar(request);
 
-        TransacaoDTO transacaoDTO = transacaoConverter.requestToDTO(request);
+        TransacaoResponseTO transacaoDTO = transacaoConverter.requestToResponse(request);
 
         transacaoDTO.getDescricao().setNsu(transacaoUtilService.obterNsu());
         transacaoDTO.getDescricao().setCodigoAutorizacao(transacaoUtilService.obterCodigoAutorizacao());
         transacaoDTO.getDescricao().setStatus(transacaoUtilService.obterStatusAoPagar());
 
-        Transacao transacaoNaoSalva = transacaoConverter.dtoToModel(transacaoDTO);
+        Transacao transacaoNaoSalva = transacaoConverter.responseToModel(transacaoDTO);
         Long id = transacaoModelService.salvarTransacao(transacaoNaoSalva);
         transacaoDTO.setId(id);
 
@@ -60,14 +60,14 @@ public class TransacaoDtoService {
      * Realiza um pagamento
      *
      */
-    public TransacaoDTO estornar(Long id){
+    public TransacaoResponseTO estornar(Long id){
         Transacao transacao = transacaoModelService.buscarTransacao(id);
         transacaoUtilService.validarStatusTransacaoAoEstornar(transacao);
 
         transacao.getDescricao().setStatus(transacaoUtilService.obterStatusAoEstornar());
         transacaoModelService.salvarTransacao(transacao);
 
-        return transacaoConverter.modelToDTO(transacao);
+        return transacaoConverter.modelToResponse(transacao);
     }
 
 }

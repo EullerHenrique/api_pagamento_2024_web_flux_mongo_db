@@ -41,7 +41,7 @@ public class TransacaoDtoService {
      *
      */
     public TransacaoDTO pagar(SingleTransacaoRequest request) {
-        transacaoUtilService.validarCoerenciaFormaPagamentoParcelas(request);
+        transacaoUtilService.validarFormaPagamentoAoPagar(request);
 
         TransacaoDTO transacaoDTO = transacaoConverter.requestToDTO(request);
 
@@ -62,6 +62,8 @@ public class TransacaoDtoService {
      */
     public TransacaoDTO estornar(Long id){
         Transacao transacao = transacaoModelService.buscarTransacao(id);
+        transacaoUtilService.validarStatusTransacaoAoEstornar(transacao);
+
         transacao.getDescricao().setStatus(transacaoUtilService.obterStatusAoEstornar());
         transacaoModelService.salvarTransacao(transacao);
 

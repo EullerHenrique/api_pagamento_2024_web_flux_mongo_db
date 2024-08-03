@@ -1,12 +1,13 @@
 package com.api.pagamento.domain.enumeration.transacao.forma_pagamento;
 
+import lombok.NoArgsConstructor;
+
 /**
  * Realiza um estorno
  *
  * @author Euller Henrique
  */
-public enum TipoFormaPagamentoEnum {
+@NoArgsConstructor(access = lombok.AccessLevel.PRIVATE)
+public enum FormaPagamentoEnum {
     AVISTA, PARCELADO_LOJA, PARCELADO_EMISSOR;
-    TipoFormaPagamentoEnum(){}
-
 }

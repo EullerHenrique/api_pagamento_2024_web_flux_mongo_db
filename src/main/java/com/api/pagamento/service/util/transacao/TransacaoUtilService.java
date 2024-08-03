@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.Random;
 
+import static com.api.pagamento.domain.constant.sucess_error.error.ErrorConstants.ERROR_400_PAGAMENTO_AVISTA_MAIS_DE_UMA_PARCELA;
+
 /**
  * Realiza um pagamento
  *
@@ -58,7 +60,7 @@ public class TransacaoUtilService {
 		int parcelas = request.getFormaPagamento().getParcelas();
 
 		if (FormaPagamentoEnum.AVISTA.equals(tipoPagamento) && parcelas > 1) {
-			throw new BadRequestException("Pagamento à vista não pode ter mais de uma parcela!");
+			throw new BadRequestException(ERROR_400_PAGAMENTO_AVISTA_MAIS_DE_UMA_PARCELA);
 		}
 	}
 }

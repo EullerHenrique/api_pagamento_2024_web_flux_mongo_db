@@ -8,6 +8,7 @@ package com.api.pagamento.domain.constant.sucess_error.error;
 public class ErrorConstants {
 
 	public static final String ERRO_400_CAMPOS_PREENCHIDOS_INCORRETAMENTE = "Há campos preenchidos incorretamente";
+	public static final String ERROR_400_PAGAMENTO_AVISTA_MAIS_DE_UMA_PARCELA = "Pagamento à vista não pode ter mais de uma parcela!";
 	public static final String ERRO_404_TRANSACAO_NAO_ENCONTRADA = "Transação não encontrada";
 	public static final String ERRO_404_NENUMA_TRANSACAO_ENCONTRADA = "Nenhuma transação encontrada";
 	public static final String ERRO_500_SERVIDOR_INTERNO = "Ocorreu um erro interno no servidor ao tentar realizar a operação";

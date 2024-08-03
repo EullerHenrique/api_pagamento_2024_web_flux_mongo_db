@@ -2,7 +2,7 @@ package com.api.pagamento.service.util.transacao;
 
 import com.api.pagamento.domain.dto.request_response.request.transacao.SingleTransacaoRequest;
 import com.api.pagamento.domain.enumeration.transacao.descricao.StatusTransacaoEnum;
-import com.api.pagamento.domain.enumeration.transacao.forma_pagamento.FormaPagamentoEnum;
+import com.api.pagamento.domain.enumeration.transacao.forma_pagamento.TipoFormaPagamentoEnum;
 import com.api.pagamento.domain.exception.http.BadRequestException;
 import com.api.pagamento.domain.model.transacao.Transacao;
 import lombok.RequiredArgsConstructor;
@@ -57,10 +57,10 @@ public class TransacaoUtilService {
 	 *
 	 */
 	public void validarFormaPagamentoAoPagar(SingleTransacaoRequest request) {
-		FormaPagamentoEnum tipoPagamento = request.getFormaPagamento().getTipo();
+		TipoFormaPagamentoEnum tipoPagamento = request.getFormaPagamento().getTipo();
 		int parcelas = request.getFormaPagamento().getParcelas();
 
-		if (FormaPagamentoEnum.AVISTA.equals(tipoPagamento) && parcelas > 1) {
+		if (TipoFormaPagamentoEnum.AVISTA.equals(tipoPagamento) && parcelas > 1) {
 			throw new BadRequestException(ERROR_400_PAGAMENTO_AVISTA_MAIS_DE_UMA_PARCELA);
 		}
 	}

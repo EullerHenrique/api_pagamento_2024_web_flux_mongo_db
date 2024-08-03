@@ -20,7 +20,7 @@ import static com.api.pagamento.domain.constant.utils.pattern.PatternConstants.P
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class DescricaoResponseDTO {
+public class DescricaoResponseDto {
 
     private String valor;
     @JsonFormat(pattern = PATTERN_DATA_HORA_PT_BR)

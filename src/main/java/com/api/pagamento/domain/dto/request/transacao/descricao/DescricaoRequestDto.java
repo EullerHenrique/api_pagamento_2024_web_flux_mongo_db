@@ -19,7 +19,7 @@ import static com.api.pagamento.domain.constant.sucess_error.error.word.WordErro
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class DescricaoRequestDTO {
+public class DescricaoRequestDto {
 
 	@NotNull(message = EH_OBRIGATORIO)
 	@Min(value = 1, message = DEVE_SER_MAIOR_QUE + 0)

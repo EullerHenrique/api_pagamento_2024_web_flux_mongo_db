@@ -1,6 +1,6 @@
 package com.api.pagamento.domain.exception.handler.rest;
 
-import com.api.pagamento.domain.dto.response.error.ResponseMessageError;
+import com.api.pagamento.domain.dto.response.error.MessageErrorResponseDto;
 import com.api.pagamento.domain.enumeration.transacao.forma_pagamento.TipoPagamentoEnum;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
@@ -36,7 +36,7 @@ public class RestExceptionHandler {
 
 		String message = O_CAMPO_XXX.formatted(field) + defaultMessage;
 
-		return ResponseMessageError.obterResponseEntity(HttpStatus.BAD_REQUEST.value(), error, message);
+		return MessageErrorResponseDto.obterResponseEntity(HttpStatus.BAD_REQUEST.value(), error, message);
 	}
 
 	/**
@@ -66,7 +66,7 @@ public class RestExceptionHandler {
 
 		}
 
-		return ResponseMessageError.obterResponseEntity(HttpStatus.BAD_REQUEST.value(), error, message);
+		return MessageErrorResponseDto.obterResponseEntity(HttpStatus.BAD_REQUEST.value(), error, message);
 	}
 
 }

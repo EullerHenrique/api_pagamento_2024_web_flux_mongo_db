@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity;
  */
 @Data
 @AllArgsConstructor
-public class ResponseMessageError {
+public class MessageErrorResponseDto {
     private int status;
     private String error;
     private String message;
@@ -22,7 +22,7 @@ public class ResponseMessageError {
      * @author Euller Henrique
      */
     public static ResponseEntity<Object> obterResponseEntity(int status, String error, String message) {
-        ResponseMessageError errorMessageResponse = new ResponseMessageError(status, error, message);
+        MessageErrorResponseDto errorMessageResponse = new MessageErrorResponseDto(status, error, message);
         return ResponseEntity.status(status).body(errorMessageResponse);
     }
 

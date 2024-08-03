@@ -1,8 +1,8 @@
 package com.api.pagamento.service.dto.transacao;
 
 import com.api.pagamento.domain.converter.transacao.TransacaoConverter;
-import com.api.pagamento.domain.dto.response.transacao.TransacaoResponseTO;
-import com.api.pagamento.domain.dto.request.transacao.TransacaoRequestDTO;
+import com.api.pagamento.domain.dto.response.transacao.TransacaoResponseDto;
+import com.api.pagamento.domain.dto.request.transacao.TransacaoRequestDto;
 import com.api.pagamento.domain.model.transacao.Transacao;
 import com.api.pagamento.service.model.transacao.TransacaoModelService;
 import com.api.pagamento.service.util.transacao.TransacaoUtilService;
@@ -22,7 +22,7 @@ public class TransacaoDtoService {
      * Realiza um pagamento
      *
      */
-    public TransacaoResponseTO buscarTransacao(Long id) {
+    public TransacaoResponseDto buscarTransacao(Long id) {
         Transacao transacao = transacaoModelService.buscarTransacao(id);
         return transacaoConverter.modelToResponse(transacao);
     }
@@ -31,7 +31,7 @@ public class TransacaoDtoService {
      * Realiza um pagamento
      *
      */
-    public List<TransacaoResponseTO> listarTransacoes() {
+    public List<TransacaoResponseDto> listarTransacoes() {
         List<Transacao> transacoes  = transacaoModelService.listarTranscacoes();
         return transacaoConverter.modelsToResponses(transacoes);
     }
@@ -40,10 +40,10 @@ public class TransacaoDtoService {
      * Realiza um pagamento
      *
      */
-    public TransacaoResponseTO pagar(TransacaoRequestDTO request) {
+    public TransacaoResponseDto pagar(TransacaoRequestDto request) {
         transacaoUtilService.validarTipoPagamentoAoPagar(request);
 
-        TransacaoResponseTO transacaoDTO = transacaoConverter.requestToResponse(request);
+        TransacaoResponseDto transacaoDTO = transacaoConverter.requestToResponse(request);
 
         transacaoDTO.getDescricao().setNsu(transacaoUtilService.obterNsu());
         transacaoDTO.getDescricao().setCodigoAutorizacao(transacaoUtilService.obterCodigoAutorizacao());
@@ -60,7 +60,7 @@ public class TransacaoDtoService {
      * Realiza um pagamento
      *
      */
-    public TransacaoResponseTO estornar(Long id){
+    public TransacaoResponseDto estornar(Long id){
         Transacao transacao = transacaoModelService.buscarTransacao(id);
         transacaoUtilService.validarStatusTransacaoAoEstornar(transacao);
 

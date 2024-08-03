@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class FormaPagamentoResponseDTO {
+public class FormaPagamentoResponseDto {
 
     private TipoPagamentoEnum tipo;
     private String parcelas;

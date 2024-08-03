@@ -1,7 +1,7 @@
-package com.api.pagamento.domain.dto.model_to_dto.transacao;
+package com.api.pagamento.domain.dto.response.transacao;
 
-import com.api.pagamento.domain.dto.model_to_dto.transacao.descricao.DescricaoDTO;
-import com.api.pagamento.domain.dto.model_to_dto.transacao.forma_pagamento.FormaPagamentoDTO;
+import com.api.pagamento.domain.dto.response.transacao.descricao.DescricaoDTO;
+import com.api.pagamento.domain.dto.response.transacao.forma_pagamento.FormaPagamentoDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

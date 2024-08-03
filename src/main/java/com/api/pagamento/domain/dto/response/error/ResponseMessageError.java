@@ -1,8 +1,7 @@
-package com.api.pagamento.domain.dto.request_response.response.error;
+package com.api.pagamento.domain.dto.response.error;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.springframework.http.ResponseEntity;
 
 /**

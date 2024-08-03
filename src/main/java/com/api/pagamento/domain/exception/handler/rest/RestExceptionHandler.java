@@ -1,7 +1,7 @@
 package com.api.pagamento.domain.exception.handler.rest;
 
-import com.api.pagamento.domain.dto.request_response.response.error.ResponseMessageError;
-import com.api.pagamento.domain.enumeration.transacao.forma_pagamento.TipoFormaPagamentoEnum;
+import com.api.pagamento.domain.dto.response.error.ResponseMessageError;
+import com.api.pagamento.domain.enumeration.transacao.forma_pagamento.TipoPagamentoEnum;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import org.springframework.http.HttpStatus;
@@ -58,7 +58,7 @@ public class RestExceptionHandler {
 
 			message = switch (typeField) {
 				case TIPO_FORMA_PAGAMENTO_ENUM ->
-						ERRO_400_O_CAMPO_XXX_DEVE_SER_UM_DOS_VALORES_YYY.formatted(field, Arrays.toString(TipoFormaPagamentoEnum.values()));
+						ERRO_400_O_CAMPO_XXX_DEVE_SER_UM_DOS_VALORES_YYY.formatted(field, Arrays.toString(TipoPagamentoEnum.values()));
 				case TIPO_LOCA_DATE_TIME ->
 						ERRO_400_O_CAMPO_XXX_DEVE_SER_DO_TIPO_YYY_NO_FORMATO.formatted(field, typeField, PATTERN_DATA_HORA_PT_BR);
 				default -> ERRO_400_O_CAMPO_XXX_DEVE_SER_DO_TIPO_YYY.formatted(field, typeField);

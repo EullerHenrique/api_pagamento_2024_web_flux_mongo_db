@@ -2,9 +2,9 @@ package com.api.pagamento.controller.transacao;
 
 import com.api.pagamento.domain.constant.sucess_error.error.ErrorConstants;
 import com.api.pagamento.domain.constant.sucess_error.sucess.SucessConstants;
-import com.api.pagamento.domain.dto.model_to_dto.transacao.TransacaoDTO;
-import com.api.pagamento.domain.dto.request_response.request.transacao.SingleTransacaoRequest;
-import com.api.pagamento.domain.dto.request_response.response.error.ResponseMessageError;
+import com.api.pagamento.domain.dto.response.transacao.TransacaoDTO;
+import com.api.pagamento.domain.dto.request.transacao.SingleTransacaoRequest;
+import com.api.pagamento.domain.dto.response.error.ResponseMessageError;
 import com.api.pagamento.domain.exception.http.BadRequestException;
 import com.api.pagamento.domain.exception.http.InternalServerException;
 import com.api.pagamento.domain.exception.http.NotFoundException;

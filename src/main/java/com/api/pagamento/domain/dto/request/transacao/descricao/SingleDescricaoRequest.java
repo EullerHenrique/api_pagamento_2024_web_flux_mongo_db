@@ -1,4 +1,4 @@
-package com.api.pagamento.domain.dto.request_response.request.transacao.descricao;
+package com.api.pagamento.domain.dto.request.transacao.descricao;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;

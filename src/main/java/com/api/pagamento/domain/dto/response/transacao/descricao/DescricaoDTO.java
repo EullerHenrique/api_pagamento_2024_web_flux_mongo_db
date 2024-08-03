@@ -1,4 +1,4 @@
-package com.api.pagamento.domain.dto.model_to_dto.transacao.descricao;
+package com.api.pagamento.domain.dto.response.transacao.descricao;
 
 import com.api.pagamento.domain.enumeration.transacao.descricao.StatusTransacaoEnum;
 import com.fasterxml.jackson.annotation.JsonFormat;

@@ -1,7 +1,7 @@
 package com.api.pagamento.builder;
 /*
 
-import com.api.pagamento.domain.dto.model_to_dto.transacao.descricao.DescricaoDTO;
+import com.api.pagamento.domain.dto.transacao.descricao.DescricaoDTO;
 import com.api.pagamento.domain.enumeration.transacao.descricao.StatusEnum;
 import lombok.Builder;
 

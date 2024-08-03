@@ -1,6 +1,6 @@
 package com.api.pagamento.domain.exception.handler.http;
 
-import com.api.pagamento.domain.dto.request_response.response.error.ResponseMessageError;
+import com.api.pagamento.domain.dto.response.error.ResponseMessageError;
 import com.api.pagamento.domain.exception.http.BadRequestException;
 import com.api.pagamento.domain.exception.http.InternalServerException;
 import com.api.pagamento.domain.exception.http.NotFoundException;

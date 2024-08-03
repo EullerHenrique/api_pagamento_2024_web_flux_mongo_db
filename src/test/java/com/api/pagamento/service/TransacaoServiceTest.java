@@ -2,7 +2,7 @@
 package com.api.pagamento.service;
 
 import com.api.pagamento.builder.TransacaoDTOBuilder;
-import com.api.pagamento.domain.dto.model_to_dto.transacao.TransacaoDTO;
+import com.api.pagamento.domain.dto.transacao.TransacaoDTO;
 import com.api.pagamento.domain.enumeration.transacao.descricao.StatusEnum;
 import com.api.pagamento.domain.exception.transacao.InsercaoNaoPermitidaException;
 import com.api.pagamento.domain.exception.transacao.TransacaoInexistenteException;

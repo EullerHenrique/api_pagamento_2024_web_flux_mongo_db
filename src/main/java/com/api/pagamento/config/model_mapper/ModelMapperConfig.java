@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * Realiza um estorno
+ * Classe de configuração do ModelMapper
  *
  * @author Euller Henrique
  */
@@ -13,9 +13,10 @@ import org.springframework.context.annotation.Configuration;
 public class ModelMapperConfig {
 
 	/**
-	 * Realiza um estorno
+	 * Cria uma instância do ModelMapper
 	 *
 	 * @author Euller Henrique
+	 * @return ModelMapper
 	 */
 	@Bean
 	public ModelMapper modelMapper() {

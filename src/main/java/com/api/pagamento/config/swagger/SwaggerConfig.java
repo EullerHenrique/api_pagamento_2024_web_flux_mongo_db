@@ -12,7 +12,7 @@ import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
- * Realiza um estorno
+ * Classe de configuração do Swagger
  *
  * @author Euller Henrique
  */
@@ -21,9 +21,10 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 public class SwaggerConfig {
 
 	/**
-	 * Realiza um estorno
+	 * Define as configurações do Swagger
 	 *
 	 * @author Euller Henrique
+	 * @return Docket
 	 */
 	@Bean
 	public Docket customConfig() {
@@ -32,12 +33,13 @@ public class SwaggerConfig {
 	}
 
 	/**
-	 * Realiza um estorno
+	 * Define as informações da API
 	 *
 	 * @author Euller Henrique
+	 * @return ApiInfo
 	 */
 	private ApiInfo apiInfo() {
-		return new ApiInfoBuilder().title("API De Pagamento").description("Data de entrega: 18/04/22").version("2024")
+		return new ApiInfoBuilder().title("API De Pagamento").description("Data de entrega: 06/08/24").version("2.0.0")
 				.contact(new Contact("Euller Henrique", "https://github.com/EullerHenrique", "eullerhenrique@outlook.com")).build();
 	}
 }

@@ -1,8 +1,8 @@
 package com.api.pagamento.service.dto.transacao;
 
 import com.api.pagamento.domain.converter.transacao.TransacaoConverter;
-import com.api.pagamento.domain.dto.model_to_dto.transacao.TransacaoDTO;
-import com.api.pagamento.domain.dto.request_response.request.transacao.SingleTransacaoRequest;
+import com.api.pagamento.domain.dto.response.transacao.TransacaoDTO;
+import com.api.pagamento.domain.dto.request.transacao.SingleTransacaoRequest;
 import com.api.pagamento.domain.model.transacao.Transacao;
 import com.api.pagamento.service.model.transacao.TransacaoModelService;
 import com.api.pagamento.service.util.transacao.TransacaoUtilService;
@@ -41,7 +41,7 @@ public class TransacaoDtoService {
      *
      */
     public TransacaoDTO pagar(SingleTransacaoRequest request) {
-        transacaoUtilService.validarFormaPagamentoAoPagar(request);
+        transacaoUtilService.validarTipoPagamentoAoPagar(request);
 
         TransacaoDTO transacaoDTO = transacaoConverter.requestToDTO(request);
 

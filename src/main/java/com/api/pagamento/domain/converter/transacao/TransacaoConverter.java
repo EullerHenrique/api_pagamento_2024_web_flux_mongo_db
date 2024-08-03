@@ -1,7 +1,7 @@
 package com.api.pagamento.domain.converter.transacao;
 
-import com.api.pagamento.domain.dto.model_to_dto.transacao.TransacaoDTO;
-import com.api.pagamento.domain.dto.request_response.request.transacao.SingleTransacaoRequest;
+import com.api.pagamento.domain.dto.response.transacao.TransacaoDTO;
+import com.api.pagamento.domain.dto.request.transacao.SingleTransacaoRequest;
 import com.api.pagamento.domain.model.transacao.Transacao;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;

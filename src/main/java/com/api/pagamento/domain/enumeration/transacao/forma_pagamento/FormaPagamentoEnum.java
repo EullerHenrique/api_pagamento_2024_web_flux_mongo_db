@@ -5,7 +5,8 @@ package com.api.pagamento.domain.enumeration.transacao.forma_pagamento;
  *
  * @author Euller Henrique
  */
-public enum TipoPagamentoEnum {
+public enum FormaPagamentoEnum {
     AVISTA, PARCELADO_LOJA, PARCELADO_EMISSOR;
-    TipoPagamentoEnum(){}
+    FormaPagamentoEnum(){}
+
 }

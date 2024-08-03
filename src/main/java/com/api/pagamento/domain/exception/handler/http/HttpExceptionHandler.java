@@ -4,7 +4,6 @@ import com.api.pagamento.domain.dto.request_response.response.error.ResponseMess
 import com.api.pagamento.domain.exception.http.BadRequestException;
 import com.api.pagamento.domain.exception.http.InternalServerException;
 import com.api.pagamento.domain.exception.http.NotFoundException;
-import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
  *
  * @author Euller Henrique
  */
-@Order(2)
 @ControllerAdvice
 public class HttpExceptionHandler {
 

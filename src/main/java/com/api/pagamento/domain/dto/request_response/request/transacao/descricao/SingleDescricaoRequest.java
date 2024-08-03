@@ -1,8 +1,6 @@
 package com.api.pagamento.domain.dto.request_response.request.transacao.descricao;
 
-import com.api.pagamento.domain.exception.handler.json.type.DateTimeHandlerDeserializer;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,7 +24,6 @@ public class SingleDescricaoRequest {
 
 	@NotNull(message = "é obrigatório!")
 	@JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
-	@JsonDeserialize(using = DateTimeHandlerDeserializer.class)
 	private LocalDateTime dataHora;
 
 	@NotBlank(message = "é obrigatório!")

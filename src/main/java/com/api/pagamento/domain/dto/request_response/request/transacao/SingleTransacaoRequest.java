@@ -10,6 +10,8 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import static com.api.pagamento.domain.constant.sucess_error.error.word.WordErrorConstants.*;
+
 /**
  * Realiza um estorno
  *
@@ -20,8 +22,8 @@ import javax.validation.constraints.Size;
 @AllArgsConstructor
 public class SingleTransacaoRequest {
 
-	@NotBlank(message = "é obrigatório!")
-	@Size(min = 16, max = 16, message = "deve ter 16 caracteres!")
+	@NotBlank(message = EH_OBRIGATORIO)
+	@Size(min = 16, max = 16, message = DEVE_TER + 16 + CARACTERES)
 	private String cartao;
 
 	@Valid

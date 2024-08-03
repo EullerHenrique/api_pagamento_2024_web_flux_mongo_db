@@ -15,11 +15,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.api.pagamento.domain.constant.sucess_error.error.ErrorConstants.ERRO_400_O_CAMPO_XXX_DEVE_SER_DO_TIPO_YYY;
-import static com.api.pagamento.domain.constant.sucess_error.error.ErrorConstants.ERRO_400_O_CAMPO_XXX_DEVE_SER_UM_DOS_VALORES_YYY;
+import static com.api.pagamento.domain.constant.sucess_error.error.ErrorConstants.*;
 import static com.api.pagamento.domain.constant.utils.pattern.PatternConstants.PATTERN_DATA_HORA_PT_BR;
 import static com.api.pagamento.domain.constant.utils.txt.TxtConstants.*;
-import static com.api.pagamento.domain.constant.utils.word.WordConstants.*;
+import static com.api.pagamento.domain.constant.sucess_error.error.word.WordErrorConstants.*;
 
 @RestControllerAdvice
 public class RestExceptionHandler {
@@ -35,7 +34,7 @@ public class RestExceptionHandler {
 		String field = ex.getBindingResult().getFieldErrors().get(0).getField();
 		String defaultMessage = ex.getBindingResult().getFieldErrors().get(0).getDefaultMessage();
 
-		String message = O_CAMPO + field + ESPACO + defaultMessage;
+		String message = O_CAMPO_XXX.formatted(field) + defaultMessage;
 
 		return ResponseMessageError.obterResponseEntity(HttpStatus.BAD_REQUEST.value(), error, message);
 	}
@@ -58,10 +57,10 @@ public class RestExceptionHandler {
 			String typeField = invalidFormatException.getTargetType().getSimpleName();
 
 			message = switch (typeField) {
-				case "FormaPagamentoEnum" ->
+				case TIPO_FORMA_PAGAMENTO_ENUM ->
 						ERRO_400_O_CAMPO_XXX_DEVE_SER_UM_DOS_VALORES_YYY.formatted(field, Arrays.toString(FormaPagamentoEnum.values()));
-				case "LocalDateTime" ->
-						ERRO_400_O_CAMPO_XXX_DEVE_SER_DO_TIPO_YYY.formatted(field, typeField) + NO_FORMATO.formatted(PATTERN_DATA_HORA_PT_BR);
+				case TIPO_LOCA_DATE_TIME ->
+						ERRO_400_O_CAMPO_XXX_DEVE_SER_DO_TIPO_YYY_NO_FORMATO.formatted(field, typeField, PATTERN_DATA_HORA_PT_BR);
 				default -> ERRO_400_O_CAMPO_XXX_DEVE_SER_DO_TIPO_YYY.formatted(field, typeField);
 			};
 

@@ -9,6 +9,7 @@ import javax.validation.constraints.*;
 import java.time.LocalDateTime;
 
 import static com.api.pagamento.domain.constant.utils.pattern.PatternConstants.PATTERN_DATA_HORA_PT_BR;
+import static com.api.pagamento.domain.constant.sucess_error.error.word.WordErrorConstants.*;
 
 /**
  * Realiza um estorno
@@ -20,15 +21,15 @@ import static com.api.pagamento.domain.constant.utils.pattern.PatternConstants.P
 @AllArgsConstructor
 public class SingleDescricaoRequest {
 
-	@NotNull(message = "é obrigatório!")
-	@Min(value = 1, message = "deve ser maior que 0")
+	@NotNull(message = EH_OBRIGATORIO)
+	@Min(value = 1, message = DEVE_SER_MAIOR_QUE + 0)
 	private Double valor;
 
-	@NotNull(message = "é obrigatório!")
+	@NotNull(message = EH_OBRIGATORIO)
 	@JsonFormat(pattern = PATTERN_DATA_HORA_PT_BR)
 	private LocalDateTime dataHora;
 
-	@NotBlank(message = "é obrigatório!")
+	@NotBlank(message = EH_OBRIGATORIO)
 	private String estabelecimento;
 
 }

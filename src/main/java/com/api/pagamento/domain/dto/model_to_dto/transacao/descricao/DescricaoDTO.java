@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
+import static com.api.pagamento.domain.constant.utils.pattern.PatternConstants.PATTERN_DATA_HORA_PT_BR;
+
 /**
  * Realiza um estorno
  *
@@ -21,7 +23,7 @@ import java.time.LocalDateTime;
 public class DescricaoDTO {
 
     private String valor;
-    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
+    @JsonFormat(pattern = PATTERN_DATA_HORA_PT_BR)
     private LocalDateTime dataHora;
     private String estabelecimento;
     private String nsu;

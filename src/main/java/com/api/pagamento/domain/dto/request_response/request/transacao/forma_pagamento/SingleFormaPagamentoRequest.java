@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
+import static com.api.pagamento.domain.constant.sucess_error.error.word.WordErrorConstants.*;
+
 /**
  * Realiza um estorno
  *
@@ -18,10 +20,10 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 public class SingleFormaPagamentoRequest {
 
-	@NotNull(message = "é obrigatório!")
+	@NotNull(message = EH_OBRIGATORIO)
 	private FormaPagamentoEnum tipo;
 
-	@NotNull(message = "é obrigatório!")
-	@Min(value = 1, message = "deve ser maior que 0")
+	@NotNull(message = EH_OBRIGATORIO)
+	@Min(value = 1, message = DEVE_SER_MAIOR_QUE + 0)
 	private Integer parcelas;
 }

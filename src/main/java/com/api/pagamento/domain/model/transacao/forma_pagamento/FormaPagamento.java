@@ -1,6 +1,6 @@
 package com.api.pagamento.domain.model.transacao.forma_pagamento;
 
-import com.api.pagamento.domain.enumeration.transacao.forma_pagamento.FormaPagamentoEnum;
+import com.api.pagamento.domain.enumeration.transacao.forma_pagamento.TipoFormaPagamentoEnum;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -33,7 +33,7 @@ public class FormaPagamento implements Serializable {
 
     @NotNull
     @Enumerated(EnumType.STRING)
-    private FormaPagamentoEnum tipo;
+    private TipoFormaPagamentoEnum tipo;
 
     @NotNull
     private Integer parcelas;

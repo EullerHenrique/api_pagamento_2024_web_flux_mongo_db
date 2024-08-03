@@ -2,6 +2,8 @@ package com.api.pagamento.controller.transacao;
 
 import com.api.pagamento.domain.dto.model_to_dto.transacao.TransacaoDTO;
 import com.api.pagamento.domain.dto.request_response.request.transacao.SingleTransacaoRequest;
+import com.api.pagamento.domain.exception.http.BadRequestException;
+import com.api.pagamento.domain.exception.http.InternalServerException;
 import com.api.pagamento.domain.exception.http.NotFoundException;
 import com.api.pagamento.service.dto.transacao.TransacaoDtoService;
 import io.swagger.annotations.ApiOperation;
@@ -33,33 +35,45 @@ public class TransacaoController {
 	 * @author Euller Henrique
 	 */
 	@ApiOperation(value = "Busca uma transação pelo id")
-	@ApiResponses(value = { @ApiResponse(code = 200, message = "A transação foi encontrada"),
-			@ApiResponse(code = 404, message = "A transação com o id em questão não foi encontrada"),
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "O pagamento foi realizado"),
+			@ApiResponse(code = 404, message = "O código de autorização, o nsu e o status não podem ser inseridos pelo usuário"),
+			@ApiResponse(code = 400, message = "Há campos obrigatórios que não foram preenchidos"),
 			@ApiResponse(code = 500, message = "Internal Server Error") })
 	@GetMapping(value = "buscar/{id}", produces = "application/json")
-	public ResponseEntity<TransacaoDTO> buscarTransacao(@PathVariable Long id) throws NotFoundException {
+	public ResponseEntity<Object> buscarTransacao(@PathVariable Long id) {
 
-		TransacaoDTO transacaoDTO = transacaoDtoService.buscarTransacao(id);
-		return ResponseEntity.ok().body(transacaoDTO);
-
+		try {
+			TransacaoDTO transacaoDTO = transacaoDtoService.buscarTransacao(id);
+			return ResponseEntity.ok().body(transacaoDTO);
+		} catch (NotFoundException | BadRequestException ex) {
+			throw ex;
+		} catch (Exception ex) {
+			throw new InternalServerException(ex);
+		}
 	}
 
 	/**
 	 * Busca todas as transações
 	 *
+	 * @return List<TransacaoDTO> Lista de transações
 	 * @author Euller Henrique
-	 * @return List<TransacaoDTO>
-	 *     Lista de transações
 	 */
 	@ApiOperation(value = "Busca todas as transações")
-	@ApiResponses(value = { @ApiResponse(code = 200, message = "Pelo menos uma transação foi encontrada"),
-			@ApiResponse(code = 404, message = "Nenhuma transação foi encontrada"),
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "O pagamento foi realizado"),
+			@ApiResponse(code = 404, message = "O código de autorização, o nsu e o status não podem ser inseridos pelo usuário"),
+			@ApiResponse(code = 400, message = "Há campos obrigatórios que não foram preenchidos"),
 			@ApiResponse(code = 500, message = "Internal Server Error") })
 	@GetMapping(value = "/listar", produces = "application/json")
-	public ResponseEntity<List<TransacaoDTO>> listarTransacoes() throws NotFoundException {
+	public ResponseEntity<Object> listarTransacoes() {
 
-		List<TransacaoDTO> transacaoDTOS = transacaoDtoService.listarTransacoes();
-		return ResponseEntity.ok().body(transacaoDTOS);
+		try {
+			List<TransacaoDTO> transacaoDTOS = transacaoDtoService.listarTransacoes();
+			return ResponseEntity.ok().body(transacaoDTOS);
+		} catch (NotFoundException | BadRequestException ex) {
+			throw ex;
+		} catch (Exception ex) {
+			throw new InternalServerException(ex);
+		}
 
 	}
 
@@ -76,10 +90,16 @@ public class TransacaoController {
 			@ApiResponse(code = 400, message = "Há campos obrigatórios que não foram preenchidos"),
 			@ApiResponse(code = 500, message = "Internal Server Error") })
 	@PostMapping(value = "/pagar", produces = "application/json", consumes = "application/json")
-	public ResponseEntity<TransacaoDTO> pagar(@RequestBody @Valid SingleTransacaoRequest request) {
+	public ResponseEntity<Object> pagar(@RequestBody @Valid SingleTransacaoRequest request) {
 
-		TransacaoDTO transacaoDTO = transacaoDtoService.pagar(request);
-		return ResponseEntity.ok().body(transacaoDTO);
+		try {
+			TransacaoDTO transacaoDTO = transacaoDtoService.pagar(request);
+			return ResponseEntity.ok().body(transacaoDTO);
+		} catch (NotFoundException | BadRequestException ex) {
+			throw ex;
+		} catch (Exception ex) {
+			throw new InternalServerException(ex);
+		}
 
 	}
 
@@ -96,10 +116,17 @@ public class TransacaoController {
 			@ApiResponse(code = 400, message = "Há campos obrigatórios que não foram preenchidos"),
 			@ApiResponse(code = 500, message = "Internal Server Error") })
 	@PutMapping(value = "/estornar/{id}", produces = "application/json")
-	public ResponseEntity<TransacaoDTO> estornar(@PathVariable Long id) throws NotFoundException {
+	public ResponseEntity<Object> estornar(@PathVariable Long id) {
 
-		TransacaoDTO transacaoDto = transacaoDtoService.estornar(id);
-		return ResponseEntity.ok().body(transacaoDto);
+		try {
+			TransacaoDTO transacaoDto = transacaoDtoService.estornar(id);
+			return ResponseEntity.ok().body(transacaoDto);
+		} catch (NotFoundException | BadRequestException ex) {
+			throw ex;
+		} catch (Exception ex) {
+			throw new InternalServerException(ex);
+		}
+
 	}
 
 }

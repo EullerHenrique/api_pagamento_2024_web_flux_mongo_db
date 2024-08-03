@@ -6,10 +6,8 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import javax.validation.constraints.*;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 /**
@@ -23,7 +21,7 @@ import java.time.LocalDateTime;
 public class SingleDescricaoRequest {
 
 	@NotNull(message = "é obrigatório!")
-	@Min(value = 0, message = "deve ser maior que 0")
+	@Min(value = 1, message = "deve ser maior que 0")
 	private Double valor;
 
 	@NotNull(message = "é obrigatório!")

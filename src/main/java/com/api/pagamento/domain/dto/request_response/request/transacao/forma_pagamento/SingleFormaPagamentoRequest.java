@@ -25,6 +25,6 @@ public class SingleFormaPagamentoRequest {
 	private TipoPagamentoEnum tipo;
 
 	@NotNull(message = "é obrigatório!")
-	@Min(value = 0, message = "deve ser maior que 0")
+	@Min(value = 1, message = "deve ser maior que 0")
 	private Integer parcelas;
 }

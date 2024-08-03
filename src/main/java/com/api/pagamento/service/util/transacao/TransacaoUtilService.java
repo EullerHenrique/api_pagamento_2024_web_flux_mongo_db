@@ -53,7 +53,7 @@ public class TransacaoUtilService {
 	 * Realiza um pagamento
 	 *
 	 */
-	public void validarCoerenciaTipoPagamentoParcelas(SingleTransacaoRequest request) {
+	public void validarCoerenciaFormaPagamentoParcelas(SingleTransacaoRequest request) {
 		FormaPagamentoEnum tipoPagamento = request.getFormaPagamento().getTipo();
 		int parcelas = request.getFormaPagamento().getParcelas();
 

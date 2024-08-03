@@ -32,10 +32,8 @@ public class TransacaoDtoService {
      *
      */
     public List<TransacaoDTO> listarTransacoes() {
-
         List<Transacao> transacoes  = transacaoModelService.listarTranscacoes();
         return transacaoConverter.modelsToDTOs(transacoes);
-
     }
 
     /**
@@ -43,7 +41,7 @@ public class TransacaoDtoService {
      *
      */
     public TransacaoDTO pagar(SingleTransacaoRequest request) {
-        transacaoUtilService.validarCoerenciaTipoPagamentoParcelas(request);
+        transacaoUtilService.validarCoerenciaFormaPagamentoParcelas(request);
 
         TransacaoDTO transacaoDTO = transacaoConverter.requestToDTO(request);
 
@@ -56,7 +54,6 @@ public class TransacaoDtoService {
         transacaoDTO.setId(id);
 
         return transacaoDTO;
-
     }
 
     /**

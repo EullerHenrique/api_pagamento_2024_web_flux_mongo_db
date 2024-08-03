@@ -15,6 +15,12 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.api.pagamento.domain.constant.sucess_error.error.ErrorConstants.ERRO_400_O_CAMPO_XXX_DEVE_SER_DO_TIPO_YYY;
+import static com.api.pagamento.domain.constant.sucess_error.error.ErrorConstants.ERRO_400_O_CAMPO_XXX_DEVE_SER_UM_DOS_VALORES_YYY;
+import static com.api.pagamento.domain.constant.utils.pattern.PatternConstants.PATTERN_DATA_HORA_PT_BR;
+import static com.api.pagamento.domain.constant.utils.txt.TxtConstants.*;
+import static com.api.pagamento.domain.constant.utils.word.WordConstants.*;
+
 @RestControllerAdvice
 public class RestExceptionHandler {
 
@@ -25,11 +31,11 @@ public class RestExceptionHandler {
 	 */
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	protected ResponseEntity<Object> handleMethodArgumentNotValidException(MethodArgumentNotValidException ex) {
-		String error = ex.toString().split(":")[0];
+		String error = ex.toString().split(DOIS_PONTOS)[0];
 		String field = ex.getBindingResult().getFieldErrors().get(0).getField();
 		String defaultMessage = ex.getBindingResult().getFieldErrors().get(0).getDefaultMessage();
 
-		String message = "O campo " + field + " " + defaultMessage;
+		String message = O_CAMPO + field + ESPACO + defaultMessage;
 
 		return ResponseMessageError.obterResponseEntity(HttpStatus.BAD_REQUEST.value(), error, message);
 	}
@@ -41,21 +47,22 @@ public class RestExceptionHandler {
 	 */
 	@ExceptionHandler(HttpMessageNotReadableException.class)
 	protected ResponseEntity<Object> handleMethodArgumentNotValidException(HttpMessageNotReadableException ex) {
-		String error = ex.toString().split(":")[0];
+		String error = ex.toString().split(DOIS_PONTOS)[0];
 		String message = ex.getCause().getMessage();
 
 		if (ex.getCause() instanceof InvalidFormatException invalidFormatException) {
-			error = invalidFormatException.toString().split(":")[0];
+			error = invalidFormatException.toString().split(DOIS_PONTOS)[0];
 
 			List<JsonMappingException.Reference> path = invalidFormatException.getPath();
-			String field = path.stream().map(JsonMappingException.Reference::getFieldName).collect(Collectors.joining("."));
+			String field = path.stream().map(JsonMappingException.Reference::getFieldName).collect(Collectors.joining(PONTO));
 			String typeField = invalidFormatException.getTargetType().getSimpleName();
 
 			message = switch (typeField) {
 				case "FormaPagamentoEnum" ->
-						"O campo " + field + " deve ser um dos valores: " + Arrays.toString(FormaPagamentoEnum.values());
-				case "LocalDateTime" -> "O campo " + field + " deve ser do tipo " + typeField + " no formato dd/MM/yyyy HH:mm:ss";
-				default -> "O campo " + field + " deve ser do tipo " + typeField;
+						ERRO_400_O_CAMPO_XXX_DEVE_SER_UM_DOS_VALORES_YYY.formatted(field, Arrays.toString(FormaPagamentoEnum.values()));
+				case "LocalDateTime" ->
+						ERRO_400_O_CAMPO_XXX_DEVE_SER_DO_TIPO_YYY.formatted(field, typeField) + NO_FORMATO.formatted(PATTERN_DATA_HORA_PT_BR);
+				default -> ERRO_400_O_CAMPO_XXX_DEVE_SER_DO_TIPO_YYY.formatted(field, typeField);
 			};
 
 		}

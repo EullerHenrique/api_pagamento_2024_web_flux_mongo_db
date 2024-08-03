@@ -62,7 +62,7 @@ public class TransacaoController {
 	 */
 	@ApiOperation(value = "Busca todas as transações")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = SucessConstants.SUCESSO_200_OPERACAO_REALIZADA, response = TransacaoDTO.class),
-			@ApiResponse(code = 404, message = ErrorConstants.ERRO_404_NENUMA_TRANSACAO_ENCONTRADA, response = ResponseMessageError.class),
+			@ApiResponse(code = 404, message = ErrorConstants.ERRO_404_NENHUMA_TRANSACAO_ENCONTRADA, response = ResponseMessageError.class),
 			@ApiResponse(code = 500, message = ErrorConstants.ERRO_500_SERVIDOR_INTERNO, response = ResponseMessageError.class) })
 	@GetMapping(value = "/listar", produces = "application/json")
 	public ResponseEntity<Object> listarTransacoes() {

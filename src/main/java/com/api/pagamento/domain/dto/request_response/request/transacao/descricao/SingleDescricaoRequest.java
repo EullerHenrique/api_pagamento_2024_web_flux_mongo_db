@@ -8,6 +8,8 @@ import javax.validation.constraints.*;
 
 import java.time.LocalDateTime;
 
+import static com.api.pagamento.domain.constant.utils.pattern.PatternConstants.PATTERN_DATA_HORA_PT_BR;
+
 /**
  * Realiza um estorno
  *
@@ -23,7 +25,7 @@ public class SingleDescricaoRequest {
 	private Double valor;
 
 	@NotNull(message = "é obrigatório!")
-	@JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
+	@JsonFormat(pattern = PATTERN_DATA_HORA_PT_BR)
 	private LocalDateTime dataHora;
 
 	@NotBlank(message = "é obrigatório!")

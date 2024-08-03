@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import static com.api.pagamento.domain.constant.utils.txt.TxtConstants.DOIS_PONTOS;
+
 /**
  * Realiza um estorno
  *
@@ -46,7 +48,7 @@ public class HttpExceptionHandler {
 	 */
 	@ExceptionHandler(InternalServerException.class)
 	public ResponseEntity<Object> handleInternalServerException(InternalServerException ex) {
-		String[] localizedMessageSplit = ex.getLocalizedMessage().split(":");
+		String[] localizedMessageSplit = ex.getLocalizedMessage().split(DOIS_PONTOS);
 		return ResponseMessageError.obterResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR.value(), localizedMessageSplit[0],
 				localizedMessageSplit[1]);
 	}

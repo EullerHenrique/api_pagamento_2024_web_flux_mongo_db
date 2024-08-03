@@ -26,7 +26,7 @@ public class SwaggerConfig {
 	 * @author Euller Henrique
 	 */
 	@Bean
-	public Docket api() {
+	public Docket customConfig() {
 		return new Docket(DocumentationType.SWAGGER_2).select().apis(RequestHandlerSelectors.basePackage("com.api.pagamento.controller"))
 				.paths(PathSelectors.any()).build().apiInfo(apiInfo());
 	}
@@ -37,8 +37,7 @@ public class SwaggerConfig {
 	 * @author Euller Henrique
 	 */
 	private ApiInfo apiInfo() {
-		return new ApiInfoBuilder().title("API De Pagamento").description("Data de entrega: 18/04/22").version("2.0.0")
-				.license("Apache License Version 2.0").licenseUrl("https://www.apache.org/licenses/LICENSE-2.0")
-				.contact(new Contact("Euller", "https://github.com/EullerHenrique", "euller@email.com.br")).build();
+		return new ApiInfoBuilder().title("API De Pagamento").description("Data de entrega: 18/04/22").version("2024")
+				.contact(new Contact("Euller Henrique", "https://github.com/EullerHenrique", "eullerhenrique@outlook.com")).build();
 	}
 }

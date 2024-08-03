@@ -20,7 +20,7 @@ public class TransacaoModelService {
      *
      */
     public Transacao buscarTransacao(Long id) {
-        return transacaoRepository.findById(id).orElseThrow(() -> new NotFoundException(ERRO_TRANSACAO_NAO_ENCONTRADA));
+        return transacaoRepository.findById(id).orElseThrow(() -> new NotFoundException(ERRO_404_TRANSACAO_NAO_ENCONTRADA));
     }
 
     /**
@@ -30,7 +30,7 @@ public class TransacaoModelService {
     public List<Transacao> listarTranscacoes() {
         List<Transacao> transacoes = transacaoRepository.findAll();
         if (transacoes.isEmpty()) {
-            throw new NotFoundException(ERRO_NENUMA_TRANSACAO_ENCONTRADA);
+            throw new NotFoundException(ERRO_404_NENUMA_TRANSACAO_ENCONTRADA);
         }
         return transacoes;
     }

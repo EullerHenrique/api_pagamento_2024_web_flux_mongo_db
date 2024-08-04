@@ -1,4 +1,4 @@
-package com.api.pagamento.service.util.transacao;
+package com.api.pagamento.domain.service.util.validation.transacao;
 
 import com.api.pagamento.domain.dto.request.transacao.TransacaoRequestDto;
 import com.api.pagamento.domain.enumeration.transacao.descricao.StatusTransacaoEnum;
@@ -7,9 +7,6 @@ import com.api.pagamento.domain.exception.http.BadRequestException;
 import com.api.pagamento.domain.model.transacao.Transacao;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.Random;
-
 import static com.api.pagamento.domain.constant.sucess_error.error.ErrorConstants.*;
 
 /**
@@ -18,39 +15,7 @@ import static com.api.pagamento.domain.constant.sucess_error.error.ErrorConstant
  */
 @Service
 @RequiredArgsConstructor
-public class TransacaoUtilService {
-
-	private static final Random RANDOM = new Random();
-
-	/**
-	 * Realiza um pagamento
-	 *
-	 */
-	public String obterNsu() {
-		return String.valueOf(RANDOM.nextInt(1000000000));
-	}
-	/**
-	 * Realiza um pagamento
-	 *
-	 */
-	public String obterCodigoAutorizacao() {
-		return String.valueOf(RANDOM.nextInt(1000000000));
-	}
-
-	/**
-	 * Realiza um pagamento
-	 *
-	 */
-	public StatusTransacaoEnum obterStatusAoPagar() {
-		return StatusTransacaoEnum.values()[RANDOM.nextInt(2)];
-	}
-	/**
-	 * Realiza um pagamento
-	 *
-	 */
-	public StatusTransacaoEnum obterStatusAoEstornar() {
-		return StatusTransacaoEnum.CANCELADO;
-	}
+public class TransacaoValidationUtilService {
 
 	/**
 	 * Realiza um pagamento

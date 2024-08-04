@@ -1,11 +1,12 @@
-package com.api.pagamento.service.dto.transacao;
+package com.api.pagamento.domain.service.dto.transacao;
 
 import com.api.pagamento.domain.converter.transacao.TransacaoConverter;
 import com.api.pagamento.domain.dto.response.transacao.TransacaoResponseDto;
 import com.api.pagamento.domain.dto.request.transacao.TransacaoRequestDto;
 import com.api.pagamento.domain.model.transacao.Transacao;
-import com.api.pagamento.service.model.transacao.TransacaoModelService;
-import com.api.pagamento.service.util.transacao.TransacaoUtilService;
+import com.api.pagamento.domain.service.model.transacao.TransacaoModelService;
+import com.api.pagamento.domain.service.util.transacao.TransacaoUtilService;
+import com.api.pagamento.domain.service.util.validation.transacao.TransacaoValidationUtilService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -17,6 +18,7 @@ public class TransacaoDtoService {
     private final TransacaoModelService transacaoModelService;
     private final TransacaoConverter transacaoConverter;
     private final TransacaoUtilService transacaoUtilService;
+    private final TransacaoValidationUtilService transacaoValidationUtilService;
 
     /**
      * Realiza um pagamento
@@ -41,7 +43,7 @@ public class TransacaoDtoService {
      *
      */
     public TransacaoResponseDto pagar(TransacaoRequestDto request) {
-        transacaoUtilService.validarTipoPagamentoAoPagar(request);
+        transacaoValidationUtilService.validarTipoPagamentoAoPagar(request);
 
         TransacaoResponseDto transacaoDTO = transacaoConverter.requestToResponse(request);
 
@@ -62,7 +64,7 @@ public class TransacaoDtoService {
      */
     public TransacaoResponseDto estornar(Long id){
         Transacao transacao = transacaoModelService.buscarTransacao(id);
-        transacaoUtilService.validarStatusTransacaoAoEstornar(transacao);
+        transacaoValidationUtilService.validarStatusTransacaoAoEstornar(transacao);
 
         transacao.getDescricao().setStatus(transacaoUtilService.obterStatusAoEstornar());
         transacaoModelService.salvarTransacao(transacao);

@@ -1,4 +1,4 @@
-package com.api.pagamento.config.swagger;
+package com.api.pagamento.infra.config.swagger;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

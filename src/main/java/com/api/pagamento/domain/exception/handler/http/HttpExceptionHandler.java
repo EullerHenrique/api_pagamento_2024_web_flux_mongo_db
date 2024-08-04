@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import static com.api.pagamento.domain.constant.utils.txt.TxtConstants.DOIS_PONTOS;
+import static com.api.pagamento.domain.constant.utils.divider.DividerConstants.DOIS_PONTOS;
 
 /**
  * Realiza um estorno

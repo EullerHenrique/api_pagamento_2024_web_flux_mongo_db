@@ -1,4 +1,4 @@
-package com.api.pagamento.app.controller;
+package com.api.pagamento.controller;
 
 import com.api.pagamento.domain.constant.sucess_error.error.ErrorConstants;
 import com.api.pagamento.domain.constant.sucess_error.sucess.SucessConstants;
@@ -8,7 +8,7 @@ import com.api.pagamento.domain.dto.response.error.MessageErrorResponseDto;
 import com.api.pagamento.domain.exception.http.BadRequestException;
 import com.api.pagamento.domain.exception.http.InternalServerException;
 import com.api.pagamento.domain.exception.http.NotFoundException;
-import com.api.pagamento.domain.service.dto.transacao.TransacaoDtoService;
+import com.api.pagamento.service.transacao.TransacaoDtoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;

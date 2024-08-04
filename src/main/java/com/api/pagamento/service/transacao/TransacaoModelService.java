@@ -1,13 +1,15 @@
-package com.api.pagamento.domain.service.model.transacao;
+package com.api.pagamento.service.transacao;
 
 import com.api.pagamento.domain.exception.http.NotFoundException;
 import com.api.pagamento.domain.model.transacao.Transacao;
-import com.api.pagamento.infra.repository.transacao.TransacaoRepository;
+import com.api.pagamento.infrastructure.repository.transacao.TransacaoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 
-import static com.api.pagamento.domain.constant.sucess_error.error.ErrorConstants.*;
+import static com.api.pagamento.domain.constant.sucess_error.error.ErrorConstants.ERRO_404_NENHUMA_TRANSACAO_ENCONTRADA;
+import static com.api.pagamento.domain.constant.sucess_error.error.ErrorConstants.ERRO_404_TRANSACAO_NAO_ENCONTRADA;
 
 @Service
 @RequiredArgsConstructor

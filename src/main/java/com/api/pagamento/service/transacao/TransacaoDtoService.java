@@ -1,14 +1,14 @@
-package com.api.pagamento.domain.service.dto.transacao;
+package com.api.pagamento.service.transacao;
 
+import com.api.pagamento.service.util.transacao.TransacaoUtilService;
+import com.api.pagamento.service.util.validation.transacao.TransacaoValidationUtilService;
 import com.api.pagamento.domain.converter.transacao.TransacaoConverter;
-import com.api.pagamento.domain.dto.response.transacao.TransacaoResponseDto;
 import com.api.pagamento.domain.dto.request.transacao.TransacaoRequestDto;
+import com.api.pagamento.domain.dto.response.transacao.TransacaoResponseDto;
 import com.api.pagamento.domain.model.transacao.Transacao;
-import com.api.pagamento.domain.service.model.transacao.TransacaoModelService;
-import com.api.pagamento.domain.service.util.transacao.TransacaoUtilService;
-import com.api.pagamento.domain.service.util.validation.transacao.TransacaoValidationUtilService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 
 @Service

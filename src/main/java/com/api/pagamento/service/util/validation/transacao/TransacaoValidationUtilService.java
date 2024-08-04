@@ -1,4 +1,4 @@
-package com.api.pagamento.domain.service.util.validation.transacao;
+package com.api.pagamento.service.util.validation.transacao;
 
 import com.api.pagamento.domain.dto.request.transacao.TransacaoRequestDto;
 import com.api.pagamento.domain.enumeration.transacao.descricao.StatusTransacaoEnum;
@@ -7,6 +7,7 @@ import com.api.pagamento.domain.exception.http.BadRequestException;
 import com.api.pagamento.domain.model.transacao.Transacao;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
 import static com.api.pagamento.domain.constant.sucess_error.error.ErrorConstants.*;
 
 /**

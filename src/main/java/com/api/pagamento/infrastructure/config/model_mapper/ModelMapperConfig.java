@@ -1,4 +1,4 @@
-package com.api.pagamento.infra.config.model_mapper;
+package com.api.pagamento.infrastructure.config.model_mapper;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;

@@ -1,8 +1,9 @@
-package com.api.pagamento.domain.service.util.transacao;
+package com.api.pagamento.service.util.transacao;
 
 import com.api.pagamento.domain.enumeration.transacao.descricao.StatusTransacaoEnum;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
 import java.util.Random;
 
 /**

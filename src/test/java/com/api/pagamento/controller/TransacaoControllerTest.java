@@ -1,7 +1,6 @@
 package com.api.pagamento.controller;
 
 import com.api.pagamento.config.gson.LocalDateTimePtbrAdapter;
-import com.api.pagamento.app.controller.TransacaoController;
 import com.api.pagamento.domain.builder.request.transacao.TransacaoRequestDtoBuilder;
 import com.api.pagamento.domain.builder.response.transacao.TransacaoResponseDtoBuilder;
 import com.api.pagamento.domain.dto.request.transacao.TransacaoRequestDto;
@@ -9,7 +8,7 @@ import com.api.pagamento.domain.dto.response.transacao.TransacaoResponseDto;
 import com.api.pagamento.domain.enumeration.transacao.descricao.StatusTransacaoEnum;
 import com.api.pagamento.domain.exception.handler.http.HttpExceptionHandler;
 import com.api.pagamento.domain.exception.http.NotFoundException;
-import com.api.pagamento.domain.service.dto.transacao.TransacaoDtoService;
+import com.api.pagamento.service.transacao.TransacaoDtoService;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.junit.jupiter.api.BeforeEach;

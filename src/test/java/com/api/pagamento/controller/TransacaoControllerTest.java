@@ -7,7 +7,6 @@ import com.api.pagamento.domain.builder.response.transacao.TransacaoResponseDtoB
 import com.api.pagamento.domain.dto.request.transacao.TransacaoRequestDto;
 import com.api.pagamento.domain.dto.response.transacao.TransacaoResponseDto;
 import com.api.pagamento.domain.exception.handler.http.HttpExceptionHandler;
-import com.api.pagamento.domain.exception.http.BadRequestException;
 import com.api.pagamento.domain.exception.http.NotFoundException;
 import com.api.pagamento.service.dto.transacao.TransacaoDtoService;
 import com.google.gson.Gson;
@@ -18,14 +17,16 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.api.pagamento.domain.constant.utils.pattern.PatternConstants.FORMATTER_DATA_HORA_PT_BR;
+import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.core.Is.is;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
@@ -118,6 +119,34 @@ class TransacaoControllerTest {
 				.andExpect(jsonPath("$.formaPagamento.parcelas", is(transacaoResponseDto.getFormaPagamento().getParcelas())));
 	}
 
+	@Test
+	void QuandoTransacoesSaoBuscadasElasDevemSerRetornadas() throws Exception {
+
+		//Dado
+		List<TransacaoResponseDto> transacoesResponseDto = new ArrayList<>();
+		for (int i = 0; i < 10; i++) {
+			transacoesResponseDto.add(TransacaoResponseDtoBuilder.toTransacaoResponseDto());
+		}
+		//Quando
+		when(transacaoService.listarTransacoes()).thenReturn(transacoesResponseDto);
+
+		// Então
+		String jsonResponse = gson.toJson(transacoesResponseDto);
+		mockMvc.perform(get("/transacao/v1/listar").contentType(MediaType.APPLICATION_JSON).content(jsonResponse))
+				.andExpect(jsonPath("$[*].id", containsInAnyOrder(transacoesResponseDto.stream().map(TransacaoResponseDto::getId).toArray())))
+				.andExpect(jsonPath("$[*].cartao", containsInAnyOrder(transacoesResponseDto.stream().map(TransacaoResponseDto::getCartao).toArray())))
+				.andExpect(jsonPath("$[*].descricao.valor", containsInAnyOrder(transacoesResponseDto.stream().map(transacaoResponseDto -> transacaoResponseDto.getDescricao().getValor()).toArray())))
+				.andExpect(jsonPath("$[*].descricao.dataHora", containsInAnyOrder(transacoesResponseDto.stream().map(transacaoResponseDto -> transacaoResponseDto.getDescricao().getDataHora().format(FORMATTER_DATA_HORA_PT_BR)).toArray())))
+				.andExpect(jsonPath("$[*].descricao.estabelecimento", containsInAnyOrder(transacoesResponseDto.stream().map(transacaoResponseDto -> transacaoResponseDto.getDescricao().getEstabelecimento()).toArray())))
+				.andExpect(jsonPath("$[*].descricao.nsu", containsInAnyOrder(transacoesResponseDto.stream().map(transacaoResponseDto -> transacaoResponseDto.getDescricao().getNsu()).toArray())))
+				.andExpect(jsonPath("$[*].descricao.codigoAutorizacao", containsInAnyOrder(transacoesResponseDto.stream().map(transacaoResponseDto -> transacaoResponseDto.getDescricao().getCodigoAutorizacao()).toArray())))
+				.andExpect(jsonPath("$[*].descricao.status", containsInAnyOrder(transacoesResponseDto.stream().map(transacaoResponseDto -> transacaoResponseDto.getDescricao().getStatus().toString()).toArray())))
+				.andExpect(jsonPath("$[*].formaPagamento.tipo", containsInAnyOrder(transacoesResponseDto.stream().map(transacaoResponseDto -> transacaoResponseDto.getFormaPagamento().getTipo().toString()).toArray())))
+				.andExpect(jsonPath("$[*].formaPagamento.parcelas", containsInAnyOrder(transacoesResponseDto.stream().map(transacaoResponseDto -> transacaoResponseDto.getFormaPagamento().getParcelas()).toArray())));
+	}
+
+}
+
 	/*
     // Quando um pagamento não é chamado com todos os campos obrigatórios, uma exceção deve ser retornada
     @Test
@@ -198,112 +227,5 @@ class TransacaoControllerTest {
 
     }
 
-    //Quando a transacao é chamada pelo id, a transação é retornada
-    @Test
-    void whenTransactionByIdIsCalledThenIsReturned() throws Exception {
-
-        //Dado
-
-        //Gera um TransacaoDTO
-        TransacaoDTO transacaoDTO = TransacaoDTOBuilder.builder().build().toTransacaoDTO();
-
-        transacaoDTO.getDescricao().setNsu("1234567890");
-        transacaoDTO.getDescricao().setCodigoAutorizacao("147258369");
-        transacaoDTO.getDescricao().setStatus(StatusEnum.AUTORIZADO);
-
-        //Quando
-
-        //transacaoService.procurarPeloId(1) -> transacaoDTO
-        when(transacaoService.procurarPeloId(1L))
-                .thenReturn(transacaoDTO);
-
-        // Então
-
-        //perform: Executa o post /transacao/v1/pagamento
-        //contentType: Define que o tipo do conteúdo é JSON
-        //content: Define que o conteúdo é o Json de transacaoDTO
-        //andExpect: Espera-se que o post retorne o status OK
-        //andExpect: Espera-se que $.id seja igual a transacaoDTO.getId()
-
-
-        mockMvc.perform(get("/transacao/v1/1")
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id", is(Math.toIntExact(transacaoDTO.getId()))))
-                .andExpect(jsonPath("$.cartao", is(transacaoDTO.getCartao())))
-                .andExpect(jsonPath("$.descricao.valor", is(transacaoDTO.getDescricao().getValor())))
-                .andExpect(jsonPath("$.descricao.dataHora", is(transacaoDTO.getDescricao().getDataHora())))
-                .andExpect(jsonPath("$.descricao.estabelecimento", is(transacaoDTO.getDescricao().getEstabelecimento())))
-                .andExpect(jsonPath("$.descricao.nsu", is(transacaoDTO.getDescricao().getNsu())))
-                .andExpect(jsonPath("$.descricao.codigoAutorizacao", is(transacaoDTO.getDescricao().getCodigoAutorizacao())))
-                .andExpect(jsonPath("$.descricao.status", is(transacaoDTO.getDescricao().getStatus().toString())))
-                .andExpect(jsonPath("$.formaPagamento.tipo", is(transacaoDTO.getFormaPagamento().getTipo().toString())))
-                .andExpect(jsonPath("$.formaPagamento.parcelas", is(transacaoDTO.getFormaPagamento().getParcelas())));
-
-    }
-
-    //Quando a transacao é chamada, todas as transações são retornadas
-    @Test
-    void whenTransactionIsCalledThenAllIsReturned() throws Exception {
-
-        //Dado
-
-            //Gera um TransacaoDTO
-            TransacaoDTO transacaoDTO1 = TransacaoDTOBuilder.builder().build().toTransacaoDTO();
-
-            transacaoDTO1.getDescricao().setNsu("1234567890");
-            transacaoDTO1.getDescricao().setCodigoAutorizacao("147258369");
-            transacaoDTO1.getDescricao().setStatus(StatusEnum.AUTORIZADO);
-
-            //Gera um TransacaoDTO
-            TransacaoDTO transacaoDTO2 = TransacaoDTOBuilder.builder().build().toTransacaoDTO();
-
-            transacaoDTO2.getDescricao().setNsu("1234567890");
-            transacaoDTO2.getDescricao().setCodigoAutorizacao("147258369");
-            transacaoDTO2.getDescricao().setStatus(StatusEnum.AUTORIZADO);
-
-            List<TransacaoDTO> transacaoDTOList = new ArrayList<>();
-            transacaoDTOList.add(transacaoDTO1);
-            transacaoDTOList.add(transacaoDTO2);
-
-        //Quando
-
-            //transacaoService.procurarTodos() -> transacaoDTOList
-            when(transacaoService.procurarTodos())
-                    .thenReturn(transacaoDTOList);
-
-        // Então
-
-            //perform: Executa o post /transacao/v1/pagamento
-            //contentType: Define que o tipo do conteúdo é JSON
-            //content: Define que o conteúdo é o Json de transacaoDTO
-            //andExpect: Espera-se que o post retorne o status OK
-            //andExpect: Espera-se que $.id seja igual a transacaoDTO.getId()
-
-           mockMvc.perform(get("/transacao/v1")
-                        .contentType(MediaType.APPLICATION_JSON))
-                    .andExpect(status().isOk())
-                    .andExpect(jsonPath("$.[0].id", is(Math.toIntExact(transacaoDTO1.getId()))))
-                    .andExpect(jsonPath("$.[0].cartao", is(transacaoDTO1.getCartao())))
-                    .andExpect(jsonPath("$.[0].descricao.valor", is(transacaoDTO1.getDescricao().getValor())))
-                    .andExpect(jsonPath("$.[0].descricao.dataHora", is(transacaoDTO1.getDescricao().getDataHora())))
-                    .andExpect(jsonPath("$.[0].descricao.estabelecimento", is(transacaoDTO1.getDescricao().getEstabelecimento())))
-                    .andExpect(jsonPath("$.[0].descricao.nsu", is(transacaoDTO1.getDescricao().getNsu())))
-                    .andExpect(jsonPath("$.[0].descricao.codigoAutorizacao", is(transacaoDTO1.getDescricao().getCodigoAutorizacao())))
-                    .andExpect(jsonPath("$.[0].descricao.status", is(transacaoDTO1.getDescricao().getStatus().toString())))
-                    .andExpect(jsonPath("$.[0].formaPagamento.tipo", is(transacaoDTO1.getFormaPagamento().getTipo().toString())))
-                    .andExpect(jsonPath("$.[0].formaPagamento.parcelas", is(transacaoDTO1.getFormaPagamento().getParcelas())))
-                    .andExpect(jsonPath("$.[1].id", is(Math.toIntExact(transacaoDTO2.getId()))))
-                    .andExpect(jsonPath("$.[1].cartao", is(transacaoDTO2.getCartao())))
-                    .andExpect(jsonPath("$.[1].descricao.valor", is(transacaoDTO2.getDescricao().getValor())))
-                    .andExpect(jsonPath("$.[1].descricao.dataHora", is(transacaoDTO2.getDescricao().getDataHora())))
-                    .andExpect(jsonPath("$.[1].descricao.estabelecimento", is(transacaoDTO2.getDescricao().getEstabelecimento())))
-                    .andExpect(jsonPath("$.[1].descricao.nsu", is(transacaoDTO2.getDescricao().getNsu())))
-                    .andExpect(jsonPath("$.[1].descricao.codigoAutorizacao", is(transacaoDTO2.getDescricao().getCodigoAutorizacao())))
-                    .andExpect(jsonPath("$.[1].descricao.status", is(transacaoDTO2.getDescricao().getStatus().toString())))
-                    .andExpect(jsonPath("$.[1].formaPagamento.tipo", is(transacaoDTO2.getFormaPagamento().getTipo().toString())))
-                    .andExpect(jsonPath("$.[1].formaPagamento.parcelas", is(transacaoDTO2.getFormaPagamento().getParcelas())));
-    }
-
 	 */
-}
+

@@ -6,6 +6,9 @@ import com.api.pagamento.domain.builder.request.transacao.TransacaoRequestDtoBui
 import com.api.pagamento.domain.builder.response.transacao.TransacaoResponseDtoBuilder;
 import com.api.pagamento.domain.dto.request.transacao.TransacaoRequestDto;
 import com.api.pagamento.domain.dto.response.transacao.TransacaoResponseDto;
+import com.api.pagamento.domain.exception.handler.http.HttpExceptionHandler;
+import com.api.pagamento.domain.exception.http.BadRequestException;
+import com.api.pagamento.domain.exception.http.NotFoundException;
 import com.api.pagamento.service.dto.transacao.TransacaoDtoService;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -15,6 +18,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -22,8 +26,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import java.time.LocalDateTime;
 
 import static com.api.pagamento.domain.constant.utils.pattern.PatternConstants.FORMATTER_DATA_HORA_PT_BR;
-import static java.lang.System.exit;
 import static org.hamcrest.core.Is.is;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -44,11 +48,11 @@ class TransacaoControllerTest {
 
 	@BeforeEach
 	void setUp() {
-		mockMvc = MockMvcBuilders.standaloneSetup(transacaoController).build();
+		mockMvc = MockMvcBuilders.standaloneSetup(transacaoController).setControllerAdvice(HttpExceptionHandler.class).build();
 	}
 
 	@Test
-	void QuandoOPagarEhChamadoEleDeveSerExecutado() throws Exception {
+	void QuandoUmaTransacaoEhSolicitadaElaDeveSerRealizada() throws Exception {
 
 		//Dado
 		TransacaoRequestDto transacaoRequestDto = TransacaoRequestDtoBuilder.toTransacaoRequestDto();
@@ -72,35 +76,49 @@ class TransacaoControllerTest {
 				.andExpect(jsonPath("$.formaPagamento.tipo", is(transacaoResponseDto.getFormaPagamento().getTipo().toString())))
 				.andExpect(jsonPath("$.formaPagamento.parcelas", is(transacaoResponseDto.getFormaPagamento().getParcelas())));
 	}
+
+	@Test
+	void QuandoUmaTransacaoEhBuscadaPeloIdENaoEhEncontradaUmaExcecaoDeveSerRetornada() throws Exception {
+
+		// Dado
+		Long id = 1L;
+
+		//When
+		when(transacaoService.buscarTransacao(id)).thenThrow(NotFoundException.class);
+
+		// Então
+		mockMvc.perform(get("/transacao/v1/buscar/{id}", 1).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isNotFound())
+				.andExpect(result -> assertTrue(result.getResolvedException() instanceof NotFoundException));
+
+	}
+
+	@Test
+	void QuandoUmaTransacaoEhBuscadaPeloIdElaDeveSerRetornada() throws Exception {
+
+		//Dado
+		Long id = 1L;
+		TransacaoResponseDto transacaoResponseDto = TransacaoResponseDtoBuilder.toTransacaoResponseDto();
+
+		//Quando
+		when(transacaoService.buscarTransacao(id)).thenReturn(transacaoResponseDto);
+
+		// Então
+		String jsonResponse = gson.toJson(transacaoResponseDto);
+		mockMvc.perform(get("/transacao/v1/buscar/{id}", id).contentType(MediaType.APPLICATION_JSON).content(jsonResponse))
+				.andExpect(status().isOk())
+				.andExpect(jsonPath("$.id", is(transacaoResponseDto.getId())))
+				.andExpect(jsonPath("$.cartao", is(transacaoResponseDto.getCartao())))
+				.andExpect(jsonPath("$.descricao.valor", is(transacaoResponseDto.getDescricao().getValor())))
+				.andExpect(jsonPath("$.descricao.dataHora", is(transacaoResponseDto.getDescricao().getDataHora().format(FORMATTER_DATA_HORA_PT_BR))))
+				.andExpect(jsonPath("$.descricao.estabelecimento", is(transacaoResponseDto.getDescricao().getEstabelecimento())))
+				.andExpect(jsonPath("$.descricao.nsu", is(transacaoResponseDto.getDescricao().getNsu())))
+				.andExpect(jsonPath("$.descricao.codigoAutorizacao", is(transacaoResponseDto.getDescricao().getCodigoAutorizacao())))
+				.andExpect(jsonPath("$.descricao.status", is(transacaoResponseDto.getDescricao().getStatus().toString())))
+				.andExpect(jsonPath("$.formaPagamento.tipo", is(transacaoResponseDto.getFormaPagamento().getTipo().toString())))
+				.andExpect(jsonPath("$.formaPagamento.parcelas", is(transacaoResponseDto.getFormaPagamento().getParcelas())));
+	}
+
 	/*
-    // Quando uma transacao é chamada pelo id e não é encontrada, uma exceção deve ser retornada
-    @Test
-    void whenTransactionIsCalledByIdAndNotFoundThenAnExceptionIsReturned() throws Exception {
-
-        // Dado
-
-            Long id = 1L;
-
-        //When
-
-            //transacaoService.procurarPeloId(id) -> TransacaoInexistenteException()
-            when(transacaoService.procurarPeloId(id))
-                    .thenThrow(TransacaoInexistenteException.class);
-
-        // Então
-
-            //perform: Executa o get /transacao/v1/1
-            //contentType: Define que o tipo do conteúdo é JSON
-            //andExpect: Espera-se que o post retorne o status BadRequest
-
-            mockMvc.perform(get("/transacao/v1/1")
-                            .contentType(MediaType.APPLICATION_JSON))
-                    .andExpect(status().isNotFound())
-                    .andExpect(result -> assertTrue(result.getResolvedException() instanceof TransacaoInexistenteException))
-        ;
-
-    }
-
     // Quando um pagamento não é chamado com todos os campos obrigatórios, uma exceção deve ser retornada
     @Test
     void whenPaymentWithoutAllFieldsIsCalledThenAnExceptionIsReturned() throws Exception {

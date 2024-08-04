@@ -1,5 +1,6 @@
-package com.api.pagamento.service.transacao;
+package com.api.pagamento.service.dto;
 
+import com.api.pagamento.service.model.TransacaoModelService;
 import com.api.pagamento.service.util.transacao.TransacaoUtilService;
 import com.api.pagamento.service.util.validation.transacao.TransacaoValidationUtilService;
 import com.api.pagamento.domain.converter.transacao.TransacaoConverter;
@@ -45,17 +46,17 @@ public class TransacaoDtoService {
     public TransacaoResponseDto pagar(TransacaoRequestDto request) {
         transacaoValidationUtilService.validarTipoPagamentoAoPagar(request);
 
-        TransacaoResponseDto transacaoDTO = transacaoConverter.requestToResponse(request);
+        TransacaoResponseDto transacaoResponseDto = transacaoConverter.requestToResponse(request);
 
-        transacaoDTO.getDescricao().setNsu(transacaoUtilService.obterNsu());
-        transacaoDTO.getDescricao().setCodigoAutorizacao(transacaoUtilService.obterCodigoAutorizacao());
-        transacaoDTO.getDescricao().setStatus(transacaoUtilService.obterStatusAoPagar());
+        transacaoResponseDto.getDescricao().setNsu(transacaoUtilService.obterNsu());
+        transacaoResponseDto.getDescricao().setCodigoAutorizacao(transacaoUtilService.obterCodigoAutorizacao());
+        transacaoResponseDto.getDescricao().setStatus(transacaoUtilService.obterStatusAoPagar());
 
-        Transacao transacaoNaoSalva = transacaoConverter.responseToModel(transacaoDTO);
+        Transacao transacaoNaoSalva = transacaoConverter.responseToModel(transacaoResponseDto);
         Long id = transacaoModelService.salvarTransacao(transacaoNaoSalva);
-        transacaoDTO.setId(id.toString());
+        transacaoResponseDto.setId(id.toString());
 
-        return transacaoDTO;
+        return transacaoResponseDto;
     }
 
     /**

@@ -1,86 +1,75 @@
-/*
 package com.api.pagamento.service;
 
-import com.api.pagamento.builder.request.TransacaoDTOBuilder;
-import com.api.pagamento.domain.dto.transacao.TransacaoDTO;
-import com.api.pagamento.domain.enumeration.transacao.descricao.StatusEnum;
-import com.api.pagamento.domain.exception.transacao.InsercaoNaoPermitidaException;
-import com.api.pagamento.domain.exception.transacao.TransacaoInexistenteException;
+import com.api.pagamento.domain.builder.request.transacao.TransacaoRequestDtoBuilder;
+import com.api.pagamento.domain.builder.response.transacao.TransacaoResponseDtoBuilder;
+import com.api.pagamento.domain.converter.transacao.TransacaoConverter;
+import com.api.pagamento.domain.dto.request.transacao.TransacaoRequestDto;
+import com.api.pagamento.domain.dto.response.transacao.TransacaoResponseDto;
 import com.api.pagamento.domain.model.transacao.Transacao;
-import com.api.pagamento.infraestruture.repository.transacao.descricao.DescricaoRepository;
-import com.api.pagamento.infraestruture.repository.transacao.TransacaoRepository;
-import com.api.pagamento.service.dto.transacao.TransacaoDtoServiceImp;
-import com.api.pagamento.service.util.ModelMapperUtilService;
+import com.api.pagamento.service.dto.TransacaoDtoService;
+import com.api.pagamento.service.model.TransacaoModelService;
+import com.api.pagamento.service.util.transacao.TransacaoUtilService;
+import com.api.pagamento.service.util.validation.transacao.TransacaoValidationUtilService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-
-import javax.validation.ConstraintViolationException;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
+import org.modelmapper.ModelMapper;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.core.Is.is;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
+import static org.hamcrest.core.Is.is;
 
 @ExtendWith(MockitoExtension.class)
 class TransacaoServiceTest {
-    @Mock
-    private TransacaoRepository transacaoRepository;
 
-    @Mock
-    private DescricaoRepository descricaoRepository;
+	private final TransacaoConverter transacaoConverterReal = new TransacaoConverter(new ModelMapper());
 
     @InjectMocks
-    private TransacaoDtoServiceImp transacaoService;
-
+    private TransacaoDtoService transacaoDtoService;
+	@Mock
+	@SuppressWarnings("unused")
+	private TransacaoValidationUtilService transacaoValidationUtilService;
+	@Mock
+	private TransacaoUtilService transacaoUtilService;
+	@Mock
+	private TransacaoConverter transacaoConverter;
+	@Mock
+	private TransacaoModelService transacaoModelService;
 
     @Test
-    void whenPaymentInformedThenItShouldBeCreated() throws InsercaoNaoPermitidaException {
+    void QuandoUmaTransacaoEhSolicitadaElaDeveSerRealizada(){
 
         // Dado
+		TransacaoRequestDto transacaoRequestDto = TransacaoRequestDtoBuilder.toTransacaoRequestDto();
+		TransacaoResponseDto transacaoResponseDtoEsperada = TransacaoResponseDtoBuilder.toTransacaoResponseDto();
 
-            //Gera um TransacaoDTO
-            TransacaoDTO expectedTransacaoDTO = TransacaoDTOBuilder.builder().build().toTransacaoDTO();
+		Transacao transacaoModelNaoSalva = transacaoConverterReal.responseToModel(transacaoResponseDtoEsperada);
 
-            //Tranforma o TransacaoDTO em um Transacao
-            Transacao transacao = (Transacao) ModelMapperUtilService.convert(expectedTransacaoDTO, Transacao.class);
-
-            transacao.setId(null);
-            transacao.getDescricao().setId(null);
-            transacao.getFormaPagamento().setId(null);
-
-        //Quando
-
-            //transacaoService.save( -> transacaoRepository.save(expectedTransacao) -> expectedTransacao
-            when(transacaoRepository
-                    .save(transacao))
-                    .thenReturn((Transacao) ModelMapperUtilService.convert(expectedTransacaoDTO,Transacao.class));
+		//Quando
+		when(transacaoConverter.requestToResponse(transacaoRequestDto)).thenReturn(transacaoResponseDtoEsperada);
+		when(transacaoUtilService.obterNsu()).thenReturn(transacaoResponseDtoEsperada.getDescricao().getNsu());
+		when(transacaoUtilService.obterCodigoAutorizacao()).thenReturn(transacaoResponseDtoEsperada.getDescricao().getCodigoAutorizacao());
+		when(transacaoUtilService.obterStatusAoPagar()).thenReturn(transacaoResponseDtoEsperada.getDescricao().getStatus());
+		when(transacaoConverter.responseToModel(transacaoResponseDtoEsperada)).thenReturn(transacaoModelNaoSalva);
+		when(transacaoModelService.salvarTransacao(transacaoModelNaoSalva)).thenReturn(1L);
 
         // Então
+		TransacaoResponseDto transacaoResponseDtoRetornada  = transacaoDtoService.pagar(transacaoRequestDto);
+		assertThat(transacaoResponseDtoRetornada.getId(), is(equalTo(transacaoResponseDtoEsperada.getId())));
+		assertThat(transacaoResponseDtoRetornada.getCartao(), is(equalTo(transacaoResponseDtoEsperada.getCartao())));
+		assertThat(transacaoResponseDtoRetornada.getDescricao().getValor(), is(equalTo(transacaoResponseDtoEsperada.getDescricao().getValor())));
+		assertThat(transacaoResponseDtoRetornada.getDescricao().getDataHora(), is(equalTo(transacaoResponseDtoEsperada.getDescricao().getDataHora())));
+		assertThat(transacaoResponseDtoRetornada.getDescricao().getEstabelecimento(), is(equalTo(transacaoResponseDtoEsperada.getDescricao().getEstabelecimento())));
+		assertThat(transacaoResponseDtoRetornada.getDescricao().getNsu(), is(equalTo(transacaoResponseDtoEsperada.getDescricao().getNsu())));
+		assertThat(transacaoResponseDtoRetornada.getDescricao().getCodigoAutorizacao(), is(equalTo(transacaoResponseDtoEsperada.getDescricao().getCodigoAutorizacao())));
+		assertThat(transacaoResponseDtoRetornada.getDescricao().getStatus(), is(equalTo(transacaoResponseDtoEsperada.getDescricao().getStatus())));
+		assertThat(transacaoResponseDtoRetornada.getFormaPagamento().getTipo(), is(equalTo(transacaoResponseDtoEsperada.getFormaPagamento().getTipo())));
+		assertThat(transacaoResponseDtoRetornada.getFormaPagamento().getParcelas(), is(equalTo(transacaoResponseDtoEsperada.getFormaPagamento().getParcelas())));
+	}
 
-            //Cria um TransacaoDTO
-            TransacaoDTO createdTransacaoDTO  = transacaoService.pagar(transacao);
-
-            //Verifica se o atributo id do createdTransacaoDTO é igual ao atributo id do expectedDTO
-            assertThat(createdTransacaoDTO.getId(), is(equalTo(expectedTransacaoDTO.getId())));
-            assertThat(createdTransacaoDTO.getCartao(), is(equalTo(expectedTransacaoDTO.getCartao())));
-            assertThat(createdTransacaoDTO.getDescricao().getId(), is(equalTo(expectedTransacaoDTO.getDescricao().getId())));
-            assertThat(createdTransacaoDTO.getDescricao().getValor(), is(equalTo(expectedTransacaoDTO.getDescricao().getValor())));
-            assertThat(createdTransacaoDTO.getDescricao().getDataHora(), is(equalTo(expectedTransacaoDTO.getDescricao().getDataHora())));
-            assertThat(createdTransacaoDTO.getDescricao().getEstabelecimento(), is(equalTo(expectedTransacaoDTO.getDescricao().getEstabelecimento())));
-            assertThat(createdTransacaoDTO.getFormaPagamento().getId(), is(equalTo(expectedTransacaoDTO.getFormaPagamento().getId())));
-            assertThat(createdTransacaoDTO.getFormaPagamento().getTipo(), is(equalTo(expectedTransacaoDTO.getFormaPagamento().getTipo())));
-            assertThat(createdTransacaoDTO.getFormaPagamento().getParcelas(), is(equalTo(expectedTransacaoDTO.getFormaPagamento().getParcelas())));
-
-    }
-
+	/*
     // Quando uma transacao é informada pelo id e não é encontrada, uma exceção deve ser retornada
     @Test
     void whenTransactionIsInformedByIdAndNotFoundThenAnExceptionIsReturned()  {
@@ -282,6 +271,6 @@ class TransacaoServiceTest {
         }
 
     }
+	*/
 
 }
-*/

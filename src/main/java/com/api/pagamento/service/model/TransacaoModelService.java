@@ -1,8 +1,8 @@
-package com.api.pagamento.service.transacao;
+package com.api.pagamento.service.model;
 
 import com.api.pagamento.domain.exception.http.NotFoundException;
 import com.api.pagamento.domain.model.transacao.Transacao;
-import com.api.pagamento.infrastructure.repository.transacao.TransacaoRepository;
+import com.api.pagamento.infra.repository.transacao.TransacaoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

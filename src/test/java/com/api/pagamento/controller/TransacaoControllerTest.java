@@ -8,7 +8,7 @@ import com.api.pagamento.domain.dto.response.transacao.TransacaoResponseDto;
 import com.api.pagamento.domain.enumeration.transacao.descricao.StatusTransacaoEnum;
 import com.api.pagamento.domain.exception.handler.http.HttpExceptionHandler;
 import com.api.pagamento.domain.exception.http.NotFoundException;
-import com.api.pagamento.service.transacao.TransacaoDtoService;
+import com.api.pagamento.service.dto.TransacaoDtoService;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.junit.jupiter.api.BeforeEach;
@@ -181,7 +181,7 @@ class TransacaoControllerTest {
 		String jsonResponse = gson.toJson(transacaoResponseDto);
 		mockMvc.perform(post("/transacao/v1/pagar").contentType(MediaType.APPLICATION_JSON).content(jsonResponse))
 				.andExpect(status().isBadRequest())
-				.andExpect(result -> assertTrue(result.getResolvedException() instanceof MethodArgumentNotValidException));;
+				.andExpect(result -> assertTrue(result.getResolvedException() instanceof MethodArgumentNotValidException));
 
 	}
 

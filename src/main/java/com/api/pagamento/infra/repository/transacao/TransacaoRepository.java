@@ -1,4 +1,4 @@
-package com.api.pagamento.infrastructure.repository.transacao;
+package com.api.pagamento.infra.repository.transacao;
 
 import com.api.pagamento.domain.model.transacao.Transacao;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -35,9 +35,9 @@ public class TransacaoController {
 	/**
 	 * Busca uma transação pelo id
 	 *
+	 * @author Euller Henrique
 	 * @param id
 	 * 		Id da transação
-	 * @author Euller Henrique
 	 */
 	@Operation(summary = "Busca uma transação pelo id")
 	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = SucessConstants.SUCESSO_200_OPERACAO_REALIZADA, content = {
@@ -63,8 +63,8 @@ public class TransacaoController {
 	/**
 	 * Busca todas as transações
 	 *
-	 * @return List<TransacaoDTO> Lista de transações
 	 * @author Euller Henrique
+	 * @return List<TransacaoDTO> Lista de transações
 	 */
 	@Operation(summary = "Busca todas as transações")
 	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = SucessConstants.SUCESSO_200_OPERACAO_REALIZADA, content = {
@@ -90,9 +90,9 @@ public class TransacaoController {
 	/**
 	 * Realiza um pagamento
 	 *
+	 * @author Euller Henrique
 	 * @param request
 	 * 		Objeto que contém os dados da transação
-	 * @author Euller Henrique
 	 */
 	@Operation(summary = "Realiza um pagamento")
 	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = SucessConstants.SUCESSO_200_OPERACAO_REALIZADA, content = {
@@ -120,9 +120,9 @@ public class TransacaoController {
 	/**
 	 * Realiza um estorno
 	 *
+	 * @author Euller Henrique
 	 * @param id
 	 * 		Id da transação
-	 * @author Euller Henrique
 	 */
 	@Operation(summary = "Realiza um estorno")
 	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = SucessConstants.SUCESSO_200_OPERACAO_REALIZADA, content = {

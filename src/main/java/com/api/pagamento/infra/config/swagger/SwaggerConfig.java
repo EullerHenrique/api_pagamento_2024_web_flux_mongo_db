@@ -1,5 +1,9 @@
 package com.api.pagamento.infra.config.swagger;
 
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.Contact;
+import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.info.License;
 import org.springdoc.core.models.GroupedOpenApi;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -8,33 +12,33 @@ import org.springframework.context.annotation.Configuration;
  * Classe de configuração do Swagger
  *
  * @author Euller Henrique
-*/
+ */
 @Configuration
 public class SwaggerConfig {
 
+	/**
+	 * Cria um grupo de documentação para a API de transação
+	 *
+	 * @return GroupedOpenApi
+	 * @author Euller Henrique
+	 */
 	@Bean
-	public GroupedOpenApi customGroupedOpenApi() {
-		return GroupedOpenApi.builder()
-				.group("transacao")
-				.packagesToScan("com.api.pagamento.app.controller")
-				.pathsToMatch("/transacao/**")
+	public GroupedOpenApi criarDocGrupoTransacao() {
+		return GroupedOpenApi.builder().group("transacao").packagesToScan("com.api.pagamento.app.controller").pathsToMatch("/transacao/**")
 				.build();
 	}
 
-	/*
 	/**
-	 * Define as informações da API
+	 * Cria as informações da API
 	 *
 	 * @author Euller Henrique
-	 * @return ApiInfo
-
-	private ApiInfo apiInfo() {
-		return new ApiInfoBuilder().title("API De Pagamento").description("Data de entrega: 06/08/24").version("2.0.0")
-				.contact(new Contact("Euller Henrique", "https://github.com/EullerHenrique", "eullerhenrique@outlook.com")).build();
-	}
-
+	 * @return OpenAPI
 	 */
-
-
+	@Bean
+	public OpenAPI criarInfoApi() {
+		return new OpenAPI().info(new Info().title("API De Pagamento").description("Data de entrega: 06/08/24").version("2.0.0")
+				.contact(new Contact().name("Euller Henrique").url("https://github.com/EullerHenrique").email("eullerhenrique@outlook.com"))
+				.license(new License().name("Apache 2.0").url("http://springdoc.org")));
+	}
 
 }

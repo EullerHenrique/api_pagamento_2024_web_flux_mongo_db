@@ -1,13 +1,11 @@
 package com.api.pagamento.domain.dto.request.transacao.forma_pagamento;
 
 import com.api.pagamento.domain.enumeration.transacao.forma_pagamento.TipoPagamentoEnum;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
-
 import static com.api.pagamento.domain.constant.sucess_error.error.word.WordErrorConstants.*;
 
 /**

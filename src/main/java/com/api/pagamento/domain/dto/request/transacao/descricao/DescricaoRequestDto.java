@@ -1,10 +1,12 @@
 package com.api.pagamento.domain.dto.request.transacao.descricao;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import javax.validation.constraints.*;
 
 import java.time.LocalDateTime;
 

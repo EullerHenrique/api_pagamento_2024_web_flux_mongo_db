@@ -2,14 +2,12 @@ package com.api.pagamento.domain.dto.request.transacao;
 
 import com.api.pagamento.domain.dto.request.transacao.descricao.DescricaoRequestDto;
 import com.api.pagamento.domain.dto.request.transacao.forma_pagamento.FormaPagamentoRequestDto;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
-
 import static com.api.pagamento.domain.constant.sucess_error.error.word.WordErrorConstants.*;
 
 /**

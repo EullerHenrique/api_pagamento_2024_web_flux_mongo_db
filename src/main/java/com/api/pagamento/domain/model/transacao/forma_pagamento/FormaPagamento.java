@@ -1,14 +1,13 @@
 package com.api.pagamento.domain.model.transacao.forma_pagamento;
 
 import com.api.pagamento.domain.enumeration.transacao.forma_pagamento.TipoPagamentoEnum;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicUpdate;
-
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 
 import java.io.Serializable;
 

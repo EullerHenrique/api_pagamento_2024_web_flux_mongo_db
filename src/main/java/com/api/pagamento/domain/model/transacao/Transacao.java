@@ -2,15 +2,14 @@ package com.api.pagamento.domain.model.transacao;
 
 import com.api.pagamento.domain.model.transacao.descricao.Descricao;
 import com.api.pagamento.domain.model.transacao.forma_pagamento.FormaPagamento;
+import jakarta.persistence.*;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicUpdate;
-
-import javax.persistence.*;
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**

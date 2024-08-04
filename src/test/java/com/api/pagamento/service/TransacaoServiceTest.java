@@ -1,7 +1,7 @@
 /*
 package com.api.pagamento.service;
 
-import com.api.pagamento.builder.TransacaoDTOBuilder;
+import com.api.pagamento.builder.request.TransacaoDTOBuilder;
 import com.api.pagamento.domain.dto.transacao.TransacaoDTO;
 import com.api.pagamento.domain.enumeration.transacao.descricao.StatusEnum;
 import com.api.pagamento.domain.exception.transacao.InsercaoNaoPermitidaException;
@@ -78,35 +78,6 @@ class TransacaoServiceTest {
             assertThat(createdTransacaoDTO.getFormaPagamento().getId(), is(equalTo(expectedTransacaoDTO.getFormaPagamento().getId())));
             assertThat(createdTransacaoDTO.getFormaPagamento().getTipo(), is(equalTo(expectedTransacaoDTO.getFormaPagamento().getTipo())));
             assertThat(createdTransacaoDTO.getFormaPagamento().getParcelas(), is(equalTo(expectedTransacaoDTO.getFormaPagamento().getParcelas())));
-
-    }
-
-    // Quando o nsu, codigo_pagamento ou o status é informado, uma exceção deve ser lançada
-    @Test
-    void whenIdsNsuCodPagStatusInformedThenAnExceptionShouldBeThrown() {
-
-        // Dado
-
-            //Gera um TransacaoDTO
-            TransacaoDTO transacaoDTO = TransacaoDTOBuilder.builder().build().toTransacaoDTO();
-
-            //Tranforma o TransacaoDTO em um Transacao
-            Transacao transacao = (Transacao) ModelMapperUtilService.convert(transacaoDTO, Transacao.class);
-
-            transacao.setId(null);
-            transacao.getDescricao().setId(null);
-            transacao.getFormaPagamento().setId(null);
-
-        //Quando
-
-            transacao.getDescricao().setNsu("1234567890");
-            transacao.getDescricao().setCodigoAutorizacao("147258369");
-            transacao.getDescricao().setStatus(StatusEnum.AUTORIZADO);
-
-        // Então
-
-            //Verifica se transacaoService.pagar(transacao) lançou a exceção InsercaoNaoPermitidaException.class
-            assertThrows(InsercaoNaoPermitidaException.class, () -> transacaoService.pagar(transacao));
 
     }
 

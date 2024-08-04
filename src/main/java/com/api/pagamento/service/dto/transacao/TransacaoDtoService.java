@@ -51,7 +51,7 @@ public class TransacaoDtoService {
 
         Transacao transacaoNaoSalva = transacaoConverter.responseToModel(transacaoDTO);
         Long id = transacaoModelService.salvarTransacao(transacaoNaoSalva);
-        transacaoDTO.setId(id);
+        transacaoDTO.setId(id.toString());
 
         return transacaoDTO;
     }

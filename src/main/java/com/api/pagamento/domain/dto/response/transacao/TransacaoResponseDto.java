@@ -16,10 +16,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-
 public class TransacaoResponseDto {
 
-    private Long id;
+    private String id;
     private String cartao;
     private DescricaoResponseDto descricao;
     private FormaPagamentoResponseDto formaPagamento;

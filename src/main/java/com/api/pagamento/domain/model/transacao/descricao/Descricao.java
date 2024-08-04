@@ -23,7 +23,7 @@ import java.time.LocalDateTime;
 @DynamicUpdate
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "descricao")
+@Table(name = "descricao_transacao")
 public class Descricao implements Serializable {
 
     @Id

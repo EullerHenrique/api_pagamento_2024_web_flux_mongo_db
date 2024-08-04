@@ -1,16 +1,14 @@
-/*
 package com.api.pagamento.controller;
 
-import com.api.pagamento.builder.TransacaoDTOBuilder;
+import com.api.pagamento.config.gson.LocalDateTimePtbrAdapter;
 import com.api.pagamento.controller.transacao.TransacaoController;
-import com.api.pagamento.domain.dto.transacao.TransacaoDTO;
-import com.api.pagamento.domain.enumeration.transacao.descricao.StatusEnum;
-import com.api.pagamento.domain.exception.transacao.InsercaoNaoPermitidaException;
-import com.api.pagamento.domain.exception.transacao.TransacaoInexistenteException;
-import com.api.pagamento.domain.model.transacao.Transacao;
+import com.api.pagamento.domain.builder.request.transacao.TransacaoRequestDtoBuilder;
+import com.api.pagamento.domain.builder.response.transacao.TransacaoResponseDtoBuilder;
+import com.api.pagamento.domain.dto.request.transacao.TransacaoRequestDto;
+import com.api.pagamento.domain.dto.response.transacao.TransacaoResponseDto;
 import com.api.pagamento.service.dto.transacao.TransacaoDtoService;
-import com.api.pagamento.service.util.ModelMapperUtilService;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -21,11 +19,11 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.time.LocalDateTime;
 
+import static com.api.pagamento.domain.constant.utils.pattern.PatternConstants.FORMATTER_DATA_HORA_PT_BR;
+import static java.lang.System.exit;
 import static org.hamcrest.core.Is.is;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -34,108 +32,47 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith(MockitoExtension.class)
 class TransacaoControllerTest {
 
-    private MockMvc mockMvc;
+	private final Gson gson = new GsonBuilder().registerTypeAdapter(LocalDateTime.class, new LocalDateTimePtbrAdapter()).create();
 
-    @Mock
-    private TransacaoDtoService transacaoService;
+	private MockMvc mockMvc;
 
-    @InjectMocks
-    private TransacaoController transacaoController;
+	@Mock
+	private TransacaoDtoService transacaoService;
 
-    @BeforeEach
-    void setUp() {
-        mockMvc = MockMvcBuilders.standaloneSetup(transacaoController).build();
-    }
+	@InjectMocks
+	private TransacaoController transacaoController;
 
-    @Test
-    void whenPaymentIsCalledThenItShouldBeCreated() throws Exception {
+	@BeforeEach
+	void setUp() {
+		mockMvc = MockMvcBuilders.standaloneSetup(transacaoController).build();
+	}
 
-        //Dado
+	@Test
+	void QuandoOPagarEhChamadoEleDeveSerExecutado() throws Exception {
 
-        //Gera um TransacaoDTO
-        TransacaoDTO transacaoDTO = TransacaoDTOBuilder.builder().build().toTransacaoDTO();
+		//Dado
+		TransacaoRequestDto transacaoRequestDto = TransacaoRequestDtoBuilder.toTransacaoRequestDto();
+		TransacaoResponseDto transacaoResponseDto = TransacaoResponseDtoBuilder.toTransacaoResponseDto();
 
-        transacaoDTO.getDescricao().setNsu("1234567890");
-        transacaoDTO.getDescricao().setCodigoAutorizacao("147258369");
-        transacaoDTO.getDescricao().setStatus(StatusEnum.AUTORIZADO);
+		//Quando
+		when(transacaoService.pagar(transacaoRequestDto)).thenReturn(transacaoResponseDto);
 
-        //Tranforma o TransacaoDTO em um Transacao
-        Transacao transacao = (Transacao) ModelMapperUtilService.convert(transacaoDTO, Transacao.class);
-
-        transacao.setId(null);
-        transacao.getDescricao().setId(null);
-        transacao.getFormaPagamento().setId(null);
-
-        //Quando
-
-        //transacaoService.pagar(transacao) -> transacaoDTO
-        when(transacaoService.pagar(transacao))
-                .thenReturn(transacaoDTO);
-
-        // Então
-
-        //perform: Executa o post /transacao/v1/pagamento
-        //contentType: Define que o tipo do conteúdo é JSON
-        //content: Define que o conteúdo é o Json de transacaoDTO
-        //andExpect: Espera-se que o post retorne o status OK
-        //andExpect: Espera-se que $.id seja igual a transacaoDTO.getId()
-
-        mockMvc.perform(post("/transacao/v1/pagamento")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(new Gson().toJson(transacao)))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id", is(Math.toIntExact(transacaoDTO.getId()))))
-                .andExpect(jsonPath("$.cartao", is(transacaoDTO.getCartao())))
-                .andExpect(jsonPath("$.descricao.valor", is(transacaoDTO.getDescricao().getValor())))
-                .andExpect(jsonPath("$.descricao.dataHora", is(transacaoDTO.getDescricao().getDataHora())))
-                .andExpect(jsonPath("$.descricao.estabelecimento", is(transacaoDTO.getDescricao().getEstabelecimento())))
-                .andExpect(jsonPath("$.descricao.nsu", is(transacaoDTO.getDescricao().getNsu())))
-                .andExpect(jsonPath("$.descricao.codigoAutorizacao", is(transacaoDTO.getDescricao().getCodigoAutorizacao())))
-                .andExpect(jsonPath("$.descricao.status", is(transacaoDTO.getDescricao().getStatus().toString())))
-                .andExpect(jsonPath("$.formaPagamento.tipo", is(transacaoDTO.getFormaPagamento().getTipo().toString())))
-                .andExpect(jsonPath("$.formaPagamento.parcelas", is(transacaoDTO.getFormaPagamento().getParcelas())));
-
-    }
-
-    // Quando o nsu, codigo_pagamento ou o status é informado ao chamar o pagamento, uma exceção deve ser retornada
-    @Test
-    void whenPaymentInformedIdsNsuCodPagStatusInformedThenThenAnExceptionIsReturned() throws Exception {
-
-        // Dado
-
-        //Gera um BeerDTO
-        TransacaoDTO transacaoDTO = TransacaoDTOBuilder.builder().build().toTransacaoDTO();
-
-        //Tranforma o TransacaoDTO em um Transacao
-        Transacao transacao = (Transacao) ModelMapperUtilService.convert(transacaoDTO, Transacao.class);
-
-        transacao.setId(null);
-        transacao.getDescricao().setId(null);
-        transacao.getFormaPagamento().setId(null);
-
-        //When
-
-        //transacao for inválida
-
-        //transacaoService.pagar(transacao) -> InsercaoNaoPermitidaException()
-        when(transacaoService.pagar(transacao))
-                .thenThrow(InsercaoNaoPermitidaException.class);
-
-        // Então
-
-        //perform: Executa o post /transacao/v1/pagamento
-        //contentType: Define que o tipo do conteúdo é JSON
-        //andExpect: Espera-se que o post retorne o status BadRequest
-
-        mockMvc.perform(post("/transacao/v1/pagamento")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(new Gson().toJson(transacao)))
-                .andExpect(status().isBadRequest())
-                .andExpect(result -> assertTrue(result.getResolvedException() instanceof InsercaoNaoPermitidaException))
-        ;
-
-    }
-
+		// Então
+		String jsonResponse = gson.toJson(transacaoResponseDto);
+		mockMvc.perform(post("/transacao/v1/pagar").contentType(MediaType.APPLICATION_JSON).content(jsonResponse))
+				.andExpect(status().isOk())
+				.andExpect(jsonPath("$.id", is(transacaoResponseDto.getId())))
+				.andExpect(jsonPath("$.cartao", is(transacaoResponseDto.getCartao())))
+				.andExpect(jsonPath("$.descricao.valor", is(transacaoResponseDto.getDescricao().getValor())))
+				.andExpect(jsonPath("$.descricao.dataHora", is(transacaoResponseDto.getDescricao().getDataHora().format(FORMATTER_DATA_HORA_PT_BR))))
+				.andExpect(jsonPath("$.descricao.estabelecimento", is(transacaoResponseDto.getDescricao().getEstabelecimento())))
+				.andExpect(jsonPath("$.descricao.nsu", is(transacaoResponseDto.getDescricao().getNsu())))
+				.andExpect(jsonPath("$.descricao.codigoAutorizacao", is(transacaoResponseDto.getDescricao().getCodigoAutorizacao())))
+				.andExpect(jsonPath("$.descricao.status", is(transacaoResponseDto.getDescricao().getStatus().toString())))
+				.andExpect(jsonPath("$.formaPagamento.tipo", is(transacaoResponseDto.getFormaPagamento().getTipo().toString())))
+				.andExpect(jsonPath("$.formaPagamento.parcelas", is(transacaoResponseDto.getFormaPagamento().getParcelas())));
+	}
+	/*
     // Quando uma transacao é chamada pelo id e não é encontrada, uma exceção deve ser retornada
     @Test
     void whenTransactionIsCalledByIdAndNotFoundThenAnExceptionIsReturned() throws Exception {
@@ -349,5 +286,6 @@ class TransacaoControllerTest {
                     .andExpect(jsonPath("$.[1].formaPagamento.tipo", is(transacaoDTO2.getFormaPagamento().getTipo().toString())))
                     .andExpect(jsonPath("$.[1].formaPagamento.parcelas", is(transacaoDTO2.getFormaPagamento().getParcelas())));
     }
+
+	 */
 }
- */

@@ -23,7 +23,7 @@ import java.io.Serializable;
 @DynamicUpdate
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "forma_pagamento")
+@Table(name = "forma_pagamento_transacao")
 public class FormaPagamento implements Serializable {
 
     @Id

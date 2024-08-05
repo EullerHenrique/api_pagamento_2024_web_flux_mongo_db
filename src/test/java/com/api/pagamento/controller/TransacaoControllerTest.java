@@ -9,6 +9,7 @@ import com.api.pagamento.domain.dto.response.transacao.TransacaoResponseDto;
 import com.api.pagamento.domain.enumeration.transacao.descricao.StatusTransacaoEnum;
 import com.api.pagamento.domain.exception.handler.http.HttpExceptionHandler;
 import com.api.pagamento.domain.exception.http.NotFoundException;
+import com.api.pagamento.domain.exception.util.ExceptionUtil;
 import com.api.pagamento.service.dto.transacao.TransacaoDtoService;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -39,19 +40,19 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith(MockitoExtension.class)
 class TransacaoControllerTest {
 
-	private final Gson gson = new GsonBuilder().registerTypeAdapter(LocalDateTime.class, new LocalDateTimePtbrAdapter()).create();
+	private final Gson GSON = new GsonBuilder().registerTypeAdapter(LocalDateTime.class, new LocalDateTimePtbrAdapter()).create();
 
 	private MockMvc mockMvc;
 
 	@Mock
-	private TransacaoDtoService transacaoService;
+	private TransacaoDtoService transacaoDtoService;
 
 	@InjectMocks
 	private TransacaoController transacaoController;
 
 	@BeforeEach
 	void setUp() {
-		mockMvc = MockMvcBuilders.standaloneSetup(transacaoController).setControllerAdvice(HttpExceptionHandler.class).build();
+		mockMvc = MockMvcBuilders.standaloneSetup(transacaoController).setControllerAdvice(new HttpExceptionHandler(new ExceptionUtil())).build();
 	}
 
 	@Test
@@ -61,10 +62,10 @@ class TransacaoControllerTest {
 		TransacaoResponseDto transacaoResponseDto = TransacaoResponseDtoBuilder.toTransacaoResponseDto();
 
 		//Quando
-		when(transacaoService.pagar(transacaoRequestDto)).thenReturn(transacaoResponseDto);
+		when(transacaoDtoService.pagar(transacaoRequestDto)).thenReturn(transacaoResponseDto);
 
 		// Então
-		String jsonResponse = gson.toJson(transacaoResponseDto);
+		String jsonResponse = GSON.toJson(transacaoResponseDto);
 		mockMvc.perform(post("/transacao/v1/pagar").contentType(MediaType.APPLICATION_JSON).content(jsonResponse))
 				.andExpect(status().isOk()).andExpect(jsonPath("$.id", is(transacaoResponseDto.getId())))
 				.andExpect(jsonPath("$.cartao", is(transacaoResponseDto.getCartao())))
@@ -84,7 +85,7 @@ class TransacaoControllerTest {
 		Long id = 1L;
 
 		//Quando
-		when(transacaoService.buscarTransacao(id)).thenThrow(NotFoundException.class);
+		when(transacaoDtoService.buscarTransacao(id)).thenThrow(NotFoundException.class);
 
 		// Então
 		mockMvc.perform(get("/transacao/v1/buscar/{id}", 1).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isNotFound())
@@ -104,7 +105,7 @@ class TransacaoControllerTest {
 		//A anotação @Valid do Spring não permite que o objeto seja instanciado com campos nulos
 
 		// Então
-		String jsonResponse = gson.toJson(transacaoResponseDto);
+		String jsonResponse = GSON.toJson(transacaoResponseDto);
 		mockMvc.perform(post("/transacao/v1/pagar").contentType(MediaType.APPLICATION_JSON).content(jsonResponse))
 				.andExpect(status().isBadRequest())
 				.andExpect(result -> assertTrue(result.getResolvedException() instanceof MethodArgumentNotValidException));
@@ -118,10 +119,10 @@ class TransacaoControllerTest {
 		TransacaoResponseDto transacaoResponseDto = TransacaoResponseDtoBuilder.toTransacaoResponseDto();
 
 		//Quando
-		when(transacaoService.buscarTransacao(id)).thenReturn(transacaoResponseDto);
+		when(transacaoDtoService.buscarTransacao(id)).thenReturn(transacaoResponseDto);
 
 		// Então
-		String jsonResponse = gson.toJson(transacaoResponseDto);
+		String jsonResponse = GSON.toJson(transacaoResponseDto);
 		mockMvc.perform(get("/transacao/v1/buscar/{id}", id).contentType(MediaType.APPLICATION_JSON).content(jsonResponse))
 				.andExpect(status().isOk()).andExpect(jsonPath("$.id", is(transacaoResponseDto.getId())))
 				.andExpect(jsonPath("$.cartao", is(transacaoResponseDto.getCartao())))
@@ -143,10 +144,10 @@ class TransacaoControllerTest {
 		}
 
 		//Quando
-		when(transacaoService.listarTransacoes()).thenReturn(transacoesResponseDto);
+		when(transacaoDtoService.listarTransacoes()).thenReturn(transacoesResponseDto);
 
 		// Então
-		String jsonResponse = gson.toJson(transacoesResponseDto);
+		String jsonResponse = GSON.toJson(transacoesResponseDto);
 		mockMvc.perform(get("/transacao/v1/listar").contentType(MediaType.APPLICATION_JSON).content(jsonResponse))
 				.andExpect(jsonPath("$[*].id", containsInAnyOrder(transacoesResponseDto.stream().map(TransacaoResponseDto::getId).toArray())))
 				.andExpect(jsonPath("$[*].cartao", containsInAnyOrder(transacoesResponseDto.stream().map(TransacaoResponseDto::getCartao).toArray())))
@@ -169,10 +170,10 @@ class TransacaoControllerTest {
 		transacaoResponseDto.getDescricao().setStatus(StatusTransacaoEnum.CANCELADO);
 
 		//When
-		when(transacaoService.estornar(id)).thenReturn(transacaoResponseDto);
+		when(transacaoDtoService.estornar(id)).thenReturn(transacaoResponseDto);
 
 		// Então
-		String jsonResponse = gson.toJson(transacaoResponseDto);
+		String jsonResponse = GSON.toJson(transacaoResponseDto);
 		mockMvc.perform(put("/transacao/v1/estornar/{id}", id).contentType(MediaType.APPLICATION_JSON).content(jsonResponse))
 				.andExpect(status().isOk()).andExpect(jsonPath("$.id", is(transacaoResponseDto.getId())))
 				.andExpect(jsonPath("$.cartao", is(transacaoResponseDto.getCartao())))

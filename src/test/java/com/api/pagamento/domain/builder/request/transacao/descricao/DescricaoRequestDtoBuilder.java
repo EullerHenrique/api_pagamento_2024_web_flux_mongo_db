@@ -9,7 +9,7 @@ public class DescricaoRequestDtoBuilder {
 
 
     @Builder.Default
-    private static Double valor = 500.50;
+    private static Double valor = 500.55;
 
     @Builder.Default
     private static LocalDateTime dataHora = LocalDateTime.of(2021, 10, 1, 10, 10, 10);

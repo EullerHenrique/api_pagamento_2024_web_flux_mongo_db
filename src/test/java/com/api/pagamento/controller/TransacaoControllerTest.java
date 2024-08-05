@@ -67,7 +67,8 @@ class TransacaoControllerTest {
 		mockMvc.perform(post("/transacao/v1/pagar").contentType(MediaType.APPLICATION_JSON).content(jsonResponse))
 				.andExpect(status().isOk()).andExpect(jsonPath("$.id", is(transacaoResponseDto.getId())))
 				.andExpect(jsonPath("$.cartao", is(transacaoResponseDto.getCartao())))
-				.andExpect(jsonPath("$.descricao.valor", is(transacaoResponseDto.getDescricao().getValor()))).andExpect(jsonPath("$.descricao.dataHora", is(transacaoResponseDto.getDescricao().getDataHora().format(FORMATTER_DATA_HORA_PT_BR))))
+				.andExpect(jsonPath("$.descricao.valor", is(transacaoResponseDto.getDescricao().getValor())))
+				.andExpect(jsonPath("$.descricao.dataHora", is(transacaoResponseDto.getDescricao().getDataHora().format(FORMATTER_DATA_HORA_PT_BR))))
 				.andExpect(jsonPath("$.descricao.estabelecimento", is(transacaoResponseDto.getDescricao().getEstabelecimento())))
 				.andExpect(jsonPath("$.descricao.nsu", is(transacaoResponseDto.getDescricao().getNsu())))
 				.andExpect(jsonPath("$.descricao.codigoAutorizacao", is(transacaoResponseDto.getDescricao().getCodigoAutorizacao())))
@@ -87,6 +88,26 @@ class TransacaoControllerTest {
 		// Então
 		mockMvc.perform(get("/transacao/v1/buscar/{id}", 1).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isNotFound())
 				.andExpect(result -> assertTrue(result.getResolvedException() instanceof NotFoundException));
+	}
+
+
+	@Test
+	void QuandoUmPagamentoEhSolicitadoComCamposPreenchidosIncorretamenteUmaExcecaoDeveSerRetornada() throws Exception {
+
+		// Dado
+		TransacaoResponseDto transacaoResponseDto = TransacaoResponseDtoBuilder.toTransacaoResponseDto();
+		transacaoResponseDto.setCartao(null);
+		transacaoResponseDto.getDescricao().setEstabelecimento(null);
+
+		//When
+		//A anotação @Valid do Spring não permite que o objeto seja instanciado com campos nulos
+
+		// Então
+		String jsonResponse = gson.toJson(transacaoResponseDto);
+		mockMvc.perform(post("/transacao/v1/pagar").contentType(MediaType.APPLICATION_JSON).content(jsonResponse))
+				.andExpect(status().isBadRequest())
+				.andExpect(result -> assertTrue(result.getResolvedException() instanceof MethodArgumentNotValidException));
+
 	}
 
 	@Test
@@ -125,19 +146,17 @@ class TransacaoControllerTest {
 
 		// Então
 		String jsonResponse = gson.toJson(transacoesResponseDto);
-		mockMvc.perform(get("/transacao/v1/listar").contentType(MediaType.APPLICATION_JSON).content(jsonResponse)).andExpect(jsonPath("$[*].id", containsInAnyOrder(transacoesResponseDto.stream().map(TransacaoResponseDto::getId).toArray())))
-				.andExpect(jsonPath("$[*].cartao", containsInAnyOrder(transacoesResponseDto.stream().map(TransacaoResponseDto::getCartao).toArray()))).andExpect(
-						jsonPath("$[*].descricao.valor", containsInAnyOrder(
-								transacoesResponseDto.stream().map(transacaoResponseDto -> transacaoResponseDto.getDescricao().getValor()).toArray()))).andExpect(jsonPath("$[*].descricao.dataHora", containsInAnyOrder(
-						transacoesResponseDto.stream().map(transacaoResponseDto -> transacaoResponseDto.getDescricao().getDataHora().format(FORMATTER_DATA_HORA_PT_BR))
-								.toArray()))).andExpect(jsonPath("$[*].descricao.estabelecimento", containsInAnyOrder(
-						transacoesResponseDto.stream().map(transacaoResponseDto -> transacaoResponseDto.getDescricao().getEstabelecimento()).toArray()))).andExpect(jsonPath("$[*].descricao.nsu", containsInAnyOrder(
-						transacoesResponseDto.stream().map(transacaoResponseDto -> transacaoResponseDto.getDescricao().getNsu()).toArray())))
-				.andExpect(jsonPath("$[*].descricao.codigoAutorizacao", containsInAnyOrder(transacoesResponseDto.stream().map(transacaoResponseDto -> transacaoResponseDto.getDescricao().getCodigoAutorizacao()).toArray()))).andExpect(
-						jsonPath("$[*].descricao.status", containsInAnyOrder(transacoesResponseDto.stream().map(transacaoResponseDto -> transacaoResponseDto.getDescricao().getStatus().toString()).toArray()))).andExpect(
-						jsonPath("$[*].formaPagamento.tipo", containsInAnyOrder(transacoesResponseDto.stream().map(transacaoResponseDto -> transacaoResponseDto.getFormaPagamento().getTipo().toString()).toArray()))).andExpect(
-						jsonPath("$[*].formaPagamento.parcelas", containsInAnyOrder(
-								transacoesResponseDto.stream().map(transacaoResponseDto -> transacaoResponseDto.getFormaPagamento().getParcelas()).toArray())));
+		mockMvc.perform(get("/transacao/v1/listar").contentType(MediaType.APPLICATION_JSON).content(jsonResponse))
+				.andExpect(jsonPath("$[*].id", containsInAnyOrder(transacoesResponseDto.stream().map(TransacaoResponseDto::getId).toArray())))
+				.andExpect(jsonPath("$[*].cartao", containsInAnyOrder(transacoesResponseDto.stream().map(TransacaoResponseDto::getCartao).toArray())))
+				.andExpect(jsonPath("$[*].descricao.valor", containsInAnyOrder(transacoesResponseDto.stream().map(transacaoResponseDto -> transacaoResponseDto.getDescricao().getValor()).toArray())))
+				.andExpect(jsonPath("$[*].descricao.dataHora", containsInAnyOrder(transacoesResponseDto.stream().map(transacaoResponseDto -> transacaoResponseDto.getDescricao().getDataHora().format(FORMATTER_DATA_HORA_PT_BR)).toArray())))
+				.andExpect(jsonPath("$[*].descricao.estabelecimento", containsInAnyOrder(transacoesResponseDto.stream().map(transacaoResponseDto -> transacaoResponseDto.getDescricao().getEstabelecimento()).toArray())))
+				.andExpect(jsonPath("$[*].descricao.nsu", containsInAnyOrder(transacoesResponseDto.stream().map(transacaoResponseDto -> transacaoResponseDto.getDescricao().getNsu()).toArray())))
+				.andExpect(jsonPath("$[*].descricao.codigoAutorizacao", containsInAnyOrder(transacoesResponseDto.stream().map(transacaoResponseDto -> transacaoResponseDto.getDescricao().getCodigoAutorizacao()).toArray())))
+				.andExpect(jsonPath("$[*].descricao.status", containsInAnyOrder(transacoesResponseDto.stream().map(transacaoResponseDto -> transacaoResponseDto.getDescricao().getStatus().toString()).toArray())))
+				.andExpect(jsonPath("$[*].formaPagamento.tipo", containsInAnyOrder(transacoesResponseDto.stream().map(transacaoResponseDto -> transacaoResponseDto.getFormaPagamento().getTipo().toString()).toArray())))
+				.andExpect(jsonPath("$[*].formaPagamento.parcelas", containsInAnyOrder(transacoesResponseDto.stream().map(transacaoResponseDto -> transacaoResponseDto.getFormaPagamento().getParcelas()).toArray())));
 	}
 
 	@Test
@@ -163,25 +182,6 @@ class TransacaoControllerTest {
 				.andExpect(jsonPath("$.descricao.status", is(StatusTransacaoEnum.CANCELADO.toString())))
 				.andExpect(jsonPath("$.formaPagamento.tipo", is(transacaoResponseDto.getFormaPagamento().getTipo().toString())))
 				.andExpect(jsonPath("$.formaPagamento.parcelas", is(transacaoResponseDto.getFormaPagamento().getParcelas())));
-
-	}
-
-	@Test
-	void QuandoUmPagamentoEhSolicitadoComCamposPreenchidosIncorretamenteUmaExcecaoDeveSerRetornada() throws Exception {
-
-		// Dado
-		TransacaoResponseDto transacaoResponseDto = TransacaoResponseDtoBuilder.toTransacaoResponseDto();
-		transacaoResponseDto.setCartao(null);
-		transacaoResponseDto.getDescricao().setEstabelecimento(null);
-
-		//When
-		//A anotação @Valid do Spring não permite que o objeto seja instanciado com campos nulos
-
-		// Então
-		String jsonResponse = gson.toJson(transacaoResponseDto);
-		mockMvc.perform(post("/transacao/v1/pagar").contentType(MediaType.APPLICATION_JSON).content(jsonResponse))
-				.andExpect(status().isBadRequest())
-				.andExpect(result -> assertTrue(result.getResolvedException() instanceof MethodArgumentNotValidException));
 
 	}
 

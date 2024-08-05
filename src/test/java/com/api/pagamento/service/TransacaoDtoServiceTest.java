@@ -9,10 +9,10 @@ import com.api.pagamento.domain.enumeration.transacao.descricao.StatusTransacaoE
 import com.api.pagamento.domain.exception.http.BadRequestException;
 import com.api.pagamento.domain.exception.http.NotFoundException;
 import com.api.pagamento.domain.model.transacao.Transacao;
-import com.api.pagamento.service.dto.TransacaoDtoService;
-import com.api.pagamento.service.model.TransacaoModelService;
+import com.api.pagamento.service.dto.transacao.TransacaoDtoService;
+import com.api.pagamento.service.model.transacao.TransacaoModelService;
 import com.api.pagamento.service.util.transacao.TransacaoUtilService;
-import com.api.pagamento.service.util.validation.transacao.TransacaoValidationUtilService;
+import com.api.pagamento.service.validator.transacao.TransacaoValidatorService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -38,7 +38,7 @@ class TransacaoDtoServiceTest {
     @InjectMocks
     private TransacaoDtoService transacaoDtoService;
 	@Mock
-	private TransacaoValidationUtilService transacaoValidationUtilService;
+	private TransacaoValidatorService transacaoValidatorService;
 	@Mock
 	private TransacaoUtilService transacaoUtilService;
 	@Mock
@@ -101,7 +101,7 @@ class TransacaoDtoServiceTest {
 		TransacaoRequestDto transacaoRequestDto = TransacaoRequestDtoBuilder.toTransacaoRequestDto();
 
 		//Quando
-		doThrow(BadRequestException.class).when(transacaoValidationUtilService).validarTipoPagamentoAoPagar(transacaoRequestDto);
+		doThrow(BadRequestException.class).when(transacaoValidatorService).validarTipoPagamentoAoPagar(transacaoRequestDto);
 
         // Então
  		assertThrows(BadRequestException.class, () -> transacaoDtoService.pagar(transacaoRequestDto));

@@ -1,29 +1,23 @@
 package com.api.pagamento.domain.dto.response.error;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
-import org.springframework.http.ResponseEntity;
+import lombok.NoArgsConstructor;
 
 /**
- * Realiza um estorno
+ * Classe responsável por armazenar a estrutura de uma mensagem de erro e retornar um ResponseEntity com ela
  *
  * @author Euller Henrique
  */
 @Data
+@Builder
 @AllArgsConstructor
+@NoArgsConstructor
 public class MessageErrorResponseDto {
-    private int status;
-    private String error;
-    private String message;
-
-    /**
-     * Realiza um estorno
-     *
-     * @author Euller Henrique
-     */
-    public static ResponseEntity<Object> obterResponseEntity(int status, String error, String message) {
-        MessageErrorResponseDto errorMessageResponse = new MessageErrorResponseDto(status, error, message);
-        return ResponseEntity.status(status).body(errorMessageResponse);
-    }
-
+	private int status;
+	private String error;
+	private String message;
 }
+
+

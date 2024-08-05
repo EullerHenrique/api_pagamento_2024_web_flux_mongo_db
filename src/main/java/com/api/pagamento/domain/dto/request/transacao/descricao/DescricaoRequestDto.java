@@ -10,11 +10,11 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
-import static com.api.pagamento.domain.constant.utils.pattern.PatternConstants.PATTERN_DATA_HORA_PT_BR;
+import static com.api.pagamento.domain.constant.util.pattern.PatternConstants.PATTERN_DATA_HORA_PT_BR;
 import static com.api.pagamento.domain.constant.sucess_error.error.word.WordErrorConstants.*;
 
 /**
- * Realiza um estorno
+ * Dto para receber os dados de requisição de descrição de uma transação
  *
  * @author Euller Henrique
  */

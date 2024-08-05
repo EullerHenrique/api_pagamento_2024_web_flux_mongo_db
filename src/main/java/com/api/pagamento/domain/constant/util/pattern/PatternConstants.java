@@ -1,9 +1,14 @@
-package com.api.pagamento.domain.constant.utils.pattern;
+package com.api.pagamento.domain.constant.util.pattern;
 
 import lombok.NoArgsConstructor;
 
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Constantes responsáveis por armazenar as constantes de padrões
+ *
+ * @author Euller Henrique
+ */
 @NoArgsConstructor(access = lombok.AccessLevel.PRIVATE)
 public class PatternConstants {
 	public static final String PATTERN_DATA_HORA_PT_BR = "dd/MM/yyyy HH:mm:ss";

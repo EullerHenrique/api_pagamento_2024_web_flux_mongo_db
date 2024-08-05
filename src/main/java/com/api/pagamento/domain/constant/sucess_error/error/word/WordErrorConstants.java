@@ -2,9 +2,14 @@ package com.api.pagamento.domain.constant.sucess_error.error.word;
 
 import lombok.NoArgsConstructor;
 
-import static com.api.pagamento.domain.constant.utils.formatter.FormatterConstants.FORMATTER_STRING;
-import static com.api.pagamento.domain.constant.utils.divider.DividerConstants.ESPACO;
+import static com.api.pagamento.domain.constant.util.formatter.FormatterConstants.FORMATTER_STRING;
+import static com.api.pagamento.domain.constant.util.divider.DividerConstants.ESPACO;
 
+/**
+ * Constantes responsáveis por armazenar as palavras para mensagens de erro
+ *
+ * @author Euller Henrique
+ */
 @NoArgsConstructor(access = lombok.AccessLevel.PRIVATE)
 public class WordErrorConstants {
 
@@ -15,11 +20,10 @@ public class WordErrorConstants {
 	public static final String EH_OBRIGATORIO = "é obrigatório!";
 	public static final String CARACTERES = "caracteres!";
 
-	public static final String O_CAMPO_XXX = "O campo" + FORMATTER_STRING;
-	public static final String NO_FORMATO_YYY = "no formato" + FORMATTER_STRING;
-	public static final String DO_TIPO_YYY = "do tipo" + FORMATTER_STRING;
-	public static final String UM_DOS_VALORES_YYY = "um dos valores:" + FORMATTER_STRING;
+	public static final String O_CAMPO_XXX = "O campo" + ESPACO + FORMATTER_STRING;
+	public static final String NO_FORMATO_YYY = "no formato" + ESPACO + FORMATTER_STRING;
+	public static final String DO_TIPO_YYY = "do tipo" + ESPACO + FORMATTER_STRING;
+	public static final String UM_DOS_VALORES_YYY = "um dos valores:" + ESPACO + FORMATTER_STRING;
 	public static final String DEVE_SER_MAIOR_QUE = DEVE_SER + ESPACO + MAIOR_QUE;
-
 
 }

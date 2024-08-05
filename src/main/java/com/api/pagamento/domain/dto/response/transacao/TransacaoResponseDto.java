@@ -8,7 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * Realiza um estorno
+ * Dto para receber os dados de resposta da uma transação
  *
  * @author Euller Henrique
  */

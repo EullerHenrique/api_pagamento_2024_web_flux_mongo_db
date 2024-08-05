@@ -8,7 +8,7 @@ import com.api.pagamento.domain.dto.response.error.MessageErrorResponseDto;
 import com.api.pagamento.domain.exception.http.BadRequestException;
 import com.api.pagamento.domain.exception.http.InternalServerException;
 import com.api.pagamento.domain.exception.http.NotFoundException;
-import com.api.pagamento.service.dto.TransacaoDtoService;
+import com.api.pagamento.service.dto.transacao.TransacaoDtoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * Realiza um estorno
+ * Controller responsável por expor os endpoints relacionados a transação
  *
  * @author Euller Henrique
  */
@@ -35,9 +35,11 @@ public class TransacaoController {
 	/**
 	 * Busca uma transação pelo id
 	 *
-	 * @author Euller Henrique
 	 * @param id
 	 * 		Id da transação
+	 * @return ResponseEntity<Object>
+	 *     ResponseEntity com a transação encontrada
+	 * @author Euller Henrique
 	 */
 	@Operation(summary = "Busca uma transação pelo id")
 	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = SucessConstants.SUCESSO_200_OPERACAO_REALIZADA, content = {
@@ -63,8 +65,9 @@ public class TransacaoController {
 	/**
 	 * Busca todas as transações
 	 *
+	 * @return ResponseEntity<Object>
+	 *     ResponseEntity com todas as transações encontradas
 	 * @author Euller Henrique
-	 * @return List<TransacaoDTO> Lista de transações
 	 */
 	@Operation(summary = "Busca todas as transações")
 	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = SucessConstants.SUCESSO_200_OPERACAO_REALIZADA, content = {
@@ -90,9 +93,11 @@ public class TransacaoController {
 	/**
 	 * Realiza um pagamento
 	 *
-	 * @author Euller Henrique
 	 * @param request
 	 * 		Objeto que contém os dados da transação
+	 * @return ResponseEntity<Object>
+	 *     	ResponseEntity com a transação realizada
+	 * @author Euller Henrique
 	 */
 	@Operation(summary = "Realiza um pagamento")
 	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = SucessConstants.SUCESSO_200_OPERACAO_REALIZADA, content = {
@@ -120,14 +125,18 @@ public class TransacaoController {
 	/**
 	 * Realiza um estorno
 	 *
-	 * @author Euller Henrique
 	 * @param id
 	 * 		Id da transação
+	 * @return ResponseEntity<Object>
+	 *     ResponseEntity com a transação estornada
+	 * @author Euller Henrique
 	 */
 	@Operation(summary = "Realiza um estorno")
 	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = SucessConstants.SUCESSO_200_OPERACAO_REALIZADA, content = {
 			@Content(mediaType = "application/json", schema = @Schema(implementation = TransacaoResponseDto.class)) }),
 			@ApiResponse(responseCode = "404", description = ErrorConstants.ERRO_404_TRANSACAO_NAO_ENCONTRADA, content = {
+					@Content(mediaType = "application/json", schema = @Schema(implementation = MessageErrorResponseDto.class)) }),
+			@ApiResponse(responseCode = "400", description = ErrorConstants.ERRO_400_CAMPOS_PREENCHIDOS_INCORRETAMENTE, content = {
 					@Content(mediaType = "application/json", schema = @Schema(implementation = MessageErrorResponseDto.class)) }),
 			@ApiResponse(responseCode = "500", description = ErrorConstants.ERRO_500_SERVIDOR_INTERNO, content = {
 					@Content(mediaType = "application/json", schema = @Schema(implementation = MessageErrorResponseDto.class)) }) })
@@ -137,7 +146,7 @@ public class TransacaoController {
 		try {
 			TransacaoResponseDto transacaoDto = transacaoDtoService.estornar(id);
 			return ResponseEntity.ok().body(transacaoDto);
-		} catch (NotFoundException ex) {
+		} catch (NotFoundException | BadRequestException ex) {
 			throw ex;
 		} catch (Exception ex) {
 			throw new InternalServerException(ex);

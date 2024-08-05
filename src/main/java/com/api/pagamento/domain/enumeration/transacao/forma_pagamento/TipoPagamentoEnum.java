@@ -3,11 +3,11 @@ package com.api.pagamento.domain.enumeration.transacao.forma_pagamento;
 import lombok.NoArgsConstructor;
 
 /**
- * Realiza um estorno
+ * Enumeração responsável por armazenar os tipos de pagamento possíveis de uma transação
  *
  * @author Euller Henrique
  */
 @NoArgsConstructor(access = lombok.AccessLevel.PRIVATE)
 public enum TipoPagamentoEnum {
-    AVISTA, PARCELADO_LOJA, PARCELADO_EMISSOR;
+    AVISTA, PARCELADO_LOJA, PARCELADO_EMISSOR
 }

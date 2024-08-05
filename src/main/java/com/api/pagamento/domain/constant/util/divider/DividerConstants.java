@@ -1,7 +1,12 @@
-package com.api.pagamento.domain.constant.utils.divider;
+package com.api.pagamento.domain.constant.util.divider;
 
 import lombok.NoArgsConstructor;
 
+/**
+ * Constantes responsáveis por armazenar as constantes de divisores
+ *
+ * @author Euller Henrique
+ */
 @NoArgsConstructor(access = lombok.AccessLevel.PRIVATE)
 public class DividerConstants {
 

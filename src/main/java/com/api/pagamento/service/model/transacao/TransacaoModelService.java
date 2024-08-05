@@ -1,4 +1,4 @@
-package com.api.pagamento.service.model;
+package com.api.pagamento.service.model.transacao;
 
 import com.api.pagamento.domain.exception.http.NotFoundException;
 import com.api.pagamento.domain.model.transacao.Transacao;

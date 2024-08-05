@@ -5,7 +5,7 @@ import com.google.gson.*;
 import java.lang.reflect.Type;
 import java.time.LocalDateTime;
 
-import static com.api.pagamento.domain.constant.utils.pattern.PatternConstants.FORMATTER_DATA_HORA_PT_BR;
+import static com.api.pagamento.domain.constant.util.pattern.PatternConstants.FORMATTER_DATA_HORA_PT_BR;
 
 public class LocalDateTimePtbrAdapter implements JsonSerializer<LocalDateTime>, JsonDeserializer<LocalDateTime> {
 	@Override

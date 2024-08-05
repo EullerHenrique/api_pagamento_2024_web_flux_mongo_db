@@ -1,9 +1,10 @@
 package com.api.pagamento.domain.exception.handler.rest;
 
-import com.api.pagamento.domain.dto.response.error.MessageErrorResponseDto;
 import com.api.pagamento.domain.enumeration.transacao.forma_pagamento.TipoPagamentoEnum;
+import com.api.pagamento.service.util.http.response.HttpResponseUtilService;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -17,12 +18,15 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static com.api.pagamento.domain.constant.sucess_error.error.ErrorConstants.*;
-import static com.api.pagamento.domain.constant.utils.pattern.PatternConstants.PATTERN_DATA_HORA_PT_BR;
-import static com.api.pagamento.domain.constant.utils.divider.DividerConstants.*;
+import static com.api.pagamento.domain.constant.util.pattern.PatternConstants.PATTERN_DATA_HORA_PT_BR;
+import static com.api.pagamento.domain.constant.util.divider.DividerConstants.*;
 import static com.api.pagamento.domain.constant.sucess_error.error.word.WordErrorConstants.*;
 
 @RestControllerAdvice
+@RequiredArgsConstructor
 public class RestExceptionHandler {
+
+	private final HttpResponseUtilService httpResponseUtilService;
 
 	/**
 	 * Realiza um estorno
@@ -37,7 +41,7 @@ public class RestExceptionHandler {
 
 		String message = O_CAMPO_XXX.formatted(field) + defaultMessage;
 
-		return MessageErrorResponseDto.obterResponseEntity(HttpStatus.BAD_REQUEST.value(), error, message);
+		return httpResponseUtilService.obterMessagerErrorResponse(HttpStatus.BAD_REQUEST.value(), error, message);
 	}
 
 	/**
@@ -67,7 +71,7 @@ public class RestExceptionHandler {
 
 		}
 
-		return MessageErrorResponseDto.obterResponseEntity(HttpStatus.BAD_REQUEST.value(), error, message);
+		return httpResponseUtilService.obterMessagerErrorResponse(HttpStatus.BAD_REQUEST.value(), error, message);
 	}
 
 }

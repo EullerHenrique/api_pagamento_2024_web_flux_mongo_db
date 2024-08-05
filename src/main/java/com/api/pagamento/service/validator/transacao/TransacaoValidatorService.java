@@ -1,4 +1,4 @@
-package com.api.pagamento.service.util.validation.transacao;
+package com.api.pagamento.service.validator.transacao;
 
 import com.api.pagamento.domain.dto.request.transacao.TransacaoRequestDto;
 import com.api.pagamento.domain.enumeration.transacao.descricao.StatusTransacaoEnum;
@@ -16,7 +16,7 @@ import static com.api.pagamento.domain.constant.sucess_error.error.ErrorConstant
  */
 @Service
 @RequiredArgsConstructor
-public class TransacaoValidationUtilService {
+public class TransacaoValidatorService {
 
 	/**
 	 * Realiza um pagamento

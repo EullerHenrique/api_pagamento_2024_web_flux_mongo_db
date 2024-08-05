@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 import static com.api.pagamento.domain.constant.sucess_error.error.word.WordErrorConstants.*;
 
 /**
- * Realiza um estorno
+ * Dto para receber os dados de requisição da forma de pagamento de uma transação
  *
  * @author Euller Henrique
  */

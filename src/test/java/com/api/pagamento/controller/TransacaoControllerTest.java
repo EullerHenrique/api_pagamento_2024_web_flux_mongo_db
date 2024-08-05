@@ -8,7 +8,7 @@ import com.api.pagamento.domain.dto.response.transacao.TransacaoResponseDto;
 import com.api.pagamento.domain.enumeration.transacao.descricao.StatusTransacaoEnum;
 import com.api.pagamento.domain.exception.handler.http.HttpExceptionHandler;
 import com.api.pagamento.domain.exception.http.NotFoundException;
-import com.api.pagamento.service.dto.TransacaoDtoService;
+import com.api.pagamento.service.dto.transacao.TransacaoDtoService;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.junit.jupiter.api.BeforeEach;
@@ -26,7 +26,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.api.pagamento.domain.constant.utils.pattern.PatternConstants.FORMATTER_DATA_HORA_PT_BR;
+import static com.api.pagamento.domain.constant.util.pattern.PatternConstants.FORMATTER_DATA_HORA_PT_BR;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.core.Is.is;
 import static org.junit.jupiter.api.Assertions.assertTrue;

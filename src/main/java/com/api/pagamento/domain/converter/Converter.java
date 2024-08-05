@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 /**
- * Classe responsável por converter um objeto de um tipo para outro
+ * Conversor responsável por converter um objeto de um tipo para outro
  *
  * @author Euller Henrique
  */

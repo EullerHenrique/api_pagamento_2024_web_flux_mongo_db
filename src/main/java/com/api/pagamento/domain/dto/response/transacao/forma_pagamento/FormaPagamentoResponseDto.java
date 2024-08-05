@@ -7,7 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * Dto para receber os dados de resposta da forma de pagamento de uma transação
+ * Dto responsável por armazenar os dados de resposta da forma de pagamento de uma transação
  *
  * @author Euller Henrique
  */

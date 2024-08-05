@@ -1,9 +1,9 @@
 package com.api.pagamento.domain.exception.handler.http;
 
 import com.api.pagamento.domain.exception.http.BadRequestException;
-import com.api.pagamento.domain.exception.http.InternalServerException;
+import com.api.pagamento.domain.exception.http.InternalServerErrorException;
 import com.api.pagamento.domain.exception.http.NotFoundException;
-import com.api.pagamento.service.util.http.response.HttpResponseUtilService;
+import com.api.pagamento.domain.exception.util.ExceptionUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,18 +13,22 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import static com.api.pagamento.domain.constant.util.divider.DividerConstants.DOIS_PONTOS;
 
 /**
- * Realiza um estorno
+ * Classe responsável por capturar exceções de erros HTTP
  *
  * @author Euller Henrique
  */
 @ControllerAdvice
 @RequiredArgsConstructor
 public class HttpExceptionHandler {
-	private final HttpResponseUtilService httpResponseUtilService;
+	private final ExceptionUtil httpResponseUtilService;
 
 	/**
-	 * Realiza um estorno
+	 * Captura a exceção de dados não encontrados
 	 *
+	 * @param ex
+	 * 		Exceção NotFoundException
+	 * @return ResponseEntity<Object>
+	 *     Retorna um objeto ResponseEntity com o status 404 e a mensagem de erro
 	 * @author Euller Henrique
 	 */
 	@ExceptionHandler(NotFoundException.class)
@@ -34,8 +38,12 @@ public class HttpExceptionHandler {
 	}
 
 	/**
-	 * Realiza um estorno
+	 * Captura a exceção de requisição inválida
 	 *
+	 * @param ex
+	 * 		Exceção BadRequestException
+	 * @return ResponseEntity<Object>
+	 *     Retorna um objeto ResponseEntity com o status 400 e a mensagem de erro
 	 * @author Euller Henrique
 	 */
 	@ExceptionHandler(BadRequestException.class)
@@ -45,12 +53,16 @@ public class HttpExceptionHandler {
 	}
 
 	/**
-	 * Realiza um estorno
+	 * Captura a exceção de erro interno do servidor
 	 *
+	 * @param ex
+	 * 		Exceção InternalServerErrorException
+	 * @return ResponseEntity<Object>
+	 *     Retorna um objeto ResponseEntity com o status 500 e a mensagem de erro
 	 * @author Euller Henrique
 	 */
-	@ExceptionHandler(InternalServerException.class)
-	public ResponseEntity<Object> handleInternalServerException(InternalServerException ex) {
+	@ExceptionHandler(InternalServerErrorException.class)
+	public ResponseEntity<Object> handleInternalServerErrorException(InternalServerErrorException ex) {
 		String[] localizedMessageSplit = ex.getLocalizedMessage().split(DOIS_PONTOS);
 		return httpResponseUtilService.obterMessagerErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), localizedMessageSplit[0],
 				localizedMessageSplit[1]);

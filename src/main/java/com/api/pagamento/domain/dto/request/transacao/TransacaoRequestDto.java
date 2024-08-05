@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 import static com.api.pagamento.domain.constant.sucess_error.error.word.WordErrorConstants.*;
 
 /**
- * Dto para receber os dados de requisição de uma transação
+ * Dto responsável por armazenar os dados de requisição de uma transação
  *
  * @author Euller Henrique
  */

@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * Classe responsável por armazenar a estrutura de uma mensagem de erro e retornar um ResponseEntity com ela
+ * Dto responsável por armazenar a estrutura de uma mensagem de erro
  *
  * @author Euller Henrique
  */

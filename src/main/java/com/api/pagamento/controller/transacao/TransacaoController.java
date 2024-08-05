@@ -1,4 +1,4 @@
-package com.api.pagamento.controller;
+package com.api.pagamento.controller.transacao;
 
 import com.api.pagamento.domain.constant.sucess_error.error.ErrorConstants;
 import com.api.pagamento.domain.constant.sucess_error.sucess.SucessConstants;
@@ -6,7 +6,7 @@ import com.api.pagamento.domain.dto.response.transacao.TransacaoResponseDto;
 import com.api.pagamento.domain.dto.request.transacao.TransacaoRequestDto;
 import com.api.pagamento.domain.dto.response.error.MessageErrorResponseDto;
 import com.api.pagamento.domain.exception.http.BadRequestException;
-import com.api.pagamento.domain.exception.http.InternalServerException;
+import com.api.pagamento.domain.exception.http.InternalServerErrorException;
 import com.api.pagamento.domain.exception.http.NotFoundException;
 import com.api.pagamento.service.dto.transacao.TransacaoDtoService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -57,7 +57,7 @@ public class TransacaoController {
 		} catch (NotFoundException ex) {
 			throw ex;
 		} catch (Exception ex) {
-			throw new InternalServerException(ex);
+			throw new InternalServerErrorException(ex);
 		}
 
 	}
@@ -85,7 +85,7 @@ public class TransacaoController {
 		} catch (NotFoundException ex) {
 			throw ex;
 		} catch (Exception ex) {
-			throw new InternalServerException(ex);
+			throw new InternalServerErrorException(ex);
 		}
 
 	}
@@ -117,7 +117,7 @@ public class TransacaoController {
 		} catch (NotFoundException | BadRequestException ex) {
 			throw ex;
 		} catch (Exception ex) {
-			throw new InternalServerException(ex);
+			throw new InternalServerErrorException(ex);
 		}
 
 	}
@@ -149,7 +149,7 @@ public class TransacaoController {
 		} catch (NotFoundException | BadRequestException ex) {
 			throw ex;
 		} catch (Exception ex) {
-			throw new InternalServerException(ex);
+			throw new InternalServerErrorException(ex);
 		}
 
 	}

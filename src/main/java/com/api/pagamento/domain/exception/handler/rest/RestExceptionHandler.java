@@ -1,7 +1,7 @@
 package com.api.pagamento.domain.exception.handler.rest;
 
 import com.api.pagamento.domain.enumeration.transacao.forma_pagamento.TipoPagamentoEnum;
-import com.api.pagamento.service.util.http.response.HttpResponseUtilService;
+import com.api.pagamento.domain.exception.util.ExceptionUtil;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import lombok.RequiredArgsConstructor;
@@ -22,15 +22,25 @@ import static com.api.pagamento.domain.constant.util.pattern.PatternConstants.PA
 import static com.api.pagamento.domain.constant.util.divider.DividerConstants.*;
 import static com.api.pagamento.domain.constant.sucess_error.error.word.WordErrorConstants.*;
 
+
+/**
+ * Classe responsável por capturar exceções de erros REST
+ *
+ * @author Euller Henrique
+ */
 @RestControllerAdvice
 @RequiredArgsConstructor
 public class RestExceptionHandler {
 
-	private final HttpResponseUtilService httpResponseUtilService;
+	private final ExceptionUtil httpResponseUtilService;
 
 	/**
-	 * Realiza um estorno
+	 * Captura a exceção de campo inválido
 	 *
+	 * @param ex
+	 * 		Exceção MethodArgumentNotValidException
+	 * @return ResponseEntity<Object>
+	 *     Retorna um objeto ResponseEntity com o status 400 e a mensagem de erro
 	 * @author Euller Henrique
 	 */
 	@ExceptionHandler(MethodArgumentNotValidException.class)
@@ -45,12 +55,16 @@ public class RestExceptionHandler {
 	}
 
 	/**
-	 * Realiza um estorno
+	 * Captura a exceção de conversão de json inválida
 	 *
+	 * @param ex
+	 * 		Exceção HttpMessageNotReadableException
+	 * @return ResponseEntity<Object>
+	 *     Retorna um objeto ResponseEntity com o status 400 e a mensagem de erro
 	 * @author Euller Henrique
 	 */
 	@ExceptionHandler(HttpMessageNotReadableException.class)
-	protected ResponseEntity<Object> handleMethodArgumentNotValidException(HttpMessageNotReadableException ex) {
+	protected ResponseEntity<Object> handleHttpMessageNotReadableException(HttpMessageNotReadableException ex) {
 		String error = ex.toString().split(DOIS_PONTOS)[0];
 		String message = ex.getCause().getMessage();
 

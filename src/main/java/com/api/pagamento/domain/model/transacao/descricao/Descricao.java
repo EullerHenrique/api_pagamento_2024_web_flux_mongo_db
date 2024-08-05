@@ -9,11 +9,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicUpdate;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- * Realiza um estorno
+ * Model responsável por representar a tabela Descricao
  *
  * @author Euller Henrique
  */
@@ -25,6 +26,9 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Table(name = "descricao_transacao")
 public class Descricao implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy= GenerationType.SEQUENCE, generator = "seq_descricao")

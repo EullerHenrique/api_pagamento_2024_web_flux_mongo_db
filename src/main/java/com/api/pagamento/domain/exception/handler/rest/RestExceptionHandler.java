@@ -1,6 +1,6 @@
 package com.api.pagamento.domain.exception.handler.rest;
 
-import com.api.pagamento.domain.enumeration.transacao.forma_pagamento.TipoPagamentoEnum;
+import com.api.pagamento.domain.enumeration.transacao.forma_pagamento.TipoPagamentoTransacaoEnum;
 import com.api.pagamento.domain.exception.util.ExceptionUtil;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
@@ -75,8 +75,8 @@ public class RestExceptionHandler {
 			String field = path.stream().map(JsonMappingException.Reference::getFieldName).collect(Collectors.joining(PONTO));
 			String typeField = invalidFormatException.getTargetType().getSimpleName();
 
-			if(TipoPagamentoEnum.class.getSimpleName().equals(typeField)) {
-				message = ERRO_400_O_CAMPO_XXX_DEVE_SER_UM_DOS_VALORES_YYY.formatted(field, Arrays.toString(TipoPagamentoEnum.values()));
+			if(TipoPagamentoTransacaoEnum.class.getSimpleName().equals(typeField)) {
+				message = ERRO_400_O_CAMPO_XXX_DEVE_SER_UM_DOS_VALORES_YYY.formatted(field, Arrays.toString(TipoPagamentoTransacaoEnum.values()));
 			} else if(LocalDateTime.class.getSimpleName().equals(typeField)) {
 				message = ERRO_400_O_CAMPO_XXX_DEVE_SER_DO_TIPO_YYY_NO_FORMATO.formatted(field, typeField, PATTERN_DATA_HORA_PT_BR);
 			} else {

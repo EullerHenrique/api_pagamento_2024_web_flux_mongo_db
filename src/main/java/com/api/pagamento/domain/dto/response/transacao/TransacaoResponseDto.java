@@ -1,7 +1,7 @@
 package com.api.pagamento.domain.dto.response.transacao;
 
-import com.api.pagamento.domain.dto.response.transacao.descricao.DescricaoResponseDto;
-import com.api.pagamento.domain.dto.response.transacao.forma_pagamento.FormaPagamentoResponseDto;
+import com.api.pagamento.domain.dto.response.transacao.descricao.DescricaoTransacaoResponseDto;
+import com.api.pagamento.domain.dto.response.transacao.forma_pagamento.FormaPagamentoTransacaoResponseDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,7 +20,7 @@ public class TransacaoResponseDto {
 
     private String id;
     private String cartao;
-    private DescricaoResponseDto descricao;
-    private FormaPagamentoResponseDto formaPagamento;
+    private DescricaoTransacaoResponseDto descricao;
+    private FormaPagamentoTransacaoResponseDto formaPagamento;
 
 }

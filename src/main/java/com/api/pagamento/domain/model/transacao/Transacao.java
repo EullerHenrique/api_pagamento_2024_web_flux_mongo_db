@@ -1,7 +1,7 @@
 package com.api.pagamento.domain.model.transacao;
 
-import com.api.pagamento.domain.model.transacao.descricao.Descricao;
-import com.api.pagamento.domain.model.transacao.forma_pagamento.FormaPagamento;
+import com.api.pagamento.domain.model.transacao.descricao.DescricaoTransacao;
+import com.api.pagamento.domain.model.transacao.forma_pagamento.FormaPagamentoTransacao;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -15,7 +15,7 @@ import java.io.Serial;
 import java.io.Serializable;
 
 /**
- * Model responsável por representar a tabela Transacao
+ * Entidade responsável por representar a tabela Transacao
  *
  * @author Euller Henrique
  */
@@ -42,11 +42,11 @@ public class Transacao implements Serializable {
     @Valid
     @NotNull
     @OneToOne(fetch = FetchType.LAZY, cascade= CascadeType.PERSIST)
-    private Descricao descricao;
+    private DescricaoTransacao descricao;
 
     @Valid
     @NotNull
     @OneToOne(fetch = FetchType.LAZY, cascade=CascadeType.PERSIST)
-    private FormaPagamento formaPagamento;
+    private FormaPagamentoTransacao formaPagamento;
 
 }

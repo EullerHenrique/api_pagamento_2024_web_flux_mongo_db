@@ -8,6 +8,6 @@ import lombok.NoArgsConstructor;
  * @author Euller Henrique
  */
 @NoArgsConstructor(access = lombok.AccessLevel.PRIVATE)
-public enum TipoPagamentoEnum {
+public enum TipoPagamentoTransacaoEnum {
     AVISTA, PARCELADO_LOJA, PARCELADO_EMISSOR
 }

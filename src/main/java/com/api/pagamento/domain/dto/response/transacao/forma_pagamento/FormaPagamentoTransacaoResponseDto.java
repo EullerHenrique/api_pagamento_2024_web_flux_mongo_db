@@ -1,6 +1,6 @@
 package com.api.pagamento.domain.dto.response.transacao.forma_pagamento;
 
-import com.api.pagamento.domain.enumeration.transacao.forma_pagamento.TipoPagamentoEnum;
+import com.api.pagamento.domain.enumeration.transacao.forma_pagamento.TipoPagamentoTransacaoEnum;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,9 +15,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class FormaPagamentoResponseDto {
+public class FormaPagamentoTransacaoResponseDto {
 
-    private TipoPagamentoEnum tipo;
+    private TipoPagamentoTransacaoEnum tipo;
     private String parcelas;
 
 }

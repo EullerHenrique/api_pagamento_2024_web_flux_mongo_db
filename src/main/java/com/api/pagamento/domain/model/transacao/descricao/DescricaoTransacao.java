@@ -14,7 +14,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- * Model responsável por representar a tabela Descricao
+ * Entidade responsável por representar a tabela Descricao
  *
  * @author Euller Henrique
  */
@@ -25,7 +25,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "descricao_transacao")
-public class Descricao implements Serializable {
+public class DescricaoTransacao implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;

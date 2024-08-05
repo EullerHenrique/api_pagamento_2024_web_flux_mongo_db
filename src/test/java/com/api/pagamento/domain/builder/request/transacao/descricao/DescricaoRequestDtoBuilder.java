@@ -1,6 +1,6 @@
 package com.api.pagamento.domain.builder.request.transacao.descricao;
 
-import com.api.pagamento.domain.dto.request.transacao.descricao.DescricaoRequestDto;
+import com.api.pagamento.domain.dto.request.transacao.descricao.DescricaoTransacaoRequestDto;
 import lombok.Builder;
 import java.time.LocalDateTime;
 
@@ -17,8 +17,8 @@ public class DescricaoRequestDtoBuilder {
     @Builder.Default
     private static String estabelecimento = "PetShop Mundo cão";
 
-    public static DescricaoRequestDto toDescricaoRequestDto() {
-        return new DescricaoRequestDto(valor, dataHora, estabelecimento);
+    public static DescricaoTransacaoRequestDto toDescricaoRequestDto() {
+        return new DescricaoTransacaoRequestDto(valor, dataHora, estabelecimento);
     }
 
 }

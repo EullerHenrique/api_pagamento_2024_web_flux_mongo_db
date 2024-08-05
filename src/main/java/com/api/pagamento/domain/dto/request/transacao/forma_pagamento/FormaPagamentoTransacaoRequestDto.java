@@ -1,6 +1,6 @@
 package com.api.pagamento.domain.dto.request.transacao.forma_pagamento;
 
-import com.api.pagamento.domain.enumeration.transacao.forma_pagamento.TipoPagamentoEnum;
+import com.api.pagamento.domain.enumeration.transacao.forma_pagamento.TipoPagamentoTransacaoEnum;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -16,10 +16,10 @@ import static com.api.pagamento.domain.constant.sucess_error.error.word.WordErro
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class FormaPagamentoRequestDto {
+public class FormaPagamentoTransacaoRequestDto {
 
 	@NotNull(message = EH_OBRIGATORIO)
-	private TipoPagamentoEnum tipo;
+	private TipoPagamentoTransacaoEnum tipo;
 
 	@NotNull(message = EH_OBRIGATORIO)
 	@Min(value = 1, message = DEVE_SER_MAIOR_QUE + 0)

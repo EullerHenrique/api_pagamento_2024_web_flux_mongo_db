@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * Controller responsável por expor os endpoints relacionados a transação
+ * Controlador responsável por expor os endpoints relacionados a transação
  *
  * @author Euller Henrique
  */

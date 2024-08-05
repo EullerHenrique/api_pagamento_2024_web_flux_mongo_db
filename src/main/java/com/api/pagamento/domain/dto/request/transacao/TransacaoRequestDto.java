@@ -1,7 +1,7 @@
 package com.api.pagamento.domain.dto.request.transacao;
 
-import com.api.pagamento.domain.dto.request.transacao.descricao.DescricaoRequestDto;
-import com.api.pagamento.domain.dto.request.transacao.forma_pagamento.FormaPagamentoRequestDto;
+import com.api.pagamento.domain.dto.request.transacao.descricao.DescricaoTransacaoRequestDto;
+import com.api.pagamento.domain.dto.request.transacao.forma_pagamento.FormaPagamentoTransacaoRequestDto;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -25,9 +25,9 @@ public class TransacaoRequestDto {
 	private String cartao;
 
 	@Valid
-	private DescricaoRequestDto descricao;
+	private DescricaoTransacaoRequestDto descricao;
 
 	@Valid
-	private FormaPagamentoRequestDto formaPagamento;
+	private FormaPagamentoTransacaoRequestDto formaPagamento;
 
 }

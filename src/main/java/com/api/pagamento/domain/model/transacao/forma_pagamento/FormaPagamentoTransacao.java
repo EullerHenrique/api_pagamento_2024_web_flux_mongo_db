@@ -1,6 +1,6 @@
 package com.api.pagamento.domain.model.transacao.forma_pagamento;
 
-import com.api.pagamento.domain.enumeration.transacao.forma_pagamento.TipoPagamentoEnum;
+import com.api.pagamento.domain.enumeration.transacao.forma_pagamento.TipoPagamentoTransacaoEnum;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -13,7 +13,7 @@ import java.io.Serial;
 import java.io.Serializable;
 
 /**
- * Model responsável por representar a tabela FormaPagamento
+ * Entidade responsável por representar a tabela FormaPagamento
  *
  * @author Euller Henrique
  */
@@ -24,7 +24,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "forma_pagamento_transacao")
-public class FormaPagamento implements Serializable {
+public class FormaPagamentoTransacao implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -36,7 +36,7 @@ public class FormaPagamento implements Serializable {
 
     @NotNull
     @Enumerated(EnumType.STRING)
-    private TipoPagamentoEnum tipo;
+    private TipoPagamentoTransacaoEnum tipo;
 
     @NotNull
     private Integer parcelas;

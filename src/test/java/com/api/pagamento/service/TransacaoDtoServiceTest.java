@@ -187,7 +187,7 @@ class TransacaoDtoServiceTest {
 		assertThat(transacaoResponseDtoRetornada.getDescricao().getEstabelecimento(), is(equalTo(transacaoResponseDtoEsperada.getDescricao().getEstabelecimento())));
 		assertThat(transacaoResponseDtoRetornada.getDescricao().getNsu(), is(equalTo(transacaoResponseDtoEsperada.getDescricao().getNsu())));
 		assertThat(transacaoResponseDtoRetornada.getDescricao().getCodigoAutorizacao(), is(equalTo(transacaoResponseDtoEsperada.getDescricao().getCodigoAutorizacao())));
-		assertThat(transacaoResponseDtoRetornada.getDescricao().getStatus(), is(equalTo(transacaoResponseDtoEsperada.getDescricao().getStatus())));
+		assertThat(transacaoResponseDtoRetornada.getDescricao().getStatus(), is(StatusTransacaoEnum.NEGADO));
 		assertThat(transacaoResponseDtoRetornada.getFormaPagamento().getTipo(), is(equalTo(transacaoResponseDtoEsperada.getFormaPagamento().getTipo())));
 		assertThat(transacaoResponseDtoRetornada.getFormaPagamento().getParcelas(), is(equalTo(transacaoResponseDtoEsperada.getFormaPagamento().getParcelas())));
 	}

@@ -105,7 +105,7 @@
   6. Valida se o valor do campo descricao.dataHora corresponde ao formato "01/01/2000 01:01:01"
   7. Valida se o valor do campo formaPagamento.tipo é válido [AVISTA, PARCELADO_LOJA, PARCELADO_EMISSOR]
   8. Valida se o valor da parcela é 1 se o tipo de pagamento for AVISTA
-- Obs:
+- Regras de negócio:
   1. Nsu é um número gerado randomicamente
   2. Código de transação é um número gerado randomicamente
   3. O status é determinado randomicamente entre duas opções [AUTORIZADO, NEGADO] 

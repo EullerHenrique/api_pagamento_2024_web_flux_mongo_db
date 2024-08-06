@@ -37,20 +37,30 @@
     1. Digite docker-compose build --no-cache para uma nova imagem da aplicação ser gerada
     2. Digite docker-compose up -d
 
-### Ide  
-1. Abra a pasta api_pagamento_2024 em uma IDE (Ex: IntelliJ IDEA) 
-2. Navegue pela IDE até ApiPagamentoApplication
-3. Aperte o botão play localizado ao lado de "public class ApiPagamentoRedisJsonApplication"
-4. A api está disponível no localhost:8080
+### Spring Boot
 
-### Mvn
-1. Abra o cmd
-2. Navegue até a pasta api_pagamento_2024
-3. Rode ./mvnw spring-boot:run
-4. A api está disponível no localhost:8080
+#### Ide
+  1. Abra a pasta api_pagamento_2024 em uma IDE (Ex: IntelliJ IDEA) 
+  2. Navegue pela IDE até ApiPagamentoApplication
+  3. Aperte o botão play localizado ao lado de "public class ApiPagamentoRedisJsonApplication"
+  4. A api está disponível no localhost:8080
+
+#### Mvn
+  1. Abra o cmd
+  2. Navegue até a pasta api_pagamento_2024
+  3. Rode ./mvnw spring-boot:run
+  4. A api está disponível no localhost:8080
+
+## Utilização
+
+### Swagger
+
+ - Os endpoints para testes e documentação estão disponíveis no host:
+    -  http://localhost:8081/swagger-ui/index.html (Docker)
+    -  http://localhost:8080/swagger-ui/index.html (Spring Boot)
 
 ## EndPoints
-  
+
   ### localhost:8081/transacao/v1/pagamento (Docker) ou localhost:8080/transacao/v1/pagamento (Spring Boot)
   
   Request:
@@ -114,7 +124,8 @@
   }
   ```
   
-  ### localhost:8081/transacao/v1/1 (Docker) ou localhost:8080/transacao/v1/1 (Spring  Boot)
+  ### localhost:8081/transacao/v1/buscar/1 (Docker) ou localhost:8080/transacao/v1/buscar/1 (Spring  Boot)
+  #### Obs: 
   
   Response:
   
@@ -137,8 +148,7 @@
   }
   ```
   
-  ### localhost:8081/transacao/v1 (Docker) ou  localhost:8080/transacao/v1 (Spring Boot)
-  
+  ### localhost:8081/transacao/v1/listar (Docker) ou  localhost:8080/transacao/v1/listar (Spring Boot)  
   Response:
   
   ```

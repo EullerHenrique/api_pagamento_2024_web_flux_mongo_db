@@ -59,9 +59,9 @@
     -  http://localhost:8081/swagger-ui/index.html (Docker)
     -  http://localhost:8080/swagger-ui/index.html (Spring Boot)
 
-## EndPoints
+### EndPoints
 
-  ### Realizar pagamento
+  #### Realizar pagamento
   - Endpoint: POST {{host}}/transacao/v1/pagar
   - Validações:
     1. Valida se não falta nenhum campo
@@ -115,7 +115,7 @@
   }
   ```
   
-  ### Realizar estorno
+  #### Realizar estorno
   - Endpoint: PUT {{host}}/transacao/v1/estornar/{{id}
   - Validações:
     1. Valida se a transação que será estornada existe
@@ -143,7 +143,7 @@
   }
   ```
   
-  ### Buscar transacao
+  #### Buscar transacao
   - Endpoint: {{host}}/transacao/v1/buscar/{{id}}
   - Response:
   
@@ -166,7 +166,7 @@
   }
   ```
   
-  ### Buscar transações
+  #### Buscar transações
   - Endpoint: {{host}}/transacao/v1/listar
   - Response:
   

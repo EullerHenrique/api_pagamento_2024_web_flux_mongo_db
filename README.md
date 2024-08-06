@@ -15,7 +15,39 @@
 - Junit
 - Mockito
 - Hamcrest
-  
+
+## Arquitetura
+
+- A estrutura foi baseada no DDD (Design direcionado ao domínio).
+- Portanto, existem 4 camadas:
+    1. Controller [Camada da interface] - Presetantion
+    2. Domain [Camada de domínio]
+    3. Service [Camada da aplicação] - Application
+    4. Config [Camada de configuração]]
+```
+  ├── config
+  ├── controller
+  ├── domain
+  │   ├── constant
+  │   ├── converter
+  │   ├── dto
+  │   │   ├── request
+  │   │   └── response
+  │   ├── enumeration
+  │   └── exception
+  │   │   ├── handler
+  |   |   |   └── http
+  |   |   |   └── rest
+  |   |   |   └── util
+  │   │   ├── http
+  │   ├── model
+  │   ├── repository
+  │   └── service
+  │       ├── dto
+  │       ├── model
+  │       ├── util
+  │       └── validator
+```
 ## Configuração
 
 ### Docker

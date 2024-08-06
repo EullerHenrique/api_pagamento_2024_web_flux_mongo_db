@@ -39,7 +39,7 @@ public class RestExceptionHandler {
 	 *
 	 * @param ex
 	 * 		Exceção MethodArgumentNotValidException
-	 * @return ResponseEntity<Object>
+	 * @return ResponseEntity
 	 *     Retorna um objeto ResponseEntity com o status 400 e a mensagem de erro
 	 * @author Euller Henrique
 	 */
@@ -56,10 +56,22 @@ public class RestExceptionHandler {
 
 	/**
 	 * Captura a exceção de conversão de json inválida
+	 * <p>
+	 *     1. Se a exceção for do tipo InvalidFormatException, o erro, o campo e o tipo do campo são capturados
+	 * </p>
+	 * <p>
+	 *     1.1 Se o tipo de dado for TipoPagamentoTransacaoEnum, a mensagem de erro é montada com os valores possíveis
+	 * </p>
+	 * <p>
+	 *     1.2 Se o tipo de dado for LocalDateTime, a mensagem de erro é montada com o formato de data e hora
+	 * </p>
+	 * <p>
+	 *     1.3 Se o tipo de dado for diferente dos anteriores, a mensagem de erro padrão é montada
+	 * </p>
 	 *
 	 * @param ex
 	 * 		Exceção HttpMessageNotReadableException
-	 * @return ResponseEntity<Object>
+	 * @return ResponseEntity
 	 *     Retorna um objeto ResponseEntity com o status 400 e a mensagem de erro
 	 * @author Euller Henrique
 	 */

@@ -27,7 +27,7 @@ public class HttpExceptionHandler {
 	 *
 	 * @param ex
 	 * 		Exceção NotFoundException
-	 * @return ResponseEntity<Object>
+	 * @return ResponseEntity
 	 *     Retorna um objeto ResponseEntity com o status 404 e a mensagem de erro
 	 * @author Euller Henrique
 	 */
@@ -42,7 +42,7 @@ public class HttpExceptionHandler {
 	 *
 	 * @param ex
 	 * 		Exceção BadRequestException
-	 * @return ResponseEntity<Object>
+	 * @return ResponseEntity
 	 *     Retorna um objeto ResponseEntity com o status 400 e a mensagem de erro
 	 * @author Euller Henrique
 	 */
@@ -57,7 +57,7 @@ public class HttpExceptionHandler {
 	 *
 	 * @param ex
 	 * 		Exceção InternalServerErrorException
-	 * @return ResponseEntity<Object>
+	 * @return ResponseEntity
 	 *     Retorna um objeto ResponseEntity com o status 500 e a mensagem de erro
 	 * @author Euller Henrique
 	 */

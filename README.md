@@ -75,7 +75,7 @@
 #### Ide
   1. Abra a pasta api_pagamento_2024 em uma IDE (Ex: IntelliJ IDEA) 
   2. Navegue pela IDE até ApiPagamentoApplication
-  3. Aperte o botão play localizado ao lado de "public class ApiPagamentoRedisJsonApplication"
+  3. Aperte o botão play localizado ao lado de "public class ApiPagamentoApplication"
   4. A api está disponível no localhost:8080
 
 #### Mvn
@@ -234,6 +234,29 @@
   ]
 ```
 
-### Testes
+### Testes 
+
+#### Testes Unitários
+- Para garantir que o fluxo do controller e do service estão corretos, testes unitários foram feitos para testá-los
+- Para executá-las:  
+  - Aperte o botão play localizado ao lado de "public class TransacaoDtoControllerTest" ou "public class TransacaoDtoServiceTest"
+  - Ou
+  - Rode o comando ./mvnw spring-boot:test
+  
+##### Controller
+- QuandoUmaTransacaoEhSolicitadaElaDeveSerRealizada
+- QuandoUmaTransacaoEhBuscadaPeloIdENaoEhEncontradaUmaExcecaoDeveSerRetornada
+- QuandoUmPagamentoEhSolicitadoComCamposPreenchidosIncorretamenteUmaExcecaoDeveSerRetornada
+- QuandoUmaTransacaoEhBuscadaPeloIdElaDeveSerRetornada
+- QuandoTransacoesSaoBuscadasElasDevemSerRetornadas
+- QuandoUmEstornoEhSolicitadoEleEhRealizado
+    
+##### Service
+- QuandoUmaTransacaoEhSolicitadaElaDeveSerRealizada
+- QuandoUmaTransacaoEhBuscadaPeloIdENaoEhEncontradaUmaExcecaoDeveSerRetornada
+- QuandoUmPagamentoEhSolicitadoComTipoAvistaEMaisDeUmaParcelaUmaExcecaoDeveSerRetornada
+- QuandoUmaTransacaoEhBuscadaPeloIdElaDeveSerRetornada
+- QuandoTransacoesSaoBuscadasElasDevemSerRetornadas
+- QuandoUmEstornoEhSolicitadoEleEhRealizado
 
 

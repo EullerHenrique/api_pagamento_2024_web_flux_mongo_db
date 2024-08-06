@@ -18,7 +18,7 @@
   
 ## Configuração
 
-## Docker
+### Docker
 1. Clone o repósitorio
 2. Instale o docker (https://www.docker.com/products/docker-desktop/)
 3. Abra o docker

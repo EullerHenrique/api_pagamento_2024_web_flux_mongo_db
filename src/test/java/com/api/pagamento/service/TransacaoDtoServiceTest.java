@@ -31,6 +31,11 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.hamcrest.core.Is.is;
 import static org.mockito.Mockito.*;
 
+/**
+ * Classe de teste responsável por realizar os testes unitários no serviço da transação
+ *
+ * @author Euller Henrique
+ */
 @ExtendWith(MockitoExtension.class)
 class TransacaoDtoServiceTest {
 
@@ -49,12 +54,22 @@ class TransacaoDtoServiceTest {
 	@Mock
 	private TransacaoModelService transacaoModelService;
 
+	/**
+	 * Método que cria os objetos a cada teste
+	 *
+	 * @author Euller Henrique
+	 */
 	@BeforeEach
 	void setUp() {
 		transacaoRequestDto = TransacaoRequestDtoBuilder.builder().build().obterTransacaoRequestDto();
 		transacaoResponseDto = TransacaoResponseDtoBuilder.builder().build().obterTransacaoResponseDto();
 	}
 
+	/**
+	 * Teste que testa o retorno do serviço pagar
+	 *
+	 * @author Euller Henrique
+	 */
     @Test
     void QuandoUmaTransacaoEhSolicitadaElaDeveSerRealizada(){
 
@@ -87,6 +102,11 @@ class TransacaoDtoServiceTest {
 		assertThat(transacaoResponseDtoRetornada.getFormaPagamento().getParcelas(), is(equalTo(transacaoResponseDto.getFormaPagamento().getParcelas())));
 	}
 
+	/**
+	 * Teste que testa uma exceção do serviço buscar
+	 *
+	 * @author Euller Henrique
+	 */
 	@Test
     void QuandoUmaTransacaoEhBuscadaPeloIdENaoEhEncontradaUmaExcecaoDeveSerRetornada()  {
         // Dado
@@ -99,6 +119,11 @@ class TransacaoDtoServiceTest {
         assertThrows(NotFoundException.class, () -> transacaoDtoService.buscarTransacao(id));
     }
 
+	/**
+	 * Teste que testa uma exceção do serviço pagar
+	 *
+	 * @author Euller Henrique
+	 */
 	@Test
     void QuandoUmPagamentoEhSolicitadoComTipoAvistaEMaisDeUmaParcelaUmaExcecaoDeveSerRetornada()  {
 		// Dado
@@ -111,6 +136,11 @@ class TransacaoDtoServiceTest {
  		assertThrows(BadRequestException.class, () -> transacaoDtoService.pagar(transacaoRequestDto));
     }
 
+	/**
+	 * Teste que testa o retorno do serviço buscar
+	 *
+	 * @author Euller Henrique
+	 */
 	@Test
 	void QuandoUmaTransacaoEhBuscadaPeloIdElaDeveSerRetornada(){
 		// Dado
@@ -136,7 +166,11 @@ class TransacaoDtoServiceTest {
 		assertThat(transacaoResponseDtoRetornada.getFormaPagamento().getParcelas(), is(equalTo(transacaoResponseDto.getFormaPagamento().getParcelas())));
 	}
 
-	//Quando a transacao não é informada, todas as transações são retornadas
+	/**
+	 * Teste que testa o retorno do serviço listar
+	 *
+	 * @author Euller Henrique
+	 */
 	@Test
 	void QuandoTransacoesSaoBuscadasElasDevemSerRetornadas() {
 		//Dado
@@ -167,6 +201,12 @@ class TransacaoDtoServiceTest {
 		}
 
 	}
+
+	/**
+	 * Teste que testa o retorno do serviço estornar
+	 *
+	 * @author Euller Henrique
+	 */
 	@Test
     void QuandoUmEstornoEhSolicitadoEleEhRealizado(){
         // Dado

@@ -37,6 +37,11 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+/**
+ * Classe de teste responsável por realizar os testes unitários no controller da transação
+ *
+ * @author Euller Henrique
+ */
 @ExtendWith(MockitoExtension.class)
 class TransacaoControllerTest {
 
@@ -51,6 +56,11 @@ class TransacaoControllerTest {
 	@InjectMocks
 	private TransacaoController transacaoController;
 
+	/**
+	 * Método que cria os objetos a cada teste
+	 *
+	 * @author Euller Henrique
+	 */
 	@BeforeEach
 	void setUp() {
 		mockMvc = MockMvcBuilders.standaloneSetup(transacaoController).setControllerAdvice(new HttpExceptionHandler(new ExceptionUtil())).build();
@@ -58,6 +68,11 @@ class TransacaoControllerTest {
 		transacaoResponseDto = TransacaoResponseDtoBuilder.builder().build().obterTransacaoResponseDto();
 	}
 
+	/**
+	 * Teste que testa o retorno do endpoint pagar
+	 *
+	 * @author Euller Henrique
+	 */
 	@Test
 	void QuandoUmaTransacaoEhSolicitadaElaDeveSerRealizada() throws Exception {
 		//Dado
@@ -81,6 +96,11 @@ class TransacaoControllerTest {
 				.andExpect(jsonPath("$.formaPagamento.parcelas", is(transacaoResponseDto.getFormaPagamento().getParcelas())));
 	}
 
+	/**
+	 * Teste que testa uma exceção do endpoint buscar
+	 *
+	 * @author Euller Henrique
+	 */
 	@Test
 	void QuandoUmaTransacaoEhBuscadaPeloIdENaoEhEncontradaUmaExcecaoDeveSerRetornada() throws Exception {
 		//Dado
@@ -94,7 +114,11 @@ class TransacaoControllerTest {
 				.andExpect(result -> assertTrue(result.getResolvedException() instanceof NotFoundException));
 	}
 
-
+	/**
+	 * Teste que testa uma exceção do endpoint pagar
+	 *
+	 * @author Euller Henrique
+	 */
 	@Test
 	void QuandoUmPagamentoEhSolicitadoComCamposPreenchidosIncorretamenteUmaExcecaoDeveSerRetornada() throws Exception {
 		//Dado
@@ -114,6 +138,11 @@ class TransacaoControllerTest {
 
 	}
 
+	/**
+	 * Teste que testa o retorno do endpoint buscar
+	 *
+	 * @author Euller Henrique
+	 */
 	@Test
 	void QuandoUmaTransacaoEhBuscadaPeloIdElaDeveSerRetornada() throws Exception {
 		//Dado
@@ -137,6 +166,11 @@ class TransacaoControllerTest {
 				.andExpect(jsonPath("$.formaPagamento.parcelas", is(transacaoResponseDto.getFormaPagamento().getParcelas())));
 	}
 
+	/**
+	 * Teste que testa o retorno do endpoint listar
+	 *
+	 * @author Euller Henrique
+	 */
 	@Test
 	void QuandoTransacoesSaoBuscadasElasDevemSerRetornadas() throws Exception {
 		//Dado
@@ -165,6 +199,11 @@ class TransacaoControllerTest {
 				.andExpect(jsonPath("$[*].formaPagamento.parcelas", containsInAnyOrder(transacoesResponseDto.stream().map(transacaoResponseDto -> transacaoResponseDto.getFormaPagamento().getParcelas()).toArray())));
 	}
 
+	/**
+	 * Teste que testa o retorno do endpoint estornar
+	 *
+	 * @author Euller Henrique
+	 */
 	@Test
 	void QuandoUmEstornoEhSolicitadoEleEhRealizado() throws Exception {
 		// Dado

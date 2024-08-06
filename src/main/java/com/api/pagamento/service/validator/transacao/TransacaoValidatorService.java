@@ -6,7 +6,7 @@ import com.api.pagamento.domain.enumeration.transacao.forma_pagamento.TipoPagame
 import com.api.pagamento.domain.exception.http.BadRequestException;
 import com.api.pagamento.domain.model.transacao.Transacao;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import static com.api.pagamento.domain.constant.sucess_error.error.ErrorConstants.*;
 
@@ -15,7 +15,7 @@ import static com.api.pagamento.domain.constant.sucess_error.error.ErrorConstant
  *
  * @author Euller Henrique
  */
-@Service
+@Component()
 @RequiredArgsConstructor
 public class TransacaoValidatorService {
 

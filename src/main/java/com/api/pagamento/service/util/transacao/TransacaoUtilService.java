@@ -2,7 +2,7 @@ package com.api.pagamento.service.util.transacao;
 
 import com.api.pagamento.domain.enumeration.transacao.descricao.StatusTransacaoEnum;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import java.util.Random;
 
@@ -11,7 +11,7 @@ import java.util.Random;
  *
  * @author Euller Henrique
  */
-@Service
+@Component()
 @RequiredArgsConstructor
 public class TransacaoUtilService {
 

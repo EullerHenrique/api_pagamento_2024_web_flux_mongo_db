@@ -4,8 +4,7 @@ import com.api.pagamento.domain.exception.http.NotFoundException;
 import com.api.pagamento.domain.model.transacao.Transacao;
 import com.api.pagamento.domain.repository.transacao.TransacaoRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-
+import org.springframework.stereotype.Component;
 import java.util.List;
 
 import static com.api.pagamento.domain.constant.sucess_error.error.ErrorConstants.ERRO_404_NENHUMA_TRANSACAO_ENCONTRADA;
@@ -17,7 +16,7 @@ import static com.api.pagamento.domain.constant.sucess_error.error.ErrorConstant
  *
  * @author Euller Henrique
  */
-@Service
+@Component()
 @RequiredArgsConstructor
 public class TransacaoModelService {
 

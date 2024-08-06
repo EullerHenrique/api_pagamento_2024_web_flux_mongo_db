@@ -63,7 +63,7 @@
 2. Instale o docker (https://www.docker.com/products/docker-desktop/)
 3. Abra o docker
 4. Abra o terminal
-5. Navegue até a api_pagamento_2024
+5. Navegue até api_pagamento_2024
 6. Digite docker-compose up -d
     1. A imagem do postgresql será executada, ou seja, se tornará um container
     2. O jar da aplicaçào será gerado, executado e inserido em uma imagem

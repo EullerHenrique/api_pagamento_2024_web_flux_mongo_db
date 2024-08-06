@@ -44,7 +44,6 @@
   │   └── exception
   │   │   ├── handler
   |   |   |   └── http
-  |   |   |   └── rest
   |   |   |   └── util
   │   │   ├── http
   │   ├── model

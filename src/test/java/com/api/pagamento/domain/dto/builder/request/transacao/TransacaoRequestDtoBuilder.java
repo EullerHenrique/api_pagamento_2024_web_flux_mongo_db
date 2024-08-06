@@ -1,7 +1,7 @@
-package com.api.pagamento.domain.builder.request.transacao;
+package com.api.pagamento.domain.dto.builder.request.transacao;
 
-import com.api.pagamento.domain.builder.request.transacao.descricao.DescricaoTransacaoRequestDtoBuilder;
-import com.api.pagamento.domain.builder.request.transacao.forma_pagamento.FormaPagamentoTransacaoRequestDtoBuilder;
+import com.api.pagamento.domain.dto.builder.request.transacao.descricao.DescricaoTransacaoRequestDtoBuilder;
+import com.api.pagamento.domain.dto.builder.request.transacao.forma_pagamento.FormaPagamentoTransacaoRequestDtoBuilder;
 import com.api.pagamento.domain.dto.request.transacao.TransacaoRequestDto;
 import com.api.pagamento.domain.dto.request.transacao.descricao.DescricaoTransacaoRequestDto;
 import com.api.pagamento.domain.dto.request.transacao.forma_pagamento.FormaPagamentoTransacaoRequestDto;

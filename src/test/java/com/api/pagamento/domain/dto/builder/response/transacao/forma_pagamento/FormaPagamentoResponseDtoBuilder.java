@@ -1,4 +1,4 @@
-package com.api.pagamento.domain.builder.response.transacao.forma_pagamento;
+package com.api.pagamento.domain.dto.builder.response.transacao.forma_pagamento;
 
 import com.api.pagamento.domain.dto.response.transacao.forma_pagamento.FormaPagamentoTransacaoResponseDto;
 import com.api.pagamento.domain.enumeration.transacao.forma_pagamento.TipoPagamentoTransacaoEnum;

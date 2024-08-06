@@ -1,10 +1,11 @@
-package com.api.pagamento.domain.builder.request.transacao.descricao;
+package com.api.pagamento.domain.dto.builder.request.transacao.descricao;
 
 import com.api.pagamento.domain.dto.request.transacao.descricao.DescricaoTransacaoRequestDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 /**
@@ -18,7 +19,7 @@ import java.time.LocalDateTime;
 public class DescricaoTransacaoRequestDtoBuilder {
 
     @Builder.Default
-    private Double valor = 500.55;
+    private BigDecimal valor = BigDecimal.valueOf(500.55);
 
     @Builder.Default
     private LocalDateTime dataHora = LocalDateTime.of(2021, 10, 1, 10, 10, 10);

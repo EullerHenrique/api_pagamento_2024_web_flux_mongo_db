@@ -69,7 +69,6 @@ public class TransacaoDtoService {
 		transacaoResponseDto.getDescricao().setNsu(transacaoUtilService.obterNsu());
 		transacaoResponseDto.getDescricao().setCodigoAutorizacao(transacaoUtilService.obterCodigoAutorizacao());
 		transacaoResponseDto.getDescricao().setStatus(transacaoUtilService.obterStatusAoPagar());
-
 		Transacao transacaoNaoSalva = converter.originToDestiny(transacaoResponseDto, Transacao.class);
 		transacaoResponseDto.setId(transacaoModelService.salvarTransacao(transacaoNaoSalva).toString());
 

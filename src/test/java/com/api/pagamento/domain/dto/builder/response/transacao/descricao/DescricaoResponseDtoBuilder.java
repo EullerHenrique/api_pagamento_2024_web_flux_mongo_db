@@ -1,4 +1,4 @@
-package com.api.pagamento.domain.builder.response.transacao.descricao;
+package com.api.pagamento.domain.dto.builder.response.transacao.descricao;
 
 import com.api.pagamento.domain.dto.response.transacao.descricao.DescricaoTransacaoResponseDto;
 import com.api.pagamento.domain.enumeration.transacao.descricao.StatusTransacaoEnum;

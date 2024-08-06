@@ -1,7 +1,7 @@
 package com.api.pagamento.service;
 
-import com.api.pagamento.domain.builder.request.transacao.TransacaoRequestDtoBuilder;
-import com.api.pagamento.domain.builder.response.transacao.TransacaoResponseDtoBuilder;
+import com.api.pagamento.domain.dto.builder.request.transacao.TransacaoRequestDtoBuilder;
+import com.api.pagamento.domain.dto.builder.response.transacao.TransacaoResponseDtoBuilder;
 import com.api.pagamento.domain.converter.Converter;
 import com.api.pagamento.domain.dto.request.transacao.TransacaoRequestDto;
 import com.api.pagamento.domain.dto.response.transacao.TransacaoResponseDto;

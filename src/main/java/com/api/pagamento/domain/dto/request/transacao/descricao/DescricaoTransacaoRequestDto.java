@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import static com.api.pagamento.domain.constant.http.message.error.word.WordErrorConstants.DEVE_SER_MAIOR_QUE;
@@ -26,7 +27,7 @@ public class DescricaoTransacaoRequestDto {
 
 	@NotNull(message = EH_OBRIGATORIO)
 	@Min(value = 1, message = DEVE_SER_MAIOR_QUE + 0)
-	private Double valor;
+	private BigDecimal valor;
 
 	@NotNull(message = EH_OBRIGATORIO)
 	@JsonFormat(pattern = PATTERN_DATA_HORA_PT_BR)

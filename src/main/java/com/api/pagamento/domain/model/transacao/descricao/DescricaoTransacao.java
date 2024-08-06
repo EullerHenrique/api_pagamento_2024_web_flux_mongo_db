@@ -11,6 +11,7 @@ import org.hibernate.annotations.DynamicUpdate;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 /**
@@ -36,7 +37,8 @@ public class DescricaoTransacao implements Serializable {
     private Long id;
 
     @NotNull
-    private Double valor;
+    @Column(precision = 10, scale = 2)
+    private BigDecimal valor;
 
     @NotNull
     private LocalDateTime dataHora;

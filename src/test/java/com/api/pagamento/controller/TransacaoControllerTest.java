@@ -1,9 +1,9 @@
 package com.api.pagamento.controller;
 
-import com.api.pagamento.config.gson.LocalDateTimePtbrAdapter;
+import com.api.pagamento.domain.convert.gson.serializer.LocalDateTimePtbrJsonSerializer;
 import com.api.pagamento.controller.transacao.TransacaoController;
-import com.api.pagamento.domain.builder.request.transacao.TransacaoRequestDtoBuilder;
-import com.api.pagamento.domain.builder.response.transacao.TransacaoResponseDtoBuilder;
+import com.api.pagamento.domain.dto.builder.request.transacao.TransacaoRequestDtoBuilder;
+import com.api.pagamento.domain.dto.builder.response.transacao.TransacaoResponseDtoBuilder;
 import com.api.pagamento.domain.dto.request.transacao.TransacaoRequestDto;
 import com.api.pagamento.domain.dto.response.transacao.TransacaoResponseDto;
 import com.api.pagamento.domain.enumeration.transacao.descricao.StatusTransacaoEnum;
@@ -45,7 +45,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith(MockitoExtension.class)
 class TransacaoControllerTest {
 
-	private final Gson GSON = new GsonBuilder().registerTypeAdapter(LocalDateTime.class, new LocalDateTimePtbrAdapter()).create();
+	private final Gson GSON = new GsonBuilder().registerTypeAdapter(LocalDateTime.class, new LocalDateTimePtbrJsonSerializer()).create();
 	private TransacaoRequestDto transacaoRequestDto;
 	private TransacaoResponseDto transacaoResponseDto;
 	private MockMvc mockMvc;

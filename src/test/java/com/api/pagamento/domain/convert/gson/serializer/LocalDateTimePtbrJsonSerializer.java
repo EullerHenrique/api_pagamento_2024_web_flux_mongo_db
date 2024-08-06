@@ -1,4 +1,4 @@
-package com.api.pagamento.config.gson;
+package com.api.pagamento.domain.convert.gson.serializer;
 
 import com.google.gson.*;
 
@@ -12,7 +12,7 @@ import static com.api.pagamento.domain.constant.pattern.PatternConstants.FORMATT
  *
  * @author Euller Henrique
  */
-public class LocalDateTimePtbrAdapter implements JsonSerializer<LocalDateTime>, JsonDeserializer<LocalDateTime> {
+public class LocalDateTimePtbrJsonSerializer implements JsonSerializer<LocalDateTime>, JsonDeserializer<LocalDateTime> {
 
 	/**
 	 * Método responsável por serializar um objeto LocalDateTime para o formato pt-br

@@ -145,7 +145,6 @@
   
   ### Buscar transacao
   - Endpoint: {{host}}/transacao/v1/buscar/{{id}}
-    
   - Response:
   
   ```
@@ -169,7 +168,6 @@
   
   ### Buscar transações
   - Endpoint: {{host}}/transacao/v1/listar
-  
   - Response:
   
   ```

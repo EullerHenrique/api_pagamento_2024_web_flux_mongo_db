@@ -20,12 +20,11 @@
 
 - A estrutura foi baseada no DDD (Design direcionado ao domínio).
 - Portanto, existem 4 camadas:
-    1. Controller [Camada da interface] - Presetantion
-    2. Domain [Camada de domínio]
-    3. Service [Camada da aplicação] - Application
-    4. Config [Camada de configuração]]
+    1. Controller [Camada de interface - Presetantion] 
+    2. Domain [Camada de domínio - Domain]
+    3. Service [Camada de aplicação - Application]
+    4. Infra [Camada de infraestrutura - Infraestructure]
 ```
-  ├── config
   ├── controller
   ├── domain
   │   ├── constant
@@ -47,6 +46,8 @@
   │       ├── model
   │       ├── util
   │       └── validator
+  ├── infra
+  │   ├── config
 ```
 ## Configuração
 
@@ -57,9 +58,9 @@
 4. Abra o terminal
 5. Navegue até a api_pagamento_2024
 6. Digite docker-compose up -d
-    1. A imagem da aplicação será executada, ou seja, se tornará um container
-    2. A imagem do postgresql será executada, ou seja, se tornará um container
-    3. O jar da aplicaçào será gerado, executado e inserido em uma imagem
+    1. A imagem do postgresql será executada, ou seja, se tornará um container
+    2. O jar da aplicaçào será gerado, executado e inserido em uma imagem
+    3. A imagem da aplicação será executada, ou seja, se tornará um container
 
 ## Execução
 
@@ -172,7 +173,7 @@
 ```
   
 #### Buscar transacao
-- Endpoint: {{host}}/transacao/v1/buscar/{{id}}
+- Endpoint: GET {{host}}/transacao/v1/buscar/{{id}}
 - Response:
 ```
   {
@@ -194,7 +195,7 @@
 ```
   
 #### Buscar transações
-- Endpoint: {{host}}/transacao/v1/listar
+- Endpoint: GET {{host}}/transacao/v1/listar
 - Response:
 ```
   [
@@ -232,3 +233,7 @@
     }
   ]
 ```
+
+### Testes
+
+

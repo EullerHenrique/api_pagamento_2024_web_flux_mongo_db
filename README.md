@@ -2,13 +2,13 @@
 
 ## Tecnologias Utilizadas
 
-- Java
-- Spring Boot
+- Java 17
+- Spring Boot 3
 - JPA
 - Hibernate
 - Postgresql
 - Lombok
-- Swagger
+- Spring Doc/Swagger
 - ModelMapper
 - Gson
 - Docker

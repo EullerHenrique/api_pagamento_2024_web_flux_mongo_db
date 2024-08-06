@@ -143,10 +143,10 @@
   }
   ```
   
-  ### localhost:8081/transacao/v1/buscar/1 (Docker) ou localhost:8080/transacao/v1/buscar/1 (Spring  Boot)
-  #### Obs: 
-  
-  Response:
+  ### Buscar transacao
+  - Endpoint: {{host}}/transacao/v1/buscar/{{id}}
+    
+  - Response:
   
   ```
   {
@@ -167,8 +167,10 @@
   }
   ```
   
-  ### localhost:8081/transacao/v1/listar (Docker) ou  localhost:8080/transacao/v1/listar (Spring Boot)  
-  Response:
+  ### Buscar transações
+  - Endpoint: {{host}}/transacao/v1/listar
+  
+  - Response:
   
   ```
   [

@@ -58,8 +58,8 @@
 5. Navegue até a api_pagamento_2024
 6. Digite docker-compose up -d
     1. A imagem do postgresql será executada, ou seja, se tornará um container
-    2. A imagem da aplicação será executada, ou seja, se tornará um container
-    3. O jar da aplicaçào será gerado, executado e inserido em uma imagem
+    2. O jar da aplicaçào será gerado, executado e inserido em uma imagem
+    3. A imagem da aplicação será executada, ou seja, se tornará um container
 
 ## Execução
 

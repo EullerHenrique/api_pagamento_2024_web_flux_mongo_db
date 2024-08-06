@@ -15,16 +15,39 @@
 - Junit
 - Mockito
 - Hamcrest
+  
+## Configuração
+
+## Docker
+1. Clone o repósitorio
+2. Instale o docker (https://www.docker.com/products/docker-desktop/)
+3. Abra o docker
+4. Abra o terminal
+5. Navegue até a api_pagamento_2024
+6. Digite docker-compose up -d
+    1. O jar da aplicaçào será gerado, executado e inserido em uma imagem
+    2. A imagem da aplicação será executada, ou seja, se tornará um container
+    3. A imagem do postgresql será executada, ou seja, se tornará um container
 
 ## Execução
 
-  1. Clone o repósitorio e abra-o em uma IDE (Ex: Intellij)
-  2. Instale o docker (https://www.docker.com/products/docker-desktop/) e abra-o
-  3. Navegue pelo terminal até src/main/resources ou navegue pela IDE até src/main/resources/docker-compose.yaml
-  4. Execute o comando docker-compose up -d ou aperte o botão play localizado ao lado do campo services
-  5. Navegue pela IDE até ApiPagamentoApplication 
-  6. Aperte o botão play localizado ao lado de "public class ApiPagamentoApplication"
-  7. Acesse o swagger (http://localhost:8080/swagger-ui/index.html) ou realize as requisições por meio do postman
+### Docker
+1. A api está disponível no localhost:8081
+- Obs: Se o código for modificado e você desejar usar o host exposto pelo docker:
+    1. Digite docker-compose build --no-cache para uma nova imagem da aplicação ser gerada
+    2. Digite docker-compose up -d
+
+### Ide  
+1. Abra a pasta api_pagamento_2024 em uma IDE (Ex: IntelliJ IDEA) 
+2. Navegue pela IDE até ApiPagamentoApplication
+3. Aperte o botão play localizado ao lado de "public class ApiPagamentoRedisJsonApplication"
+4. A api está disponível no localhost:8080
+
+### Mvn
+1. Abra o cmd
+2. Navegue até a pasta api_pagamento_2024
+3. Rode ./mvnw spring-boot:run
+4. A api está disponível no localhost:8080
 
 ## EndPoints
   
@@ -36,7 +59,7 @@
   { 
    "cartao": "4444********1234",
    "descricao": {
-      "valor": "500.50",
+      "valor": "500.55",
       "dataHora": "01/05/2021 18:00:00",
       "estabelecimento": "PetShop Mundo cão"
     },
@@ -54,7 +77,7 @@
     "id": 1,
     "cartao": "4444********1234",
     "descricao": {
-        "valor": "500.50",
+        "valor": "500.55",
         "dataHora": "01/05/2021 18:00:00",
         "estabelecimento": "PetShop Mundo cão",
         "nsu": "1234567890",
@@ -77,7 +100,7 @@
     "id": 1,
     "cartao": "4444********1234",
     "descricao": {
-        "valor": "500.50",
+        "valor": "500.55",
         "dataHora": "01/05/2021 18:00:00",
         "estabelecimento": "PetShop Mundo cão",
         "nsu": "1234567890",
@@ -100,7 +123,7 @@
     "id": 1,
     "cartao": "4444********1234",
     "descricao": {
-        "valor": "500.50",
+        "valor": "500.55",
         "dataHora": "01/05/2021 18:00:00",
         "estabelecimento": "PetShop Mundo cão",
         "nsu": "1234567890",
@@ -124,7 +147,7 @@
         "id": 1,
         "cartao": "4444********1234",
         "descricao": {
-            "valor": "500.50",
+            "valor": "500.55",
             "dataHora": "01/05/2021 18:00:00",
             "estabelecimento": "PetShop Mundo cão",
             "nsu": "1234567890",
@@ -140,7 +163,7 @@
         "id": 2,
         "cartao": "4444********1234",
         "descricao": {
-            "valor": "500.50",
+            "valor": "500.55",
             "dataHora": "01/05/2021 18:00:00",
             "estabelecimento": "PetShop Mundo cão",
             "nsu": "1234567890",

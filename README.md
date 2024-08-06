@@ -20,12 +20,11 @@
 
 - A estrutura foi baseada no DDD (Design direcionado ao domínio).
 - Portanto, existem 4 camadas:
-    1. Config [Camada de configuração]
-    2. Controller [Camada de interface - Presetantion] 
-    3. Domain [Camada de domínio]
-    4. Service [Camada de aplicação - Application] 
+    1. Controller [Camada de interface - Presetantion] 
+    2. Domain [Camada de domínio - Domain]
+    3. Service [Camada de aplicação - Application]
+    4. Infra [Camada de infraestrutura - Infraestructure]
 ```
-  ├── config
   ├── controller
   ├── domain
   │   ├── constant
@@ -47,6 +46,8 @@
   │       ├── model
   │       ├── util
   │       └── validator
+  ├── infra
+  │   ├── config
 ```
 ## Configuração
 

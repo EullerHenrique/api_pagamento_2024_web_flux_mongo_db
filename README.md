@@ -51,7 +51,7 @@
 
 ## EndPoints
   
-  ### localhost:8080/transacao/v1/pagamento
+  ### localhost:8081/transacao/v1/pagamento (Docker) ou localhost:8080/transacao/v1/pagamento (Spring Boot)
   
   Request:
   
@@ -91,7 +91,7 @@
   }
   ```
   
-  ### localhost:8080/transacao/v1/estorno/1
+  ### localhost:8081/transacao/v1/estorno/1 (Docker) ou localhost:8080/transacao/v1/estorno/1 (Spring Boot)
   
   Response: 
   
@@ -114,7 +114,7 @@
   }
   ```
   
-  ### localhost:8080/transacao/v1/1
+  ### localhost:8081/transacao/v1/1 (Docker) ou localhost:8080/transacao/v1/1 (Spring  Boot)
   
   Response:
   
@@ -137,7 +137,7 @@
   }
   ```
   
-  ### localhost:8080/transacao/v1
+  ### localhost:8081/transacao/v1 (Docker) ou  localhost:8080/transacao/v1 (Spring Boot)
   
   Response:
   

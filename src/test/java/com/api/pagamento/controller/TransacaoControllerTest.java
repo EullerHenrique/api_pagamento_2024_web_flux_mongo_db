@@ -54,8 +54,8 @@ class TransacaoControllerTest {
 	@BeforeEach
 	void setUp() {
 		mockMvc = MockMvcBuilders.standaloneSetup(transacaoController).setControllerAdvice(new HttpExceptionHandler(new ExceptionUtil())).build();
-		transacaoRequestDto = TransacaoRequestDtoBuilder.builder().build().toTransacaoRequestDto();
-		transacaoResponseDto = TransacaoResponseDtoBuilder.builder().build().toTransacaoResponseDto();
+		transacaoRequestDto = TransacaoRequestDtoBuilder.builder().build().obterTransacaoRequestDto();
+		transacaoResponseDto = TransacaoResponseDtoBuilder.builder().build().obterTransacaoResponseDto();
 	}
 
 	@Test

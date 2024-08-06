@@ -6,6 +6,11 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 
+/**
+ * Classe responsável por definir valores padrões para a response da forma de pagamento da transacao
+ *
+ * @author Euller Henrique
+ */
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -17,7 +22,7 @@ public class FormaPagamentoResponseDtoBuilder {
     @Builder.Default
     private String parcelas = "1";
 
-    public FormaPagamentoTransacaoResponseDto toFormaPagamentoResponseDto() {
+    public FormaPagamentoTransacaoResponseDto obterFormaPagamentoTransacaoResponseDto() {
         return new FormaPagamentoTransacaoResponseDto(tipo, parcelas);
     }
 

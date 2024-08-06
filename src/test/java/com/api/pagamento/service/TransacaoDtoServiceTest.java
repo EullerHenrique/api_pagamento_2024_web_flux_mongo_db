@@ -51,8 +51,8 @@ class TransacaoDtoServiceTest {
 
 	@BeforeEach
 	void setUp() {
-		transacaoRequestDto = TransacaoRequestDtoBuilder.builder().build().toTransacaoRequestDto();
-		transacaoResponseDto = TransacaoResponseDtoBuilder.builder().build().toTransacaoResponseDto();
+		transacaoRequestDto = TransacaoRequestDtoBuilder.builder().build().obterTransacaoRequestDto();
+		transacaoResponseDto = TransacaoResponseDtoBuilder.builder().build().obterTransacaoResponseDto();
 	}
 
     @Test

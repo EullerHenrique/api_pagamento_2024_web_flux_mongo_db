@@ -7,10 +7,15 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
+/**
+ * Classe responsável por definir valores padrões para a request da descrição da transação
+ *
+ * @author Euller Henrique
+ */
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class DescricaoRequestDtoBuilder {
+public class DescricaoTransacaoRequestDtoBuilder {
 
     @Builder.Default
     private Double valor = 500.55;
@@ -21,7 +26,14 @@ public class DescricaoRequestDtoBuilder {
     @Builder.Default
     private String estabelecimento = "PetShop Mundo cão";
 
-    public DescricaoTransacaoRequestDto toDescricaoRequestDto() {
+    /**
+     * Obtém um objeto DescricaoTransacaoRequestDto com valores padrões
+     *
+     * @return DescricaoTransacaoRequestDto
+     *      Objeto com valores padrões
+     * @author Euller Henrique
+     */
+    public DescricaoTransacaoRequestDto obterDescricaoTransacaoRequestDto() {
         return new DescricaoTransacaoRequestDto(valor, dataHora, estabelecimento);
     }
 

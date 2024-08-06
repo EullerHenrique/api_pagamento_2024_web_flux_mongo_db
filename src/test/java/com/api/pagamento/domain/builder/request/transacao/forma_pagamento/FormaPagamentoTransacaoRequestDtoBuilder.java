@@ -6,10 +6,15 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 
+/**
+ * Classe responsável por definir valores padrões para a request da forma de pagamento da transacao
+ *
+ * @author Euller Henrique
+ */
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class FormaPagamentoRequestDtoBuilder {
+public class FormaPagamentoTransacaoRequestDtoBuilder {
 
     @Builder.Default
     private TipoPagamentoTransacaoEnum tipo = TipoPagamentoTransacaoEnum.AVISTA;
@@ -17,7 +22,14 @@ public class FormaPagamentoRequestDtoBuilder {
     @Builder.Default
     private Integer parcelas = 1;
 
-    public FormaPagamentoTransacaoRequestDto toFormaPagamentoRequestDto() {
+    /**
+     * Obtém um objeto FormaPagamentoTransacaoRequestDto com valores padrões
+     *
+     * @return FormaPagamentoTransacaoRequestDto
+     *      Objeto com valores padrões
+     * @author Euller Henrique
+     */
+    public FormaPagamentoTransacaoRequestDto obterFormaPagamentoTransacaoRequestDto() {
         return new FormaPagamentoTransacaoRequestDto(tipo, parcelas);
     }
 

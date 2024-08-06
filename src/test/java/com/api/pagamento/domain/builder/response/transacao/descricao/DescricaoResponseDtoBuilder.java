@@ -8,6 +8,11 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
+/**
+ * Classe responsável por definir valores padrões para a response da descrição da transação
+ *
+ * @author Euller Henrique
+ */
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -31,7 +36,7 @@ public class DescricaoResponseDtoBuilder {
     @Builder.Default
     private StatusTransacaoEnum status = StatusTransacaoEnum.AUTORIZADO;
 
-    public DescricaoTransacaoResponseDto toDescricaoResponseDto() {
+    public DescricaoTransacaoResponseDto obterDescricaoTransacaoResponseDto() {
         return new DescricaoTransacaoResponseDto(valor, dataHora, estabelecimento, nsu, autorizacao, status);
     }
 

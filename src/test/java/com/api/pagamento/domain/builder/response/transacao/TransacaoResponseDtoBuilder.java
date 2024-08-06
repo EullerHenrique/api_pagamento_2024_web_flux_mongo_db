@@ -9,6 +9,11 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 
+/**
+ * Classe responsável por definir valores padrões para a response da transação
+ *
+ * @author Euller Henrique
+ */
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -21,12 +26,12 @@ public class TransacaoResponseDtoBuilder {
     private String cartao = "4444********1234";
 
     @Builder.Default()
-    private DescricaoTransacaoResponseDto descricao = new DescricaoResponseDtoBuilder().toDescricaoResponseDto();
+    private DescricaoTransacaoResponseDto descricao = new DescricaoResponseDtoBuilder().obterDescricaoTransacaoResponseDto();
 
     @Builder.Default()
-    private FormaPagamentoTransacaoResponseDto formaPagamento = new FormaPagamentoResponseDtoBuilder().toFormaPagamentoResponseDto();
+    private FormaPagamentoTransacaoResponseDto formaPagamento = new FormaPagamentoResponseDtoBuilder().obterFormaPagamentoTransacaoResponseDto();
 
-    public TransacaoResponseDto toTransacaoResponseDto() {
+    public TransacaoResponseDto obterTransacaoResponseDto() {
         return new TransacaoResponseDto(id, cartao, descricao, formaPagamento);
     }
 

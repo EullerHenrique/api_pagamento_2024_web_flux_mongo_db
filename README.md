@@ -28,7 +28,14 @@
   ├── controller
   ├── domain
   │   ├── annotation
+  │   │   ├── http
   │   ├── constant
+  │   │   ├── divider
+  │   │   ├── formatter
+  │   │   ├── http
+  │   │   │    ├── code
+  │   │   │    ├── message
+  │   │   │    ├── type
   │   ├── converter
   │   ├── dto
   │   │   ├── request

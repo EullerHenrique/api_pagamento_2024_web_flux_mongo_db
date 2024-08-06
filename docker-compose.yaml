@@ -1,5 +1,21 @@
 version: "3.8"
 services:
+  api_pagamento:
+    container_name: api_pagamento
+    image: api_pagamento:2.0
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8081"
+    depends_on:
+      - postgresql
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgresql:5432/db
+      - SPRING_DATASOURCE_USERNAME=euller
+      - SPRING_DATASOURCE_PASSWORD=12345
+    networks:
+      - api_pagamento-network
   postgresql:
     image: postgres:latest
     container_name: postgresql

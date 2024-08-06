@@ -17,11 +17,11 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.api.pagamento.domain.constant.sucess_error.error.ErrorConstants.*;
-import static com.api.pagamento.domain.constant.util.pattern.PatternConstants.PATTERN_DATA_HORA_PT_BR;
-import static com.api.pagamento.domain.constant.util.divider.DividerConstants.*;
-import static com.api.pagamento.domain.constant.sucess_error.error.word.WordErrorConstants.*;
-
+import static com.api.pagamento.domain.constant.divider.DividerConstants.DOIS_PONTOS;
+import static com.api.pagamento.domain.constant.divider.DividerConstants.PONTO;
+import static com.api.pagamento.domain.constant.http.message.error.ErrorConstants.*;
+import static com.api.pagamento.domain.constant.http.message.error.word.WordErrorConstants.O_CAMPO_XXX;
+import static com.api.pagamento.domain.constant.pattern.PatternConstants.PATTERN_DATA_HORA_PT_BR;
 
 /**
  * Classe responsável por capturar exceções de erros REST
@@ -53,6 +53,7 @@ public class RestExceptionHandler {
 
 		return httpResponseUtilService.obterMessagerErrorResponse(HttpStatus.BAD_REQUEST.value(), error, message);
 	}
+
 
 	/**
 	 * Captura a exceção de conversão de json inválida

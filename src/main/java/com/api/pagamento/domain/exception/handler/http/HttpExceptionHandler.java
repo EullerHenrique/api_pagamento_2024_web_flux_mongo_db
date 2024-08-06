@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import static com.api.pagamento.domain.constant.util.divider.DividerConstants.DOIS_PONTOS;
+import static com.api.pagamento.domain.constant.divider.DividerConstants.DOIS_PONTOS;
 
 /**
  * Classe responsável por capturar exceções de erros HTTP

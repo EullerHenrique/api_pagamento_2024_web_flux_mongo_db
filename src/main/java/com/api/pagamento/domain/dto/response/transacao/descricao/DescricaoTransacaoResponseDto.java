@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
-import static com.api.pagamento.domain.constant.util.pattern.PatternConstants.PATTERN_DATA_HORA_PT_BR;
+import static com.api.pagamento.domain.constant.pattern.PatternConstants.PATTERN_DATA_HORA_PT_BR;
 
 /**
  * Dto responsável por armazenar os dados de resposta da descrição de uma transação

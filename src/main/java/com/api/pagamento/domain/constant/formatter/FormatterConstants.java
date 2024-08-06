@@ -1,10 +1,10 @@
-package com.api.pagamento.domain.constant.util.formatter;
+package com.api.pagamento.domain.constant.formatter;
 
 import lombok.NoArgsConstructor;
 
 import java.time.format.DateTimeFormatter;
 
-import static com.api.pagamento.domain.constant.util.pattern.PatternConstants.PATTERN_DATA_HORA_PT_BR;
+import static com.api.pagamento.domain.constant.pattern.PatternConstants.PATTERN_DATA_HORA_PT_BR;
 
 /**
  * Constantes responsáveis por armazenar as constantes de formatadores

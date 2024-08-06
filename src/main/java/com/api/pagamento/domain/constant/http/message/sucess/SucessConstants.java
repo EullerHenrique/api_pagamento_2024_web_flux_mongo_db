@@ -1,4 +1,4 @@
-package com.api.pagamento.domain.constant.sucess_error.sucess;
+package com.api.pagamento.domain.constant.http.message.sucess;
 
 import lombok.NoArgsConstructor;
 

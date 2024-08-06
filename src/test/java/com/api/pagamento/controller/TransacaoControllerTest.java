@@ -28,7 +28,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.api.pagamento.domain.constant.util.pattern.PatternConstants.FORMATTER_DATA_HORA_PT_BR;
+import static com.api.pagamento.domain.constant.pattern.PatternConstants.FORMATTER_DATA_HORA_PT_BR;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.core.Is.is;
 import static org.junit.jupiter.api.Assertions.assertTrue;

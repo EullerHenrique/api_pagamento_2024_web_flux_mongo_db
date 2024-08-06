@@ -7,8 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import java.util.List;
 
-import static com.api.pagamento.domain.constant.sucess_error.error.ErrorConstants.ERRO_404_NENHUMA_TRANSACAO_ENCONTRADA;
-import static com.api.pagamento.domain.constant.sucess_error.error.ErrorConstants.ERRO_404_TRANSACAO_NAO_ENCONTRADA;
+import static com.api.pagamento.domain.constant.http.message.error.ErrorConstants.ERRO_404_NENHUMA_TRANSACAO_ENCONTRADA;
+import static com.api.pagamento.domain.constant.http.message.error.ErrorConstants.ERRO_404_TRANSACAO_NAO_ENCONTRADA;
 
 
 /**

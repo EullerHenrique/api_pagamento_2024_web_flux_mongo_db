@@ -8,7 +8,7 @@ import com.api.pagamento.domain.model.transacao.Transacao;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import static com.api.pagamento.domain.constant.sucess_error.error.ErrorConstants.*;
+import static com.api.pagamento.domain.constant.http.message.error.ErrorConstants.*;
 
 /**
  * Serviço responsável por armazenar métodos validadores

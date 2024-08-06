@@ -1,4 +1,4 @@
-package com.api.pagamento.domain.constant.util.divider;
+package com.api.pagamento.domain.constant.divider;
 
 import lombok.NoArgsConstructor;
 

@@ -10,8 +10,9 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
-import static com.api.pagamento.domain.constant.util.pattern.PatternConstants.PATTERN_DATA_HORA_PT_BR;
-import static com.api.pagamento.domain.constant.sucess_error.error.word.WordErrorConstants.*;
+import static com.api.pagamento.domain.constant.http.message.error.word.WordErrorConstants.DEVE_SER_MAIOR_QUE;
+import static com.api.pagamento.domain.constant.http.message.error.word.WordErrorConstants.EH_OBRIGATORIO;
+import static com.api.pagamento.domain.constant.pattern.PatternConstants.PATTERN_DATA_HORA_PT_BR;
 
 /**
  * Dto responsável por armazenar os dados de requisição da descrição de uma transação

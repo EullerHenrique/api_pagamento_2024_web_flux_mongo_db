@@ -1,4 +1,4 @@
-package com.api.pagamento.domain.constant.util.pattern;
+package com.api.pagamento.domain.constant.pattern;
 
 import lombok.NoArgsConstructor;
 

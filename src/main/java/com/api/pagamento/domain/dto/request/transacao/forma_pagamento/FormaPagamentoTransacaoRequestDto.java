@@ -6,7 +6,9 @@ import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import static com.api.pagamento.domain.constant.sucess_error.error.word.WordErrorConstants.*;
+
+import static com.api.pagamento.domain.constant.http.message.error.word.WordErrorConstants.DEVE_SER_MAIOR_QUE;
+import static com.api.pagamento.domain.constant.http.message.error.word.WordErrorConstants.EH_OBRIGATORIO;
 
 /**
  * Dto responsável por armazenar os dados de requisição da forma de pagamento de uma transação

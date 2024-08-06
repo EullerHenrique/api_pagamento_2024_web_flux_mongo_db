@@ -8,7 +8,8 @@ import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import static com.api.pagamento.domain.constant.sucess_error.error.word.WordErrorConstants.*;
+
+import static com.api.pagamento.domain.constant.http.message.error.word.WordErrorConstants.*;
 
 /**
  * Dto responsável por armazenar os dados de requisição de uma transação

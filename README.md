@@ -61,8 +61,18 @@
 
 ## EndPoints
 
-  ### localhost:8081/transacao/v1/pagamento (Docker) ou localhost:8080/transacao/v1/pagamento (Spring Boot)
-  
+  ### Realizar pagamento
+  - Endpoint: POST {{host}}/transacao/v1/pagar
+  - Validações:
+    - Valida se não falta nenhum campo
+    - Valida se todos os campos foram preenchidos
+    - Valida se o campo cartao tem 16 caracteres
+    - Valida se o campo valor é maior do que 0
+    - Valida se o campo parcelas é maior do que 0
+    - Valida se o valor do campo descricao.dataHora corresponde ao formato "01/01/2000 01:01:01"
+    - Valida se o valor do campo formaPagamento.tipo é válido [AVISTA, PARCELADO_LOJA, PARCELADO_EMISSOR]
+    - Valida se o valor da parcela é 1 se o tipo de pagamento for AVISTA
+    
   Request:
   
   ```

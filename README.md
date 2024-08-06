@@ -33,7 +33,7 @@
 
 ### Docker
 1. A api está disponível no localhost:8081
-- Obs: Se o código for modificado e você desejar usar o host exposto pelo docker:
+2. Se o código for modificado:
     1. Digite docker-compose build --no-cache para uma nova imagem da aplicação ser gerada
     2. Digite docker-compose up -d
 

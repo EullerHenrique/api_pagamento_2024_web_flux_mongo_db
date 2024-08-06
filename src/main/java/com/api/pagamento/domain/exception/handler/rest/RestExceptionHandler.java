@@ -1,7 +1,7 @@
 package com.api.pagamento.domain.exception.handler.rest;
 
 import com.api.pagamento.domain.enumeration.transacao.forma_pagamento.TipoPagamentoTransacaoEnum;
-import com.api.pagamento.domain.exception.util.ExceptionUtil;
+import com.api.pagamento.domain.exception.handler.util.ExceptionUtil;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import lombok.RequiredArgsConstructor;

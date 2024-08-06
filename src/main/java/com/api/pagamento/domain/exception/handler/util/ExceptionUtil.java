@@ -1,4 +1,4 @@
-package com.api.pagamento.domain.exception.util;
+package com.api.pagamento.domain.exception.handler.util;
 
 import com.api.pagamento.domain.dto.response.error.MessageErrorResponseDto;
 import org.springframework.http.ResponseEntity;

@@ -9,7 +9,7 @@ import com.api.pagamento.domain.dto.response.transacao.TransacaoResponseDto;
 import com.api.pagamento.domain.enumeration.transacao.descricao.StatusTransacaoEnum;
 import com.api.pagamento.domain.exception.handler.http.HttpExceptionHandler;
 import com.api.pagamento.domain.exception.http.NotFoundException;
-import com.api.pagamento.domain.exception.util.ExceptionUtil;
+import com.api.pagamento.domain.exception.handler.util.ExceptionUtil;
 import com.api.pagamento.service.dto.transacao.TransacaoDtoService;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

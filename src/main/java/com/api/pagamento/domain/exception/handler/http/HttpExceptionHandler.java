@@ -3,7 +3,7 @@ package com.api.pagamento.domain.exception.handler.http;
 import com.api.pagamento.domain.exception.http.BadRequestException;
 import com.api.pagamento.domain.exception.http.InternalServerErrorException;
 import com.api.pagamento.domain.exception.http.NotFoundException;
-import com.api.pagamento.domain.exception.util.ExceptionUtil;
+import com.api.pagamento.domain.exception.handler.util.ExceptionUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

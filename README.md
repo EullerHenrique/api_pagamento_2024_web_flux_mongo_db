@@ -2,13 +2,13 @@
 
 ## Tecnologias Utilizadas
 
-- Java
-- Spring Boot
+- Java 17
+- Spring Boot 3
 - JPA
 - Hibernate
 - Postgresql
 - Lombok
-- Swagger
+- Spring Doc/Swagger
 - ModelMapper
 - Gson
 - Docker
@@ -27,7 +27,15 @@
 ```
   ├── controller
   ├── domain
+  │   ├── annotation
+  │   │   ├── http
   │   ├── constant
+  │   │   ├── divider
+  │   │   ├── formatter
+  │   │   ├── http
+  │   │   │    ├── code
+  │   │   │    ├── message
+  │   │   │    ├── type
   │   ├── converter
   │   ├── dto
   │   │   ├── request
@@ -65,7 +73,7 @@
 ## Execução
 
 ### Docker
-1. A api está disponível no localhost:8081
+1. A api está disponível no http://localhost:8081/transacao/v1
 2. Se o código for modificado:
     1. Digite docker-compose build --no-cache para uma nova imagem da aplicação ser gerada
     2. Digite docker-compose up -d
@@ -75,14 +83,14 @@
 #### Ide
   1. Abra a pasta api_pagamento_2024 em uma IDE (Ex: IntelliJ IDEA) 
   2. Navegue pela IDE até ApiPagamentoApplication
-  3. Aperte o botão play localizado ao lado de "public class ApiPagamentoRedisJsonApplication"
-  4. A api está disponível no localhost:8080
+  3. Aperte o botão play localizado ao lado de "public class ApiPagamentoApplication"
+  4. A api está disponível no http://localhost:8080/transacao/v1
 
 #### Mvn
   1. Abra o cmd
   2. Navegue até a pasta api_pagamento_2024
   3. Rode ./mvnw spring-boot:run
-  4. A api está disponível no localhost:8080
+  4. A api está disponível no http://localhost:8080/transacao/v1
 
 ## Utilização
 
@@ -105,7 +113,7 @@
   6. Valida se o valor do campo descricao.dataHora corresponde ao formato "01/01/2000 01:01:01"
   7. Valida se o valor do campo formaPagamento.tipo é válido [AVISTA, PARCELADO_LOJA, PARCELADO_EMISSOR]
   8. Valida se o valor da parcela é 1 se o tipo de pagamento for AVISTA
-- Obs:
+- Regras de negócio:
   1. Nsu é um número gerado randomicamente
   2. Código de transação é um número gerado randomicamente
   3. O status é determinado randomicamente entre duas opções [AUTORIZADO, NEGADO] 
@@ -234,6 +242,29 @@
   ]
 ```
 
-### Testes
+### Testes 
+
+#### Testes Unitários
+- Para garantir que o fluxo do controller e do service estão corretos, testes unitários foram feitos para testá-los
+- Para executá-las:  
+  - Aperte o botão play localizado ao lado de "public class TransacaoDtoControllerTest" ou "public class TransacaoDtoServiceTest"
+  - Ou
+  - Rode o comando ./mvnw spring-boot:test
+  
+##### Controller
+- QuandoUmaTransacaoEhSolicitadaElaDeveSerRealizada
+- QuandoUmaTransacaoEhBuscadaPeloIdENaoEhEncontradaUmaExcecaoDeveSerRetornada
+- QuandoUmPagamentoEhSolicitadoComCamposPreenchidosIncorretamenteUmaExcecaoDeveSerRetornada
+- QuandoUmaTransacaoEhBuscadaPeloIdElaDeveSerRetornada
+- QuandoTransacoesSaoBuscadasElasDevemSerRetornadas
+- QuandoUmEstornoEhSolicitadoEleEhRealizado
+    
+##### Service
+- QuandoUmaTransacaoEhSolicitadaElaDeveSerRealizada
+- QuandoUmaTransacaoEhBuscadaPeloIdENaoEhEncontradaUmaExcecaoDeveSerRetornada
+- QuandoUmPagamentoEhSolicitadoComTipoAvistaEMaisDeUmaParcelaUmaExcecaoDeveSerRetornada
+- QuandoUmaTransacaoEhBuscadaPeloIdElaDeveSerRetornada
+- QuandoTransacoesSaoBuscadasElasDevemSerRetornadas
+- QuandoUmEstornoEhSolicitadoEleEhRealizado
 
 

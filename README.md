@@ -65,7 +65,7 @@
 ## Execução
 
 ### Docker
-1. A api está disponível no localhost:8081
+1. A api está disponível no http://localhost:8081
 2. Se o código for modificado:
     1. Digite docker-compose build --no-cache para uma nova imagem da aplicação ser gerada
     2. Digite docker-compose up -d
@@ -76,13 +76,13 @@
   1. Abra a pasta api_pagamento_2024 em uma IDE (Ex: IntelliJ IDEA) 
   2. Navegue pela IDE até ApiPagamentoApplication
   3. Aperte o botão play localizado ao lado de "public class ApiPagamentoApplication"
-  4. A api está disponível no localhost:8080
+  4. A api está disponível no http://localhost:8080
 
 #### Mvn
   1. Abra o cmd
   2. Navegue até a pasta api_pagamento_2024
   3. Rode ./mvnw spring-boot:run
-  4. A api está disponível no localhost:8080
+  4. A api está disponível no http://localhost:8080
 
 ## Utilização
 

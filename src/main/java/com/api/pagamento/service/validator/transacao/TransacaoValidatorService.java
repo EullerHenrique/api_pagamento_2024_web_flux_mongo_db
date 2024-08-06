@@ -11,16 +11,24 @@ import org.springframework.stereotype.Service;
 import static com.api.pagamento.domain.constant.sucess_error.error.ErrorConstants.*;
 
 /**
- * Realiza um pagamento
+ * Serviço responsável por armazenar métodos validadores
  *
+ * @author Euller Henrique
  */
 @Service
 @RequiredArgsConstructor
 public class TransacaoValidatorService {
 
 	/**
-	 * Realiza um pagamento
+	 * Valida o tipo de pagamento ao pagar
+	 * <p>
+	 * Caso o tipo de pagamento seja à vista, não é permitido mais de uma parcela
+	 * </p>
 	 *
+	 * @param request
+	 * 		Dto com os dados de request da transação
+	 * @throws BadRequestException
+	 * 		Exceção lançada caso o tipo de pagamento seja inválido
 	 */
 	public void validarTipoPagamentoAoPagar(TransacaoRequestDto request) {
 		TipoPagamentoTransacaoEnum tipoPagamento = request.getFormaPagamento().getTipo();
@@ -32,15 +40,25 @@ public class TransacaoValidatorService {
 	}
 
 	/**
-	 * Realiza um pagamento
+	 * Valida o status da transação ao estornar
+	 * <p>
+	 * Se a transação já foi estornada, não é permitido estornar novamente
+	 * </p>
+	 * <p>
+	 * Se a transação foi negada, não é permitido estornar
+	 * </p>
 	 *
+	 * @param transacao
+	 * 		Model com os dados da transação
+	 * @throws BadRequestException
+	 * 		Exceção lançada caso o status da transação seja inválido
 	 */
 	public void validarStatusTransacaoAoEstornar(Transacao transacao) {
 		StatusTransacaoEnum status = transacao.getDescricao().getStatus();
 
 		if (StatusTransacaoEnum.CANCELADO.equals(status)) {
 			throw new BadRequestException(ERROR_400_TRANSACAO_JA_FOI_ESTORNADA);
-		}else if (StatusTransacaoEnum.NEGADO.equals(status)) {
+		} else if (StatusTransacaoEnum.NEGADO.equals(status)) {
 			throw new BadRequestException(ERROR_400_TRANSACAO_NEGADA_NAO_PODE_SER_ESTORNADA);
 		}
 	}

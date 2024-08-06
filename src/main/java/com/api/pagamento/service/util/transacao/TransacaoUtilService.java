@@ -7,8 +7,9 @@ import org.springframework.stereotype.Service;
 import java.util.Random;
 
 /**
- * Realiza um pagamento
+ * Serviço responsável por armazenar métodos utilitários
  *
+ * @author Euller Henrique
  */
 @Service
 @RequiredArgsConstructor
@@ -17,30 +18,47 @@ public class TransacaoUtilService {
 	private static final Random RANDOM = new Random();
 
 	/**
-	 * Realiza um pagamento
+	 * Obtêm o nsu de forma randômica
+	 *
+	 * @return String
+	 * 		Número de identificação da transação
+	 * @author Euller Henrique
 	 *
 	 */
 	public String obterNsu() {
 		return String.valueOf(RANDOM.nextInt(1000000000));
 	}
+
 	/**
-	 * Realiza um pagamento
+	 * Obtêm o código de autorização de forma randômica
 	 *
+	 * @return String
+	 * 		Código de autorização da transação
+	 * @author Euller Henrique
 	 */
 	public String obterCodigoAutorizacao() {
 		return String.valueOf(RANDOM.nextInt(1000000000));
 	}
 
 	/**
-	 * Realiza um pagamento
+	 * Obtêm o status da transação ao pagar de forma randômica (AUTORIZADO ou NEGADO)
 	 *
+	 * @return StatusTransacaoEnum
+	 * 		Status da transação ao pagar
+	 * @see StatusTransacaoEnum
+	 * @author Euller Henrique
 	 */
 	public StatusTransacaoEnum obterStatusAoPagar() {
 		return StatusTransacaoEnum.values()[RANDOM.nextInt(2)];
 	}
+
 	/**
-	 * Realiza um pagamento
+	 * Obtêm o status da transação ao estornar
 	 *
+	 * @return StatusTransacaoEnum
+	 * 		Status da transação ao estornar
+	 * @see StatusTransacaoEnum
+	 * @author Euller Henrique
 	 */
 	public StatusTransacaoEnum obterStatusAoEstornar() {
 		return StatusTransacaoEnum.CANCELADO;

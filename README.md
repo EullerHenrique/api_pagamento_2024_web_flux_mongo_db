@@ -244,7 +244,7 @@
 ### Testes 
 
 #### Testes Unitários
-- Para garantir que o fluxo do controller e do service estão corretos, testes unitários foram feitos para testá-los
+- Para garantir que o fluxo do controller e do service estão corretos, testes unitários foram feitos para simulá-los
 - Para executá-las:  
   - Aperte o botão play localizado ao lado de "public class TransacaoDtoControllerTest" ou "public class TransacaoDtoServiceTest"
   - Ou

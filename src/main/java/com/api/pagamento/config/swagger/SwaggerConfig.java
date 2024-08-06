@@ -20,19 +20,21 @@ public class SwaggerConfig {
 	 * Cria um grupo de documentação para a API de transação
 	 *
 	 * @return GroupedOpenApi
+	 * 		Objeto com as informações do grupo de documentação da API de transação
 	 * @author Euller Henrique
 	 */
 	@Bean
 	public GroupedOpenApi criarDocGrupoTransacao() {
-		return GroupedOpenApi.builder().group("transacao").packagesToScan("com.api.pagamento.app.controller").pathsToMatch("/transacao/**")
-				.build();
+		return GroupedOpenApi.builder().group("transacao").packagesToScan("com.api.pagamento.controller.transacao")
+				.pathsToMatch("/transacao/**").build();
 	}
 
 	/**
 	 * Cria as informações da API
 	 *
-	 * @author Euller Henrique
 	 * @return OpenAPI
+	 * 		Objeto com as informações da API
+	 * @author Euller Henrique
 	 */
 	@Bean
 	public OpenAPI criarInfoApi() {

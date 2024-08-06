@@ -1,4 +1,4 @@
-package com.api.pagamento.config.swagger;
+package com.api.pagamento.infra.config.swagger;
 
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Contact;

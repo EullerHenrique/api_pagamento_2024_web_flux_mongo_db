@@ -56,6 +56,11 @@
   ├── infra
   │   ├── config
 ```
+
+## Modelagem
+
+![Screenshot 2024-08-06 185558](https://github.com/user-attachments/assets/c6c4d07a-c8e6-4174-a38e-8909299cc7a7)
+
 ## Configuração
 
 ### Docker
@@ -63,7 +68,7 @@
 2. Instale o docker (https://www.docker.com/products/docker-desktop/)
 3. Abra o docker
 4. Abra o terminal
-5. Navegue até a api_pagamento_2024
+5. Navegue até api_pagamento_2024
 6. Digite docker-compose up -d
     1. A imagem do postgresql será executada, ou seja, se tornará um container
     2. O jar da aplicaçào será gerado, executado e inserido em uma imagem
@@ -131,9 +136,7 @@
     }
   }
 ```
-
 - Response:
-  
 ```
   {
     "id": 1,
@@ -244,7 +247,7 @@
 ### Testes 
 
 #### Testes Unitários
-- Para garantir que o fluxo do controller e do service estão corretos, testes unitários foram feitos para testá-los
+- Para garantir que o fluxo do controller e do service estão corretos, testes unitários foram feitos para simulá-los
 - Para executá-las:  
   - Aperte o botão play localizado ao lado de "public class TransacaoDtoControllerTest" ou "public class TransacaoDtoServiceTest"
   - Ou

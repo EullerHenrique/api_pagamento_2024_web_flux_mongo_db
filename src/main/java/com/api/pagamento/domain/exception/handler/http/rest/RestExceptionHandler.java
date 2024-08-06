@@ -1,4 +1,4 @@
-package com.api.pagamento.domain.exception.handler.rest;
+package com.api.pagamento.domain.exception.handler.http.rest;
 
 import com.api.pagamento.domain.enumeration.transacao.forma_pagamento.TipoPagamentoTransacaoEnum;
 import com.api.pagamento.domain.exception.handler.util.ExceptionUtil;

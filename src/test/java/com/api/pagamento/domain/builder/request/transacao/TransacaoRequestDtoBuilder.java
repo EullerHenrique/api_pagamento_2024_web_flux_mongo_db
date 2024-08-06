@@ -11,15 +11,15 @@ import lombok.Builder;
 public class TransacaoRequestDtoBuilder {
 
     @Builder.Default()
-    private static String cartao = "4444********1234";
+    private String cartao = "4444********1234";
 
     @Builder.Default()
-    private static DescricaoTransacaoRequestDto descricao = DescricaoRequestDtoBuilder.toDescricaoRequestDto();
+    private DescricaoTransacaoRequestDto descricao = new DescricaoRequestDtoBuilder().toDescricaoRequestDto();
 
     @Builder.Default()
-    private static FormaPagamentoTransacaoRequestDto formaPagamento = FormaPagamentoRequestDtoBuilder.toFormaPagamentoRequestDto();
+    private FormaPagamentoTransacaoRequestDto formaPagamento = new FormaPagamentoRequestDtoBuilder().toFormaPagamentoRequestDto();
 
-    public static TransacaoRequestDto toTransacaoRequestDto() {
+    public TransacaoRequestDto toTransacaoRequestDto() {
         return new TransacaoRequestDto(cartao, descricao, formaPagamento);
     }
 

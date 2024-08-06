@@ -2,18 +2,22 @@ package com.api.pagamento.domain.builder.response.transacao.forma_pagamento;
 
 import com.api.pagamento.domain.dto.response.transacao.forma_pagamento.FormaPagamentoTransacaoResponseDto;
 import com.api.pagamento.domain.enumeration.transacao.forma_pagamento.TipoPagamentoTransacaoEnum;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.NoArgsConstructor;
 
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class FormaPagamentoResponseDtoBuilder {
 
     @Builder.Default
-    private static TipoPagamentoTransacaoEnum tipo = TipoPagamentoTransacaoEnum.AVISTA;
+    private TipoPagamentoTransacaoEnum tipo = TipoPagamentoTransacaoEnum.AVISTA;
 
     @Builder.Default
-    private static String parcelas = "1";
+    private String parcelas = "1";
 
-    public static FormaPagamentoTransacaoResponseDto toFormaPagamentoResponseDto() {
+    public FormaPagamentoTransacaoResponseDto toFormaPagamentoResponseDto() {
         return new FormaPagamentoTransacaoResponseDto(tipo, parcelas);
     }
 

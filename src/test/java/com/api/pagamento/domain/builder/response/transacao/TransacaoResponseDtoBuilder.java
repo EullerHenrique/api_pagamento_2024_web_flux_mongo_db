@@ -5,24 +5,28 @@ import com.api.pagamento.domain.builder.response.transacao.forma_pagamento.Forma
 import com.api.pagamento.domain.dto.response.transacao.TransacaoResponseDto;
 import com.api.pagamento.domain.dto.response.transacao.descricao.DescricaoTransacaoResponseDto;
 import com.api.pagamento.domain.dto.response.transacao.forma_pagamento.FormaPagamentoTransacaoResponseDto;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.NoArgsConstructor;
 
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class TransacaoResponseDtoBuilder {
 
     @Builder.Default()
-    private static String id = "1";
+    private String id = "1";
 
     @Builder.Default()
-    private static String cartao = "4444********1234";
+    private String cartao = "4444********1234";
 
     @Builder.Default()
-    private static DescricaoTransacaoResponseDto descricao = DescricaoResponseDtoBuilder.toDescricaoResponseDto();
+    private DescricaoTransacaoResponseDto descricao = new DescricaoResponseDtoBuilder().toDescricaoResponseDto();
 
     @Builder.Default()
-    private static FormaPagamentoTransacaoResponseDto formaPagamento = FormaPagamentoResponseDtoBuilder.toFormaPagamentoResponseDto();
+    private FormaPagamentoTransacaoResponseDto formaPagamento = new FormaPagamentoResponseDtoBuilder().toFormaPagamentoResponseDto();
 
-    public static TransacaoResponseDto toTransacaoResponseDto() {
+    public TransacaoResponseDto toTransacaoResponseDto() {
         return new TransacaoResponseDto(id, cartao, descricao, formaPagamento);
     }
 

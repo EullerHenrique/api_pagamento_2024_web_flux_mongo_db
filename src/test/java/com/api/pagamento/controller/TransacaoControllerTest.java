@@ -41,7 +41,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class TransacaoControllerTest {
 
 	private final Gson GSON = new GsonBuilder().registerTypeAdapter(LocalDateTime.class, new LocalDateTimePtbrAdapter()).create();
-
+	private TransacaoRequestDto transacaoRequestDto;
+	private TransacaoResponseDto transacaoResponseDto;
 	private MockMvc mockMvc;
 
 	@Mock
@@ -53,13 +54,14 @@ class TransacaoControllerTest {
 	@BeforeEach
 	void setUp() {
 		mockMvc = MockMvcBuilders.standaloneSetup(transacaoController).setControllerAdvice(new HttpExceptionHandler(new ExceptionUtil())).build();
+		transacaoRequestDto = TransacaoRequestDtoBuilder.builder().build().toTransacaoRequestDto();
+		transacaoResponseDto = TransacaoResponseDtoBuilder.builder().build().toTransacaoResponseDto();
 	}
 
 	@Test
 	void QuandoUmaTransacaoEhSolicitadaElaDeveSerRealizada() throws Exception {
 		//Dado
-		TransacaoRequestDto transacaoRequestDto = TransacaoRequestDtoBuilder.toTransacaoRequestDto();
-		TransacaoResponseDto transacaoResponseDto = TransacaoResponseDtoBuilder.toTransacaoResponseDto();
+		//transacaoRequestDto e transacaoResponseDto já foram instanciados no setUp
 
 		//Quando
 		when(transacaoDtoService.pagar(transacaoRequestDto)).thenReturn(transacaoResponseDto);
@@ -95,9 +97,9 @@ class TransacaoControllerTest {
 
 	@Test
 	void QuandoUmPagamentoEhSolicitadoComCamposPreenchidosIncorretamenteUmaExcecaoDeveSerRetornada() throws Exception {
+		//Dado
+		//transacaoRequestDto e transacaoResponseDto já foram instanciados no setUp
 
-		// Dado
-		TransacaoResponseDto transacaoResponseDto = TransacaoResponseDtoBuilder.toTransacaoResponseDto();
 		transacaoResponseDto.setCartao(null);
 		transacaoResponseDto.getDescricao().setEstabelecimento(null);
 
@@ -116,7 +118,7 @@ class TransacaoControllerTest {
 	void QuandoUmaTransacaoEhBuscadaPeloIdElaDeveSerRetornada() throws Exception {
 		//Dado
 		Long id = 1L;
-		TransacaoResponseDto transacaoResponseDto = TransacaoResponseDtoBuilder.toTransacaoResponseDto();
+		//transacaoResponseDto já foi instanciado no setUp
 
 		//Quando
 		when(transacaoDtoService.buscarTransacao(id)).thenReturn(transacaoResponseDto);
@@ -138,9 +140,11 @@ class TransacaoControllerTest {
 	@Test
 	void QuandoTransacoesSaoBuscadasElasDevemSerRetornadas() throws Exception {
 		//Dado
+		//transacaoResponseDto já foi instanciado no setUp
+
 		List<TransacaoResponseDto> transacoesResponseDto = new ArrayList<>();
 		for (int i = 0; i < 10; i++) {
-			transacoesResponseDto.add(TransacaoResponseDtoBuilder.toTransacaoResponseDto());
+			transacoesResponseDto.add(transacaoResponseDto);
 		}
 
 		//Quando
@@ -163,10 +167,9 @@ class TransacaoControllerTest {
 
 	@Test
 	void QuandoUmEstornoEhSolicitadoEleEhRealizado() throws Exception {
-
 		// Dado
 		Long id = 1L;
-		TransacaoResponseDto transacaoResponseDto = TransacaoResponseDtoBuilder.toTransacaoResponseDto();
+		//transacaoResponseDto já foi instanciado no setUp
 		transacaoResponseDto.getDescricao().setStatus(StatusTransacaoEnum.CANCELADO);
 
 		//When

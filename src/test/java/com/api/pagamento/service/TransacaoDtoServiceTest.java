@@ -13,6 +13,7 @@ import com.api.pagamento.service.dto.transacao.TransacaoDtoService;
 import com.api.pagamento.service.model.transacao.TransacaoModelService;
 import com.api.pagamento.service.util.transacao.TransacaoUtilService;
 import com.api.pagamento.service.validator.transacao.TransacaoValidatorService;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -34,6 +35,8 @@ import static org.mockito.Mockito.*;
 class TransacaoDtoServiceTest {
 
 	private final Converter CONVERTER = new Converter(new ModelMapper());
+	private TransacaoRequestDto transacaoRequestDto;
+	private TransacaoResponseDto transacaoResponseDto;
 
     @InjectMocks
     private TransacaoDtoService transacaoDtoService;
@@ -46,40 +49,42 @@ class TransacaoDtoServiceTest {
 	@Mock
 	private TransacaoModelService transacaoModelService;
 
+	@BeforeEach
+	void setUp() {
+		transacaoRequestDto = TransacaoRequestDtoBuilder.builder().build().toTransacaoRequestDto();
+		transacaoResponseDto = TransacaoResponseDtoBuilder.builder().build().toTransacaoResponseDto();
+	}
 
     @Test
     void QuandoUmaTransacaoEhSolicitadaElaDeveSerRealizada(){
 
         // Dado
-		TransacaoRequestDto transacaoRequestDto = TransacaoRequestDtoBuilder.toTransacaoRequestDto();
-		TransacaoResponseDto transacaoResponseDtoEsperada = TransacaoResponseDtoBuilder.toTransacaoResponseDto();
-		transacaoResponseDtoEsperada.getDescricao().setStatus(StatusTransacaoEnum.AUTORIZADO);
-
-		Transacao transacaoModelNaoSalva = CONVERTER.originToDestiny(transacaoResponseDtoEsperada, Transacao.class);
+		//transacaoRequestDto e transacaoResponseDto já foram instanciados no setUp
+		Transacao transacaoModelNaoSalva = CONVERTER.originToDestiny(transacaoResponseDto, Transacao.class);
 
 		//Quando
-		when(converter.originToDestiny(transacaoRequestDto, TransacaoResponseDto.class)).thenReturn(transacaoResponseDtoEsperada);
-		when(transacaoUtilService.obterNsu()).thenReturn(transacaoResponseDtoEsperada.getDescricao().getNsu());
-		when(transacaoUtilService.obterCodigoAutorizacao()).thenReturn(transacaoResponseDtoEsperada.getDescricao().getCodigoAutorizacao());
-		when(transacaoUtilService.obterStatusAoPagar()).thenReturn(transacaoResponseDtoEsperada.getDescricao().getStatus());
-		when(converter.originToDestiny(transacaoResponseDtoEsperada, Transacao.class)).thenReturn(transacaoModelNaoSalva);
+		when(converter.originToDestiny(transacaoRequestDto, TransacaoResponseDto.class)).thenReturn(transacaoResponseDto);
+		when(transacaoUtilService.obterNsu()).thenReturn(transacaoResponseDto.getDescricao().getNsu());
+		when(transacaoUtilService.obterCodigoAutorizacao()).thenReturn(transacaoResponseDto.getDescricao().getCodigoAutorizacao());
+		when(transacaoUtilService.obterStatusAoPagar()).thenReturn(transacaoResponseDto.getDescricao().getStatus());
+		when(converter.originToDestiny(transacaoResponseDto, Transacao.class)).thenReturn(transacaoModelNaoSalva);
 		when(transacaoModelService.salvarTransacao(transacaoModelNaoSalva)).thenReturn(1L);
 
         // Então
 		TransacaoResponseDto transacaoResponseDtoRetornada  = transacaoDtoService.pagar(transacaoRequestDto);
-		assertThat(transacaoResponseDtoRetornada.getId(), is(equalTo(transacaoResponseDtoEsperada.getId())));
-		assertThat(transacaoResponseDtoRetornada.getCartao(), is(equalTo(transacaoResponseDtoEsperada.getCartao())));
-		assertThat(transacaoResponseDtoRetornada.getDescricao().getValor(), is(equalTo(transacaoResponseDtoEsperada.getDescricao().getValor())));
-		assertThat(transacaoResponseDtoRetornada.getDescricao().getDataHora(), is(equalTo(transacaoResponseDtoEsperada.getDescricao().getDataHora())));
-		assertThat(transacaoResponseDtoRetornada.getDescricao().getEstabelecimento(), is(equalTo(transacaoResponseDtoEsperada.getDescricao().getEstabelecimento())));
-		assertThat(transacaoResponseDtoRetornada.getDescricao().getNsu(), is(equalTo(transacaoResponseDtoEsperada.getDescricao().getNsu())));
+		assertThat(transacaoResponseDtoRetornada.getId(), is(equalTo(transacaoResponseDto.getId())));
+		assertThat(transacaoResponseDtoRetornada.getCartao(), is(equalTo(transacaoResponseDto.getCartao())));
+		assertThat(transacaoResponseDtoRetornada.getDescricao().getValor(), is(equalTo(transacaoResponseDto.getDescricao().getValor())));
+		assertThat(transacaoResponseDtoRetornada.getDescricao().getDataHora(), is(equalTo(transacaoResponseDto.getDescricao().getDataHora())));
+		assertThat(transacaoResponseDtoRetornada.getDescricao().getEstabelecimento(), is(equalTo(transacaoResponseDto.getDescricao().getEstabelecimento())));
+		assertThat(transacaoResponseDtoRetornada.getDescricao().getNsu(), is(equalTo(transacaoResponseDto.getDescricao().getNsu())));
 		assertThat(transacaoResponseDtoRetornada.getDescricao().getNsu(), is(notNullValue()));
-		assertThat(transacaoResponseDtoRetornada.getDescricao().getCodigoAutorizacao(), is(equalTo(transacaoResponseDtoEsperada.getDescricao().getCodigoAutorizacao())));
+		assertThat(transacaoResponseDtoRetornada.getDescricao().getCodigoAutorizacao(), is(equalTo(transacaoResponseDto.getDescricao().getCodigoAutorizacao())));
 		assertThat(transacaoResponseDtoRetornada.getDescricao().getCodigoAutorizacao(), is(notNullValue()));
-		assertThat(transacaoResponseDtoRetornada.getDescricao().getStatus(), is(equalTo(transacaoResponseDtoEsperada.getDescricao().getStatus())));
+		assertThat(transacaoResponseDtoRetornada.getDescricao().getStatus(), is(equalTo(transacaoResponseDto.getDescricao().getStatus())));
 		assertThat(transacaoResponseDtoRetornada.getDescricao().getStatus(), is(StatusTransacaoEnum.AUTORIZADO));
-		assertThat(transacaoResponseDtoRetornada.getFormaPagamento().getTipo(), is(equalTo(transacaoResponseDtoEsperada.getFormaPagamento().getTipo())));
-		assertThat(transacaoResponseDtoRetornada.getFormaPagamento().getParcelas(), is(equalTo(transacaoResponseDtoEsperada.getFormaPagamento().getParcelas())));
+		assertThat(transacaoResponseDtoRetornada.getFormaPagamento().getTipo(), is(equalTo(transacaoResponseDto.getFormaPagamento().getTipo())));
+		assertThat(transacaoResponseDtoRetornada.getFormaPagamento().getParcelas(), is(equalTo(transacaoResponseDto.getFormaPagamento().getParcelas())));
 	}
 
 	@Test
@@ -96,9 +101,8 @@ class TransacaoDtoServiceTest {
 
 	@Test
     void QuandoUmPagamentoEhSolicitadoComTipoAvistaEMaisDeUmaParcelaUmaExcecaoDeveSerRetornada()  {
-
 		// Dado
-		TransacaoRequestDto transacaoRequestDto = TransacaoRequestDtoBuilder.toTransacaoRequestDto();
+		//transacaoRequestDto já foi instanciado no setUp
 
 		//Quando
 		doThrow(BadRequestException.class).when(transacaoValidatorService).validarTipoPagamentoAoPagar(transacaoRequestDto);
@@ -109,39 +113,37 @@ class TransacaoDtoServiceTest {
 
 	@Test
 	void QuandoUmaTransacaoEhBuscadaPeloIdElaDeveSerRetornada(){
-
 		// Dado
 		Long id = 1L;
-		TransacaoResponseDto transacaoResponseDtoEsperada = TransacaoResponseDtoBuilder.toTransacaoResponseDto();
-		Transacao transacaoModelSalva = CONVERTER.originToDestiny(transacaoResponseDtoEsperada, Transacao.class);
+		//transacaoResponseDto já foi instanciado no setUp
+		Transacao transacaoModelSalva = CONVERTER.originToDestiny(transacaoResponseDto, Transacao.class);
 
 		//When
 		when(transacaoModelService.buscarTransacao(id)).thenReturn(transacaoModelSalva);
-		when(converter.originToDestiny(transacaoModelSalva, TransacaoResponseDto.class)).thenReturn(transacaoResponseDtoEsperada);
+		when(converter.originToDestiny(transacaoModelSalva, TransacaoResponseDto.class)).thenReturn(transacaoResponseDto);
 
 		// Então
 		TransacaoResponseDto transacaoResponseDtoRetornada  = transacaoDtoService.buscarTransacao(id);
-		assertThat(transacaoResponseDtoRetornada.getId(), is(equalTo(transacaoResponseDtoEsperada.getId())));
-		assertThat(transacaoResponseDtoRetornada.getCartao(), is(equalTo(transacaoResponseDtoEsperada.getCartao())));
-		assertThat(transacaoResponseDtoRetornada.getDescricao().getValor(), is(equalTo(transacaoResponseDtoEsperada.getDescricao().getValor())));
-		assertThat(transacaoResponseDtoRetornada.getDescricao().getDataHora(), is(equalTo(transacaoResponseDtoEsperada.getDescricao().getDataHora())));
-		assertThat(transacaoResponseDtoRetornada.getDescricao().getEstabelecimento(), is(equalTo(transacaoResponseDtoEsperada.getDescricao().getEstabelecimento())));
-		assertThat(transacaoResponseDtoRetornada.getDescricao().getNsu(), is(equalTo(transacaoResponseDtoEsperada.getDescricao().getNsu())));
-		assertThat(transacaoResponseDtoRetornada.getDescricao().getCodigoAutorizacao(), is(equalTo(transacaoResponseDtoEsperada.getDescricao().getCodigoAutorizacao())));
-		assertThat(transacaoResponseDtoRetornada.getDescricao().getStatus(), is(equalTo(transacaoResponseDtoEsperada.getDescricao().getStatus())));
-		assertThat(transacaoResponseDtoRetornada.getFormaPagamento().getTipo(), is(equalTo(transacaoResponseDtoEsperada.getFormaPagamento().getTipo())));
-		assertThat(transacaoResponseDtoRetornada.getFormaPagamento().getParcelas(), is(equalTo(transacaoResponseDtoEsperada.getFormaPagamento().getParcelas())));
-
+		assertThat(transacaoResponseDtoRetornada.getId(), is(equalTo(transacaoResponseDto.getId())));
+		assertThat(transacaoResponseDtoRetornada.getCartao(), is(equalTo(transacaoResponseDto.getCartao())));
+		assertThat(transacaoResponseDtoRetornada.getDescricao().getValor(), is(equalTo(transacaoResponseDto.getDescricao().getValor())));
+		assertThat(transacaoResponseDtoRetornada.getDescricao().getDataHora(), is(equalTo(transacaoResponseDto.getDescricao().getDataHora())));
+		assertThat(transacaoResponseDtoRetornada.getDescricao().getEstabelecimento(), is(equalTo(transacaoResponseDto.getDescricao().getEstabelecimento())));
+		assertThat(transacaoResponseDtoRetornada.getDescricao().getNsu(), is(equalTo(transacaoResponseDto.getDescricao().getNsu())));
+		assertThat(transacaoResponseDtoRetornada.getDescricao().getCodigoAutorizacao(), is(equalTo(transacaoResponseDto.getDescricao().getCodigoAutorizacao())));
+		assertThat(transacaoResponseDtoRetornada.getDescricao().getStatus(), is(equalTo(transacaoResponseDto.getDescricao().getStatus())));
+		assertThat(transacaoResponseDtoRetornada.getFormaPagamento().getTipo(), is(equalTo(transacaoResponseDto.getFormaPagamento().getTipo())));
+		assertThat(transacaoResponseDtoRetornada.getFormaPagamento().getParcelas(), is(equalTo(transacaoResponseDto.getFormaPagamento().getParcelas())));
 	}
 
 	//Quando a transacao não é informada, todas as transações são retornadas
 	@Test
 	void QuandoTransacoesSaoBuscadasElasDevemSerRetornadas() {
-
 		//Dado
+		//transacaoResponseDto já foi instanciado no setUp
 		List<TransacaoResponseDto> transacoesResponseDtosEsperadas = new ArrayList<>();
 		for (int i = 0; i < 10; i++) {
-			transacoesResponseDtosEsperadas.add(TransacaoResponseDtoBuilder.toTransacaoResponseDto());
+			transacoesResponseDtosEsperadas.add(transacaoResponseDto);
 		}
 		List<Transacao> transacoes = CONVERTER.originToDestiny(transacoesResponseDtosEsperadas, Transacao.class);
 
@@ -162,7 +164,6 @@ class TransacaoDtoServiceTest {
 			assertThat(transacoesResponseDtosRetornadas.get(i).getDescricao().getStatus(), is(equalTo(transacoesResponseDtosEsperadas.get(i).getDescricao().getStatus())));
 			assertThat(transacoesResponseDtosRetornadas.get(i).getFormaPagamento().getTipo(), is(equalTo(transacoesResponseDtosEsperadas.get(i).getFormaPagamento().getTipo())));
 			assertThat(transacoesResponseDtosRetornadas.get(i).getFormaPagamento().getParcelas(), is(equalTo(transacoesResponseDtosEsperadas.get(i).getFormaPagamento().getParcelas())));
-
 		}
 
 	}
@@ -170,26 +171,26 @@ class TransacaoDtoServiceTest {
     void QuandoUmEstornoEhSolicitadoEleEhRealizado(){
         // Dado
 		Long id = 1L;
-		TransacaoResponseDto transacaoResponseDtoEsperada = TransacaoResponseDtoBuilder.toTransacaoResponseDto();
-		transacaoResponseDtoEsperada.getDescricao().setStatus(StatusTransacaoEnum.NEGADO);
-		Transacao transacaoModelNaoSalva = CONVERTER.originToDestiny(transacaoResponseDtoEsperada, Transacao.class);
+		//transacaoResponseDto já foi instanciado no setUp
+		transacaoResponseDto.getDescricao().setStatus(StatusTransacaoEnum.NEGADO);
+		Transacao transacaoModelNaoSalva = CONVERTER.originToDestiny(transacaoResponseDto, Transacao.class);
 
 		// Quando
 		when(transacaoModelService.buscarTransacao(id)).thenReturn(transacaoModelNaoSalva);
-		when(converter.originToDestiny(transacaoModelNaoSalva, TransacaoResponseDto.class)).thenReturn(transacaoResponseDtoEsperada);
+		when(converter.originToDestiny(transacaoModelNaoSalva, TransacaoResponseDto.class)).thenReturn(transacaoResponseDto);
 
         // Então
 		TransacaoResponseDto transacaoResponseDtoRetornada  = transacaoDtoService.estornar(id);
-		assertThat(transacaoResponseDtoRetornada.getId(), is(equalTo(transacaoResponseDtoEsperada.getId())));
-		assertThat(transacaoResponseDtoRetornada.getCartao(), is(equalTo(transacaoResponseDtoEsperada.getCartao())));
-		assertThat(transacaoResponseDtoRetornada.getDescricao().getValor(), is(equalTo(transacaoResponseDtoEsperada.getDescricao().getValor())));
-		assertThat(transacaoResponseDtoRetornada.getDescricao().getDataHora(), is(equalTo(transacaoResponseDtoEsperada.getDescricao().getDataHora())));
-		assertThat(transacaoResponseDtoRetornada.getDescricao().getEstabelecimento(), is(equalTo(transacaoResponseDtoEsperada.getDescricao().getEstabelecimento())));
-		assertThat(transacaoResponseDtoRetornada.getDescricao().getNsu(), is(equalTo(transacaoResponseDtoEsperada.getDescricao().getNsu())));
-		assertThat(transacaoResponseDtoRetornada.getDescricao().getCodigoAutorizacao(), is(equalTo(transacaoResponseDtoEsperada.getDescricao().getCodigoAutorizacao())));
+		assertThat(transacaoResponseDtoRetornada.getId(), is(equalTo(transacaoResponseDto.getId())));
+		assertThat(transacaoResponseDtoRetornada.getCartao(), is(equalTo(transacaoResponseDto.getCartao())));
+		assertThat(transacaoResponseDtoRetornada.getDescricao().getValor(), is(equalTo(transacaoResponseDto.getDescricao().getValor())));
+		assertThat(transacaoResponseDtoRetornada.getDescricao().getDataHora(), is(equalTo(transacaoResponseDto.getDescricao().getDataHora())));
+		assertThat(transacaoResponseDtoRetornada.getDescricao().getEstabelecimento(), is(equalTo(transacaoResponseDto.getDescricao().getEstabelecimento())));
+		assertThat(transacaoResponseDtoRetornada.getDescricao().getNsu(), is(equalTo(transacaoResponseDto.getDescricao().getNsu())));
+		assertThat(transacaoResponseDtoRetornada.getDescricao().getCodigoAutorizacao(), is(equalTo(transacaoResponseDto.getDescricao().getCodigoAutorizacao())));
 		assertThat(transacaoResponseDtoRetornada.getDescricao().getStatus(), is(StatusTransacaoEnum.NEGADO));
-		assertThat(transacaoResponseDtoRetornada.getFormaPagamento().getTipo(), is(equalTo(transacaoResponseDtoEsperada.getFormaPagamento().getTipo())));
-		assertThat(transacaoResponseDtoRetornada.getFormaPagamento().getParcelas(), is(equalTo(transacaoResponseDtoEsperada.getFormaPagamento().getParcelas())));
+		assertThat(transacaoResponseDtoRetornada.getFormaPagamento().getTipo(), is(equalTo(transacaoResponseDto.getFormaPagamento().getTipo())));
+		assertThat(transacaoResponseDtoRetornada.getFormaPagamento().getParcelas(), is(equalTo(transacaoResponseDto.getFormaPagamento().getParcelas())));
 	}
 
 }

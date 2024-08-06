@@ -27,6 +27,7 @@
 ```
   ├── controller
   ├── domain
+  │   ├── annotation
   │   ├── constant
   │   ├── converter
   │   ├── dto

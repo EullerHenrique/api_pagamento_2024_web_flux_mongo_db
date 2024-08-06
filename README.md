@@ -64,16 +64,20 @@
   ### Realizar pagamento
   - Endpoint: POST {{host}}/transacao/v1/pagar
   - Validações:
-    - Valida se não falta nenhum campo
-    - Valida se todos os campos foram preenchidos
-    - Valida se o campo cartao tem 16 caracteres
-    - Valida se o campo valor é maior do que 0
-    - Valida se o campo parcelas é maior do que 0
-    - Valida se o valor do campo descricao.dataHora corresponde ao formato "01/01/2000 01:01:01"
-    - Valida se o valor do campo formaPagamento.tipo é válido [AVISTA, PARCELADO_LOJA, PARCELADO_EMISSOR]
-    - Valida se o valor da parcela é 1 se o tipo de pagamento for AVISTA
+    1. Valida se não falta nenhum campo
+    2. Valida se todos os campos foram preenchidos
+    3. Valida se o campo cartao tem 16 caracteres
+    4. Valida se o campo valor é maior do que 0
+    5. Valida se o campo parcelas é maior do que 0
+    6. Valida se o valor do campo descricao.dataHora corresponde ao formato "01/01/2000 01:01:01"
+    7. Valida se o valor do campo formaPagamento.tipo é válido [AVISTA, PARCELADO_LOJA, PARCELADO_EMISSOR]
+    8. Valida se o valor da parcela é 1 se o tipo de pagamento for AVISTA
+  - Obs:
+    1. Nsu é um número gerado randomicamente
+    2. Código de transação é um número gerado randomicamente
+    3. O status é determinado randomicamente entre duas opções [AUTORIZADO, NEGADO]
     
-  Request:
+  - Request:
   
   ```
   { 
@@ -90,7 +94,7 @@
   }
   ```
 
-  Response:
+  - Response:
   
   ```
   {
@@ -111,9 +115,14 @@
   }
   ```
   
-  ### localhost:8081/transacao/v1/estorno/1 (Docker) ou localhost:8080/transacao/v1/estorno/1 (Spring Boot)
+  ### Realizar estorno
+  - Endpoint: PUT {{host}}/transacao/v1/estornar/{{id}
+  - Validações:
+    1. Valida se a transação que será estornada existe
+    2. Valida se a transação não foi estornada anteriormente
+    3. Valida se a transação não foi cancelada anteriormente
   
-  Response: 
+  - Response: 
   
   ```
   {

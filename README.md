@@ -19,11 +19,15 @@
 ## Arquitetura
 
 - A estrutura foi baseada no DDD (Design direcionado ao domínio).
-- Portanto, existem 4 camadas:
+- Portanto, 4 camadas foram utilizadas:
     1. Controller [Camada de interface - Presetantion] 
     2. Domain [Camada de domínio - Domain]
     3. Service [Camada de aplicação - Application]
-    4. Infra [Camada de infraestrutura - Infraestructure]
+          1. Dto [Camada de regras de negócio]
+          2. Model [Camada de banco de dados]
+          3. Util [Camada de utilitários]
+          4. Validators [Camada de validações]
+    5. Infra [Camada de infraestrutura - Infraestructure]
 ```
   ├── controller
   ├── domain
@@ -48,11 +52,11 @@
   │   │   ├── http
   │   ├── model
   │   ├── repository
-  │   └── service
-  │       ├── dto
-  │       ├── model
-  │       ├── util
-  │       └── validator
+  ├── service
+  │   ├── dto
+  │   ├── model
+  │   ├── util
+  │   ├── validator
   ├── infra
   │   ├── config
 ```
@@ -100,10 +104,19 @@
 
 ### Swagger
 
- - Os endpoints para testes e documentação estão disponíveis no host:
+ - Os endpoints documentados para testes estão disponíveis no host:
     -  http://localhost:8081/swagger-ui/index.html (Docker)
     -  http://localhost:8080/swagger-ui/index.html (Spring Boot)
+  
+### Postman
 
+- Os endpoints para testes estão disponíveis na collection do postman: api_pagamento.postman_collection.json
+- Para usar a collection:
+    - Acesse https://www.postman.com/
+    - Realize o login
+    - Baixe o postman agent
+    - Faça a requisição desejada
+      
 ### EndPoints
 
  #### Realizar pagamento

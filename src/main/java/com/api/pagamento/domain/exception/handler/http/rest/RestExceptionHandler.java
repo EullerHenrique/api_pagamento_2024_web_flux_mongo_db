@@ -77,7 +77,7 @@ public class RestExceptionHandler {
 	 * @author Euller Henrique
 	 */
 	@ExceptionHandler(HttpMessageNotReadableException.class)
-	protected ResponseEntity<Object> handleHttpMessageNotReadableException(HttpMessageNotReadableException ex) {
+	protected ResponseEntity<Object> handleJsonParserException(HttpMessageNotReadableException ex) {
 		String error = ex.toString().split(DOIS_PONTOS)[0];
 		String message = ex.getCause().getMessage();
 

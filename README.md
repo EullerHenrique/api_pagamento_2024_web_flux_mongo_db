@@ -84,33 +84,30 @@
 ### Docker
 1. A api está disponível no http://localhost:8081/transacao/v1
 2. Se o código for modificado:
-    1. Digite docker-compose build --no-cache para uma nova imagem da aplicação ser gerada
-    2. Digite docker-compose up -d
+    - Digite docker-compose build --no-cache para uma nova imagem da aplicação ser gerada
 
 ### Spring Boot
 
 #### Ide
-  1. Abra a pasta api_pagamento_2024 em uma IDE (Ex: IntelliJ IDEA) 
-  2. Navegue pela IDE até ApiPagamentoApplication
-  3. Aperte o botão play localizado ao lado de "public class ApiPagamentoApplication"
-  4. A api está disponível no http://localhost:8080/transacao/v1
+1. Abra a pasta api_pagamento_2024 em uma IDE (Ex: IntelliJ IDEA) 
+2. Navegue pela IDE até ApiPagamentoApplication
+3. Aperte o botão play localizado ao lado de "public class ApiPagamentoApplication"
+4. A api está disponível no http://localhost:8080/transacao/v1
 
 #### Mvn
-  1. Abra o cmd
-  2. Navegue até a pasta api_pagamento_2024
-  3. Rode o comando ./mvnw spring-boot:run
-  4. A api está disponível no http://localhost:8080/transacao/v1
+1. Abra o cmd
+2. Navegue até a pasta api_pagamento_2024
+3. Rode o comando ./mvnw spring-boot:run
+4. A api está disponível no http://localhost:8080/transacao/v1
 
 ## Utilização
 
 ### Swagger
-
  - Os endpoints documentados para testes estão disponíveis no host:
-    -  http://localhost:8081/swagger-ui/index.html (Docker)
-    -  http://localhost:8080/swagger-ui/index.html (Spring Boot)
+    -  Docker: http://localhost:8081/swagger-ui/index.html
+    -  Spring Boot: http://localhost:8080/swagger-ui/index.html
   
 ### Postman
-
 - Os endpoints para testes estão disponíveis na collection do postman: api_pagamento.postman_collection.json
 - Para usar a collection:
     - Acesse https://www.postman.com/
@@ -121,7 +118,7 @@
       
 ### EndPoints
 
- #### Realizar pagamento
+#### Realizar pagamento
 - Endpoint: POST {{host}}/transacao/v1/pagar
 - Validações:
   1. Valida se não falta nenhum campo
@@ -291,4 +288,3 @@
  - Abra o cmd
  - Navegue até a pasta api_pagamento_2024
  - Rode o comando ./mvnw spring-boot:test
-

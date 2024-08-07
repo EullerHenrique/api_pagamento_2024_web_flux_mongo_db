@@ -59,8 +59,7 @@
 
 ## Modelagem
 
-![Screenshot 2024-08-06 202240](https://github.com/user-attachments/assets/8455de95-53d6-4163-a2cc-5f97c4143eae)
-
+![Screenshot 2024-08-06 224607](https://github.com/user-attachments/assets/9d6d48c2-21c1-4d51-9e98-6cd69015939c)
 
 ## Configuração
 

@@ -282,7 +282,9 @@
 ### Execução
 
 #### Ide
-  - Aperte o botão play localizado ao lado de "public class TransacaoDtoControllerTest" ou "public class TransacaoDtoServiceTest"
+  - Aperte o botão play localizado ao lado de:
+    - "public class TransacaoDtoControllerTest"
+    - "public class TransacaoDtoServiceTest"
 
 #### Mvn
  - Abra o cmd

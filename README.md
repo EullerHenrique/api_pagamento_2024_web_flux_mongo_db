@@ -23,7 +23,11 @@
     1. Controller [Camada de interface - Presetantion] 
     2. Domain [Camada de domínio - Domain]
     3. Service [Camada de aplicação - Application]
-    4. Infra [Camada de infraestrutura - Infraestructure]
+          1. Dto [Camada de regras de negócio]
+          2. Model [Camada de banco de dados]
+          3. Util [Camada de utilitários]
+          4. Validators [Camada de validações]
+    5. Infra [Camada de infraestrutura - Infraestructure]
 ```
   ├── controller
   ├── domain

@@ -19,7 +19,7 @@
 ## Arquitetura
 
 - A estrutura foi baseada no DDD (Design direcionado ao domínio).
-- Portanto, existem 4 camadas:
+- Portanto, 4 camadas foram utilizadas:
     1. Controller [Camada de interface - Presetantion] 
     2. Domain [Camada de domínio - Domain]
     3. Service [Camada de aplicação - Application]

@@ -48,7 +48,7 @@ public class TransacaoDtoService {
 	 * @author Euller Henrique
 	 */
 	public List<TransacaoResponseDto> listarTransacoes() {
-		List<Transacao> transacoes = transacaoModelService.listarTranscacoes();
+		List<Transacao> transacoes = transacaoModelService.listarTransacoes();
 		return converter.originToDestiny(transacoes, TransacaoResponseDto.class);
 	}
 

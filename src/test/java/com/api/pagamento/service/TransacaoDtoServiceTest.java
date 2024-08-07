@@ -182,7 +182,7 @@ class TransacaoDtoServiceTest {
 		List<Transacao> transacoes = CONVERTER.originToDestiny(transacoesResponseDtosEsperadas, Transacao.class);
 
 		//Quando
-		when(transacaoModelService.listarTranscacoes()).thenReturn(transacoes);
+		when(transacaoModelService.listarTransacoes()).thenReturn(transacoes);
 		when(converter.originToDestiny(transacoes, TransacaoResponseDto.class)).thenReturn(transacoesResponseDtosEsperadas);
 
 		//Então

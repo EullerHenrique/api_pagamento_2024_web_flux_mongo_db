@@ -42,7 +42,7 @@ public class TransacaoModelService {
      *     Lista de models com os dados das transações
      * @author Euller Henrique
      */
-    public List<Transacao> listarTranscacoes() {
+    public List<Transacao> listarTransacoes() {
         List<Transacao> transacoes = transacaoRepository.findAll();
         if (transacoes.isEmpty()) {
             throw new NotFoundException(ERRO_404_NENHUMA_TRANSACAO_ENCONTRADA);

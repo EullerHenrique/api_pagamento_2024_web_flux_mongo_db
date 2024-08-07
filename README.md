@@ -48,11 +48,11 @@
   │   │   ├── http
   │   ├── model
   │   ├── repository
-  │   └── service
-  │       ├── dto
-  │       ├── model
-  │       ├── util
-  │       └── validator
+  ├── service
+  │   ├── dto
+  │   ├── model
+  │   ├── util
+  │   ├── validator
   ├── infra
   │   ├── config
 ```

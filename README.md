@@ -24,7 +24,7 @@
     2. Domain [Camada de domínio - Domain]
     3. Service [Camada de aplicação - Application]
           1. Dto [Camada de regras de negócio]
-          2. Model [Camada de banco de dados]
+          2. Model [Camada de acesso ao banco de dados]
           3. Util [Camada de utilitários]
           4. Validators [Camada de validações]
     5. Infra [Camada de infraestrutura - Infraestructure]

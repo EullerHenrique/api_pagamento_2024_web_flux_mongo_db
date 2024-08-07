@@ -116,6 +116,7 @@
     - Acesse https://www.postman.com/
     - Realize o login
     - Baixe o postman agent
+    - Importe a collection
     - Faça a requisição desejada
       
 ### EndPoints

@@ -44,6 +44,7 @@ public class DescricaoTransacao implements Serializable {
     private LocalDateTime dataHora;
 
     @NotNull
+    @Column(length = 100)
     private String estabelecimento;
 
     @NotNull
@@ -55,6 +56,7 @@ public class DescricaoTransacao implements Serializable {
     private String codigoAutorizacao;
 
     @NotNull
+    @Column(length = 20)
     @Enumerated(EnumType.STRING)
     private StatusTransacaoEnum status;
 

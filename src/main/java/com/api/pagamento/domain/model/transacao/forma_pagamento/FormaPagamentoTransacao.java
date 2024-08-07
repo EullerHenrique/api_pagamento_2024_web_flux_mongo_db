@@ -35,6 +35,7 @@ public class FormaPagamentoTransacao implements Serializable {
     private Long id;
 
     @NotNull
+    @Column(length = 20)
     @Enumerated(EnumType.STRING)
     private TipoPagamentoTransacaoEnum tipo;
 

@@ -17,6 +17,8 @@ public class WordErrorConstants {
 	public static final String MAIOR_QUE = "maior que";
 
 	public static final String EH_OBRIGATORIO = "é obrigatório!";
+	public static final String E = "e";
+	public static final String ENTRE = "entre";
 	public static final String CARACTERES = "caracteres!";
 
 	public static final String O_CAMPO_XXX = "O campo" + DividerConstants.ESPACO + FormatterConstants.FORMATTER_STRING;

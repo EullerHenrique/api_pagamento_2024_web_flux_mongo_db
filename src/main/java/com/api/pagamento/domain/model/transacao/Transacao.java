@@ -37,6 +37,7 @@ public class Transacao implements Serializable {
     private Long id;
 
     @NotNull
+    @Column(length = 16)
     private String cartao;
 
     @Valid

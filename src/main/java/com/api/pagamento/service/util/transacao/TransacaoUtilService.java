@@ -26,7 +26,7 @@ public class TransacaoUtilService {
 	 *
 	 */
 	public String obterNsu() {
-		return String.valueOf(RANDOM.nextInt(1000000000));
+		return String.valueOf(RANDOM.nextInt(100000000, 999999999));
 	}
 
 	/**
@@ -37,7 +37,7 @@ public class TransacaoUtilService {
 	 * @author Euller Henrique
 	 */
 	public String obterCodigoAutorizacao() {
-		return String.valueOf(RANDOM.nextInt(1000000000));
+		return String.valueOf(RANDOM.nextInt(100000000, 999999999));
 	}
 
 	/**

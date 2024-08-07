@@ -47,9 +47,11 @@ public class DescricaoTransacao implements Serializable {
     private String estabelecimento;
 
     @NotNull
+    @Column(length = 9)
     private String nsu;
 
     @NotNull
+    @Column(length = 9)
     private String codigoAutorizacao;
 
     @NotNull

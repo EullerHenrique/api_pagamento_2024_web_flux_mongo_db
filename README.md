@@ -98,7 +98,7 @@
 #### Mvn
   1. Abra o cmd
   2. Navegue até a pasta api_pagamento_2024
-  3. Rode ./mvnw spring-boot:run
+  3. Rode o comando ./mvnw spring-boot:run
   4. A api está disponível no http://localhost:8080/transacao/v1
 
 ## Utilização
@@ -258,15 +258,11 @@
   ]
 ```
 
-### Testes 
+## Testes 
 
-#### Testes Unitários
+### Testes Unitários
 - Para garantir que o fluxo do controller e do service estão corretos, testes unitários foram feitos para simulá-los
-- Para executá-las:  
-  - Aperte o botão play localizado ao lado de "public class TransacaoDtoControllerTest" ou "public class TransacaoDtoServiceTest"
-  - Ou
-  - Rode o comando ./mvnw spring-boot:test
-  
+
 ##### Controller
 - QuandoUmaTransacaoEhSolicitadaElaDeveSerRealizada
 - QuandoUmaTransacaoEhBuscadaPeloIdENaoEhEncontradaUmaExcecaoDeveSerRetornada
@@ -283,4 +279,13 @@
 - QuandoTransacoesSaoBuscadasElasDevemSerRetornadas
 - QuandoUmEstornoEhSolicitadoEleEhRealizado
 
+### Execução
+
+#### Ide
+  - Aperte o botão play localizado ao lado de "public class TransacaoDtoControllerTest" ou "public class TransacaoDtoServiceTest"
+
+#### Mvn
+ - Abra o cmd
+ - Navegue até a pasta api_pagamento_2024
+ - Rode o comando ./mvnw spring-boot:test
 

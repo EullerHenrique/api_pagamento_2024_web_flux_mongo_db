@@ -1,9 +1,13 @@
 package com.api.pagamento.service.dto.transacao;
 
 import com.api.pagamento.domain.converter.Converter;
+import com.api.pagamento.domain.dto.response.transacao.descricao.DescricaoTransacaoResponseDto;
+import com.api.pagamento.domain.dto.response.transacao.forma_pagamento.FormaPagamentoTransacaoResponseDto;
 import com.api.pagamento.domain.model.transacao.descricao.DescricaoTransacao;
 import com.api.pagamento.domain.model.transacao.forma_pagamento.FormaPagamentoTransacao;
 import com.api.pagamento.service.model.transacao.TransacaoModelService;
+import com.api.pagamento.service.model.transacao.descricao.DescricaoModelService;
+import com.api.pagamento.service.model.transacao.forma_pagamento.FormaPagamentoModelService;
 import com.api.pagamento.service.util.transacao.TransacaoUtilService;
 import com.api.pagamento.service.validator.transacao.TransacaoValidatorService;
 import com.api.pagamento.domain.dto.request.transacao.TransacaoRequestDto;
@@ -24,6 +28,8 @@ import reactor.core.publisher.Mono;
 public class TransacaoDtoService {
 
 	private final TransacaoModelService transacaoModelService;
+	private final DescricaoModelService descricaoModelService;
+	private final FormaPagamentoModelService formaPagamentoModelService;
 	private final TransacaoUtilService transacaoUtilService;
 	private final TransacaoValidatorService transacaoValidatorService;
 	private final Converter converter;
@@ -37,9 +43,33 @@ public class TransacaoDtoService {
 	 * @author Euller Henrique
 	 */
 	public Mono<TransacaoResponseDto> buscarTransacao(String id) {
-		return transacaoModelService.buscarTransacao(id).map(transacao -> converter.originToDestiny(transacao, TransacaoResponseDto.class));
-	}
+		return transacaoModelService.buscarTransacao(id)
+				.flatMap(transacao -> {
+					String descricaoTransacaoId = transacao.getDescricaoId();
+					String formaPagamentoTransacaoId = transacao.getFormaPagamentoId();
 
+					return Mono.zip(
+									descricaoModelService.buscarDescricao(descricaoTransacaoId),
+									formaPagamentoModelService.buscarFormaPagamento(formaPagamentoTransacaoId)
+							)
+							.map(tuple -> {
+								DescricaoTransacao descricaoTransacao = tuple.getT1();
+								FormaPagamentoTransacao formaPagamentoTransacao = tuple.getT2();
+
+								DescricaoTransacaoResponseDto descricaoTransacaoResponseDto = converter.originToDestiny(descricaoTransacao,
+										DescricaoTransacaoResponseDto.class);
+								FormaPagamentoTransacaoResponseDto formaPagamentoTransacaoResponseDto = converter.originToDestiny(formaPagamentoTransacao,
+										FormaPagamentoTransacaoResponseDto.class);
+
+								return TransacaoResponseDto.builder()
+										.id(transacao.getId())
+										.cartao(transacao.getCartao())
+										.descricao(descricaoTransacaoResponseDto)
+										.formaPagamento(formaPagamentoTransacaoResponseDto)
+										.build();
+							});
+				});
+	}
 	/**
 	 * Lista as transacoes
 	 *
@@ -47,8 +77,7 @@ public class TransacaoDtoService {
 	 * @author Euller Henrique
 	 */
 	public Flux<TransacaoResponseDto> listarTransacoes() {
-		return transacaoModelService.listarTransacoes()
-				.flatMap(transacao -> Mono.just(converter.originToDestiny(transacao, TransacaoResponseDto.class)));
+		return null;
 	}
 
 	/**

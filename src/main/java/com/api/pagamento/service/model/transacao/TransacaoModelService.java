@@ -2,14 +2,18 @@ package com.api.pagamento.service.model.transacao;
 
 import com.api.pagamento.domain.exception.http.NotFoundException;
 import com.api.pagamento.domain.model.transacao.Transacao;
+import com.api.pagamento.domain.model.transacao.descricao.DescricaoTransacao;
+import com.api.pagamento.domain.model.transacao.forma_pagamento.FormaPagamentoTransacao;
 import com.api.pagamento.domain.repository.transacao.TransacaoRepository;
+import com.api.pagamento.service.model.transacao.descricao.DescricaoModelService;
+import com.api.pagamento.service.model.transacao.forma_pagamento.FormaPagamentoModelService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import java.util.List;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import static com.api.pagamento.domain.constant.http.message.error.ErrorConstants.ERRO_404_NENHUMA_TRANSACAO_ENCONTRADA;
 import static com.api.pagamento.domain.constant.http.message.error.ErrorConstants.ERRO_404_TRANSACAO_NAO_ENCONTRADA;
-
 
 /**
  * Serviço responsável por retornar model(s) (se existir) ou  lançar exceção (se não existir)
@@ -21,6 +25,8 @@ import static com.api.pagamento.domain.constant.http.message.error.ErrorConstant
 public class TransacaoModelService {
 
     private final TransacaoRepository transacaoRepository;
+    private final FormaPagamentoModelService formaPagamentoModelService;
+    private final DescricaoModelService descricaoModelService;
 
     /**
      * Busca uma transação
@@ -31,8 +37,9 @@ public class TransacaoModelService {
      *     Model com os dados da transação
      * @author Euller Henrique
      */
-    public Transacao buscarTransacao(Long id) {
-        return transacaoRepository.findById(id).orElseThrow(() -> new NotFoundException(ERRO_404_TRANSACAO_NAO_ENCONTRADA));
+    public Mono<Transacao> buscarTransacao(String id) {
+        return transacaoRepository.findById(id)
+                .switchIfEmpty(Mono.error(new NotFoundException(ERRO_404_TRANSACAO_NAO_ENCONTRADA)));
     }
 
     /**
@@ -42,12 +49,9 @@ public class TransacaoModelService {
      *     Lista de models com os dados das transações
      * @author Euller Henrique
      */
-    public List<Transacao> listarTransacoes() {
-        List<Transacao> transacoes = transacaoRepository.findAll();
-        if (transacoes.isEmpty()) {
-            throw new NotFoundException(ERRO_404_NENHUMA_TRANSACAO_ENCONTRADA);
-        }
-        return transacoes;
+    public Flux<Transacao> listarTransacoes() {
+        return transacaoRepository.findAll()
+                .switchIfEmpty(Flux.error(new NotFoundException(ERRO_404_NENHUMA_TRANSACAO_ENCONTRADA)));
     }
 
     /**
@@ -55,12 +59,22 @@ public class TransacaoModelService {
      *
      * @param transacao
      *         Model com os dados da transação
-     * @return Long
-     *       Id da transação salva
+     * @return Transacao
+     *     Model com os dados da transação salva
+     *
      * @author Euller Henrique
      */
-    public Long salvarTransacao(Transacao transacao) {
-        return transacaoRepository.save(transacao).getId();
+    public Mono<String> salvarTransacao(Transacao transacao, FormaPagamentoTransacao formaPagamentoTransacao, DescricaoTransacao descricaoTransacao) {
+        return formaPagamentoModelService.salvarFormaPagamento(formaPagamentoTransacao)
+                .flatMap(formaPagamento -> {
+                    transacao.setFormaPagamentoId(formaPagamento.getId());
+                    return descricaoModelService.salvarDescricao(descricaoTransacao);
+                })
+                .flatMap(descricao -> {
+                    transacao.setDescricaoId(descricao.getId());
+                    return transacaoRepository.save(transacao);
+                })
+                .map(Transacao::getId);
     }
 
 }

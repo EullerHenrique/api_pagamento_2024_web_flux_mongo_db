@@ -2,20 +2,13 @@ server:
   port:
     8080
 spring:
-  jpa:
-    database: POSTGRESQL
-    show-sql: true
-    hibernate:
-      ddl-auto: update
-    properties:
-      hibernate:
-        format_sql: true
-  datasource:
-    url: jdbc:postgresql://localhost:5434/db
-    username: euller
-    password: 12345
-    driverClassName: org.postgresql.Driver
-  sql:
-    init:
-      platform: postgres
+  data:
+    mongodb:
+      uri: mongodb://euller:12345@localhost:27017/db?authSource=admin
 
+logging:
+  level:
+    org:
+      springframework:
+        data:
+          mongodb: DEBUG

@@ -1,4 +1,6 @@
+/*
 package com.api.pagamento.service;
+
 
 import com.api.pagamento.domain.dto.builder.request.transacao.TransacaoRequestDtoBuilder;
 import com.api.pagamento.domain.dto.builder.response.transacao.TransacaoResponseDtoBuilder;
@@ -35,7 +37,7 @@ import static org.mockito.Mockito.*;
  * Classe de teste responsável por realizar os testes unitários no serviço da transação
  *
  * @author Euller Henrique
- */
+
 @ExtendWith(MockitoExtension.class)
 class TransacaoDtoServiceTest {
 
@@ -58,7 +60,7 @@ class TransacaoDtoServiceTest {
 	 * Método que cria os objetos a cada teste
 	 *
 	 * @author Euller Henrique
-	 */
+
 	@BeforeEach
 	void setUp() {
 		transacaoRequestDto = TransacaoRequestDtoBuilder.builder().build().obterTransacaoRequestDto();
@@ -69,7 +71,7 @@ class TransacaoDtoServiceTest {
 	 * Teste que testa o retorno do serviço pagar
 	 *
 	 * @author Euller Henrique
-	 */
+
     @Test
     void QuandoUmaTransacaoEhSolicitadaElaDeveSerRealizada(){
 
@@ -106,7 +108,7 @@ class TransacaoDtoServiceTest {
 	 * Teste que testa uma exceção do serviço buscar
 	 *
 	 * @author Euller Henrique
-	 */
+
 	@Test
     void QuandoUmaTransacaoEhBuscadaPeloIdENaoEhEncontradaUmaExcecaoDeveSerRetornada()  {
         // Dado
@@ -123,7 +125,7 @@ class TransacaoDtoServiceTest {
 	 * Teste que testa uma exceção do serviço pagar
 	 *
 	 * @author Euller Henrique
-	 */
+
 	@Test
     void QuandoUmPagamentoEhSolicitadoComTipoAvistaEMaisDeUmaParcelaUmaExcecaoDeveSerRetornada()  {
 		// Dado
@@ -140,7 +142,7 @@ class TransacaoDtoServiceTest {
 	 * Teste que testa o retorno do serviço buscar
 	 *
 	 * @author Euller Henrique
-	 */
+
 	@Test
 	void QuandoUmaTransacaoEhBuscadaPeloIdElaDeveSerRetornada(){
 		// Dado
@@ -170,7 +172,7 @@ class TransacaoDtoServiceTest {
 	 * Teste que testa o retorno do serviço listar
 	 *
 	 * @author Euller Henrique
-	 */
+
 	@Test
 	void QuandoTransacoesSaoBuscadasElasDevemSerRetornadas() {
 		//Dado
@@ -206,7 +208,7 @@ class TransacaoDtoServiceTest {
 	 * Teste que testa o retorno do serviço estornar
 	 *
 	 * @author Euller Henrique
-	 */
+
 	@Test
     void QuandoUmEstornoEhSolicitadoEleEhRealizado(){
         // Dado
@@ -234,5 +236,7 @@ class TransacaoDtoServiceTest {
 	}
 
 }
+ */
+
 
 

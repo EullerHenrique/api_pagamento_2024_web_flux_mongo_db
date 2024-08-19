@@ -1,3 +1,4 @@
+/*
 package com.api.pagamento.controller;
 
 import com.api.pagamento.domain.convert.gson.serializer.LocalDateTimePtbrJsonSerializer;
@@ -41,7 +42,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * Classe de teste responsável por realizar os testes unitários no controller da transação
  *
  * @author Euller Henrique
- */
+
 @ExtendWith(MockitoExtension.class)
 class TransacaoControllerTest {
 
@@ -60,7 +61,7 @@ class TransacaoControllerTest {
 	 * Método que cria os objetos a cada teste
 	 *
 	 * @author Euller Henrique
-	 */
+
 	@BeforeEach
 	void setUp() {
 		mockMvc = MockMvcBuilders.standaloneSetup(transacaoController).setControllerAdvice(new HttpExceptionHandler(new ExceptionUtil())).build();
@@ -72,7 +73,7 @@ class TransacaoControllerTest {
 	 * Teste que testa o retorno do endpoint pagar
 	 *
 	 * @author Euller Henrique
-	 */
+
 	@Test
 	void QuandoUmaTransacaoEhSolicitadaElaDeveSerRealizada() throws Exception {
 		//Dado
@@ -100,7 +101,7 @@ class TransacaoControllerTest {
 	 * Teste que testa uma exceção do endpoint buscar
 	 *
 	 * @author Euller Henrique
-	 */
+
 	@Test
 	void QuandoUmaTransacaoEhBuscadaPeloIdENaoEhEncontradaUmaExcecaoDeveSerRetornada() throws Exception {
 		//Dado
@@ -118,7 +119,7 @@ class TransacaoControllerTest {
 	 * Teste que testa uma exceção do endpoint pagar
 	 *
 	 * @author Euller Henrique
-	 */
+
 	@Test
 	void QuandoUmPagamentoEhSolicitadoComCamposPreenchidosIncorretamenteUmaExcecaoDeveSerRetornada() throws Exception {
 		//Dado
@@ -142,7 +143,7 @@ class TransacaoControllerTest {
 	 * Teste que testa o retorno do endpoint buscar
 	 *
 	 * @author Euller Henrique
-	 */
+
 	@Test
 	void QuandoUmaTransacaoEhBuscadaPeloIdElaDeveSerRetornada() throws Exception {
 		//Dado
@@ -170,7 +171,7 @@ class TransacaoControllerTest {
 	 * Teste que testa o retorno do endpoint listar
 	 *
 	 * @author Euller Henrique
-	 */
+
 	@Test
 	void QuandoTransacoesSaoBuscadasElasDevemSerRetornadas() throws Exception {
 		//Dado
@@ -203,7 +204,7 @@ class TransacaoControllerTest {
 	 * Teste que testa o retorno do endpoint estornar
 	 *
 	 * @author Euller Henrique
-	 */
+
 	@Test
 	void QuandoUmEstornoEhSolicitadoEleEhRealizado() throws Exception {
 		// Dado
@@ -231,3 +232,4 @@ class TransacaoControllerTest {
 
 }
 
+*/

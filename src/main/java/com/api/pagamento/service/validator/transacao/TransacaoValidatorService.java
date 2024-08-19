@@ -54,7 +54,7 @@ public class TransacaoValidatorService {
 	 * 		Exceção lançada caso o status da transação seja inválido
 	 */
 	public void validarStatusTransacaoAoEstornar(Transacao transacao) {
-		StatusTransacaoEnum status = transacao.getDescricao().getStatus();
+		StatusTransacaoEnum status = null;//transacao.getDescricao().getStatus();
 
 		if (StatusTransacaoEnum.CANCELADO.equals(status)) {
 			throw new BadRequestException(ERROR_400_TRANSACAO_JA_FOI_ESTORNADA);

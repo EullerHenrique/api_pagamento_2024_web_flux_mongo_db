@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
  * Classe responsável por definir valores padrões para a response da forma de pagamento da transacao
  *
  * @author Euller Henrique
- */
+
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -27,3 +27,4 @@ public class FormaPagamentoResponseDtoBuilder {
     }
 
 }
+ */

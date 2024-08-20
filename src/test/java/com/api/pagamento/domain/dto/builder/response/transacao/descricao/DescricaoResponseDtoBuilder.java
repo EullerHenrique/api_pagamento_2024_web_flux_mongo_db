@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
  * Classe responsável por definir valores padrões para a response da descrição da transação
  *
  * @author Euller Henrique
- */
+
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -41,3 +41,4 @@ public class DescricaoResponseDtoBuilder {
     }
 
 }
+ */

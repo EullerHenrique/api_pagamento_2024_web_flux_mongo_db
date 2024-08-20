@@ -1,6 +1,7 @@
 package com.api.pagamento.domain.dto.response.transacao.forma_pagamento;
 
 import com.api.pagamento.domain.enumeration.transacao.forma_pagamento.TipoPagamentoTransacaoEnum;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,6 +18,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class FormaPagamentoTransacaoResponseDto {
 
+    @JsonIgnore
+    private String id;
     private TipoPagamentoTransacaoEnum tipo;
     private String parcelas;
 

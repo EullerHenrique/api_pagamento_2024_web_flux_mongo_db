@@ -99,7 +99,7 @@ public class TransacaoDtoService {
 	 */
 	public Mono<TransacaoResponseDto> pagar(TransacaoRequestDto request) {
 		return Mono.just(request).flatMap(req -> {
-			transacaoValidatorService.validarTipoPagamentoAoPagar(req);
+			transacaoValidatorService.validarTipoPagamentoAoPagar(req.getFormaPagamento().getTipo(), req.getFormaPagamento().getParcelas());
 			TransacaoResponseDto transacaoResponseDto = converter.originToDestiny(req, TransacaoResponseDto.class);
 			transacaoResponseDto.getDescricao().setNsu(transacaoUtilService.obterNsu());
 			transacaoResponseDto.getDescricao().setCodigoAutorizacao(transacaoUtilService.obterCodigoAutorizacao());
@@ -127,19 +127,21 @@ public class TransacaoDtoService {
 	 * @return TransacaoResponseDto Dto com os dados de resposta da transação
 	 * @author Euller Henrique
 	 */
-	public TransacaoResponseDto estornar(Long id) {
-		return null;
-		/*
-		Transacao transacao = transacaoModelService.buscarTransacao(id);
-		transacaoValidatorService.validarStatusTransacaoAoEstornar(transacao);
+	public Mono<TransacaoResponseDto> estornar(String id) {
+		return buscarTransacao(id).flatMap(transacaoResponseDto -> {
+			transacaoValidatorService.validarStatusTransacaoAoEstornar(transacaoResponseDto.getDescricao().getStatus());
+			transacaoResponseDto.getDescricao().setStatus(transacaoUtilService.obterStatusAoEstornar());
 
-		transacao.getDescricao().setStatus(transacaoUtilService.obterStatusAoEstornar());
-		transacaoModelService.salvarTransacao(transacao);
+			FormaPagamentoTransacao formaPagamentoNaoSalva = converter.originToDestiny(transacaoResponseDto.getFormaPagamento(),
+					FormaPagamentoTransacao.class);
+			DescricaoTransacao descricaoTransacaoNaoSalva = converter.originToDestiny(transacaoResponseDto.getDescricao(),
+					DescricaoTransacao.class);
 
-		return converter.originToDestiny(transacao, TransacaoResponseDto.class);
-
-		 */
+			return Mono.zip(
+					descricaoModelService.salvarDescricao(descricaoTransacaoNaoSalva),
+					formaPagamentoModelService.salvarFormaPagamento(formaPagamentoNaoSalva))
+					.thenReturn(transacaoResponseDto);
+		});
 	}
-
 
 }

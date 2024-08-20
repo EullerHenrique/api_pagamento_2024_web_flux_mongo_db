@@ -11,7 +11,6 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 
@@ -108,18 +107,14 @@ public class TransacaoController {
 	@Operation(summary = "Realiza um estorno")
 	@TransacaoApiResponses
 	@PutMapping(value = "/estornar/{id}", produces = APPLICATION_JSON)
-	public ResponseEntity<Object> estornar(@PathVariable Long id) {
-		return null;
-		/*
+	public Mono<ResponseEntity<Object>> estornar(@PathVariable String id) {
 		try {
-			TransacaoResponseDto transacaoDto = transacaoDtoService.estornar(id);
-			return ResponseEntity.ok().body(transacaoDto);
+			return transacaoDtoService.estornar(id).map(transacaoResponseDto -> ResponseEntity.ok().body(transacaoResponseDto));
 		} catch (NotFoundException | BadRequestException ex) {
 			throw ex;
 		} catch (Exception ex) {
 			throw new InternalServerErrorException(ex);
 		}
-		 */
 
 	}
 

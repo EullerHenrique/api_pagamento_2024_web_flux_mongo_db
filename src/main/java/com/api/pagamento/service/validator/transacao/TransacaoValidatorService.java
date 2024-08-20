@@ -1,10 +1,8 @@
 package com.api.pagamento.service.validator.transacao;
 
-import com.api.pagamento.domain.dto.request.transacao.TransacaoRequestDto;
 import com.api.pagamento.domain.enumeration.transacao.descricao.StatusTransacaoEnum;
 import com.api.pagamento.domain.enumeration.transacao.forma_pagamento.TipoPagamentoTransacaoEnum;
 import com.api.pagamento.domain.exception.http.BadRequestException;
-import com.api.pagamento.domain.model.transacao.Transacao;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -25,15 +23,14 @@ public class TransacaoValidatorService {
 	 * Caso o tipo de pagamento seja à vista, não é permitido mais de uma parcela
 	 * </p>
 	 *
-	 * @param request
-	 * 		Dto com os dados de request da transação
+	 * @param tipoPagamento
+	 * 		Tipo de pagamento
+	 * @param parcelas
+	 * 		Quantidade de parcelas
 	 * @throws BadRequestException
 	 * 		Exceção lançada caso o tipo de pagamento seja inválido
 	 */
-	public void validarTipoPagamentoAoPagar(TransacaoRequestDto request) {
-		TipoPagamentoTransacaoEnum tipoPagamento = request.getFormaPagamento().getTipo();
-		int parcelas = request.getFormaPagamento().getParcelas();
-
+	public void validarTipoPagamentoAoPagar(TipoPagamentoTransacaoEnum tipoPagamento, int parcelas) {
 		if (TipoPagamentoTransacaoEnum.AVISTA.equals(tipoPagamento) && parcelas > 1) {
 			throw new BadRequestException(ERROR_400_PAGAMENTO_AVISTA_MAIS_DE_UMA_PARCELA);
 		}
@@ -48,14 +45,12 @@ public class TransacaoValidatorService {
 	 * Se a transação foi negada, não é permitido estornar
 	 * </p>
 	 *
-	 * @param transacao
-	 * 		Model com os dados da transação
+	 * @param status
+	 * 		Status da transação
 	 * @throws BadRequestException
 	 * 		Exceção lançada caso o status da transação seja inválido
 	 */
-	public void validarStatusTransacaoAoEstornar(Transacao transacao) {
-		StatusTransacaoEnum status = null;//transacao.getDescricao().getStatus();
-
+	public void validarStatusTransacaoAoEstornar(StatusTransacaoEnum status) {
 		if (StatusTransacaoEnum.CANCELADO.equals(status)) {
 			throw new BadRequestException(ERROR_400_TRANSACAO_JA_FOI_ESTORNADA);
 		} else if (StatusTransacaoEnum.NEGADO.equals(status)) {

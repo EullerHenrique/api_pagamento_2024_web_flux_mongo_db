@@ -5,17 +5,12 @@
 - Java 17
 - Spring Boot 3
 - Maven
-- JPA
-- Hibernate
-- Postgresql
+- Mongo DB
 - Lombok
 - Spring Doc/Swagger
 - ModelMapper
 - Gson
 - Docker
-- Junit
-- Mockito
-- Hamcrest
 
 ## Arquitetura
 
@@ -27,9 +22,10 @@
           1. Dto [Camada de regras de negócio]
           2. Model [Camada de acesso ao banco de dados]
           3. Util [Camada de utilitários]
-          4. Validators [Camada de validações]
-    5. Infra [Camada de infraestrutura - Infraestructure]
+          4. Validator [Camada de validações]
+    5. Config [Camada de configuração - Infraestructure]
 ```
+  ├── config
   ├── controller
   ├── domain
   │   ├── annotation
@@ -58,8 +54,6 @@
   │   ├── model
   │   ├── util
   │   ├── validator
-  ├── infra
-  │   ├── config
 ```
 
 ## Modelagem

@@ -2,9 +2,7 @@ package com.api.pagamento.controller.transacao;
 
 import com.api.pagamento.domain.annotation.http.transacao.TransacaoApiResponses;
 import com.api.pagamento.domain.dto.request.transacao.TransacaoRequestDto;
-import com.api.pagamento.domain.exception.http.BadRequestException;
-import com.api.pagamento.domain.exception.http.InternalServerErrorException;
-import com.api.pagamento.domain.exception.http.NotFoundException;
+import com.api.pagamento.domain.exception.GeneralException;
 import com.api.pagamento.service.dto.transacao.TransacaoDtoService;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
@@ -12,7 +10,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
-
 
 import static com.api.pagamento.domain.constant.http.type.TypeHttpConstants.APPLICATION_JSON;
 
@@ -40,13 +37,9 @@ public class TransacaoController {
 	@TransacaoApiResponses
 	@GetMapping(value = "buscar/{id}", produces = APPLICATION_JSON)
 	public Mono<ResponseEntity<Object>> buscarTransacao(@PathVariable String id) {
-		try {
-			return transacaoDtoService.buscarTransacao(id).map(transacaoResponseDto -> ResponseEntity.ok().body(transacaoResponseDto));
-		} catch (NotFoundException | BadRequestException ex) {
-			throw ex;
-		} catch (Exception ex) {
-			throw new InternalServerErrorException(ex);
-		}
+		return transacaoDtoService.buscarTransacao(id)
+				.onErrorMap(Exception.class, ex -> {throw new GeneralException(ex);})
+				.map(transacaoResponseDto -> ResponseEntity.ok().body(transacaoResponseDto));
 	}
 
 	/**
@@ -60,15 +53,9 @@ public class TransacaoController {
 	@TransacaoApiResponses
 	@GetMapping(value = "/listar", produces = APPLICATION_JSON)
 	public Mono<ResponseEntity<Object>> listarTransacoes() {
-
-		try {
-			return transacaoDtoService.listarTransacoes().collectList().map(transacaoResponseDto -> ResponseEntity.ok().body(transacaoResponseDto));
-		} catch (NotFoundException | BadRequestException ex) {
-			throw ex;
-		} catch (Exception ex) {
-			throw new InternalServerErrorException(ex);
-		}
-
+		return transacaoDtoService.listarTransacoes().collectList()
+				.onErrorMap(Exception.class, ex -> {throw new GeneralException(ex);})
+				.map(transacaoResponseDto -> ResponseEntity.ok().body(transacaoResponseDto));
 	}
 
 	/**
@@ -84,15 +71,9 @@ public class TransacaoController {
 	@TransacaoApiResponses
 	@PostMapping(value = "/pagar", produces = APPLICATION_JSON, consumes = APPLICATION_JSON)
 	public Mono<ResponseEntity<Object>> pagar(@RequestBody @Valid TransacaoRequestDto request) {
-
-		try {
-			return transacaoDtoService.pagar(request).map(transacaoResponseDto -> ResponseEntity.ok().body(transacaoResponseDto));
-		} catch (NotFoundException | BadRequestException ex) {
-			throw ex;
-		} catch (Exception ex) {
-			throw new InternalServerErrorException(ex);
-		}
-
+		return transacaoDtoService.pagar(request)
+				.onErrorMap(Exception.class, ex -> {throw new GeneralException(ex);})
+				.map(transacaoResponseDto -> ResponseEntity.ok().body(transacaoResponseDto));
 	}
 
 	/**
@@ -108,14 +89,9 @@ public class TransacaoController {
 	@TransacaoApiResponses
 	@PutMapping(value = "/estornar/{id}", produces = APPLICATION_JSON)
 	public Mono<ResponseEntity<Object>> estornar(@PathVariable String id) {
-		try {
-			return transacaoDtoService.estornar(id).map(transacaoResponseDto -> ResponseEntity.ok().body(transacaoResponseDto));
-		} catch (NotFoundException | BadRequestException ex) {
-			throw ex;
-		} catch (Exception ex) {
-			throw new InternalServerErrorException(ex);
-		}
-
+		return transacaoDtoService.estornar(id)
+				.onErrorMap(Exception.class, ex -> {throw new GeneralException(ex);})
+				.map(transacaoResponseDto -> ResponseEntity.ok().body(transacaoResponseDto));
 	}
 
 }

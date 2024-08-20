@@ -5,6 +5,8 @@ import com.api.pagamento.domain.dto.response.transacao.descricao.DescricaoTransa
 import com.api.pagamento.domain.dto.response.transacao.forma_pagamento.FormaPagamentoTransacaoResponseDto;
 import com.api.pagamento.domain.model.transacao.descricao.DescricaoTransacao;
 import com.api.pagamento.domain.model.transacao.forma_pagamento.FormaPagamentoTransacao;
+import com.api.pagamento.service.dto.transacao.descricao.DescricaoDtoService;
+import com.api.pagamento.service.dto.transacao.forma_pagamento.FormaPagamentoDtoService;
 import com.api.pagamento.service.model.transacao.TransacaoModelService;
 import com.api.pagamento.service.model.transacao.descricao.DescricaoModelService;
 import com.api.pagamento.service.model.transacao.forma_pagamento.FormaPagamentoModelService;
@@ -31,6 +33,10 @@ public class TransacaoDtoService {
 	private final TransacaoModelService transacaoModelService;
 	private final DescricaoModelService descricaoModelService;
 	private final FormaPagamentoModelService formaPagamentoModelService;
+
+	private final DescricaoDtoService descricaoDtoService;
+	private final FormaPagamentoDtoService formaPagamentoDtoService;
+
 	private final TransacaoUtilService transacaoUtilService;
 	private final TransacaoValidatorService transacaoValidatorService;
 	private final Converter converter;
@@ -64,17 +70,12 @@ public class TransacaoDtoService {
 		String formaPagamentoTransacaoId = transacao.getFormaPagamentoId();
 
 		return Mono.zip(
-						descricaoModelService.buscarDescricao(descricaoTransacaoId),
-						formaPagamentoModelService.buscarFormaPagamento(formaPagamentoTransacaoId)
+						descricaoDtoService.buscarDescricao(descricaoTransacaoId),
+						formaPagamentoDtoService.buscarFormaPagamento(formaPagamentoTransacaoId)
 				)
 				.map(tuple -> {
-					DescricaoTransacao descricaoTransacao = tuple.getT1();
-					FormaPagamentoTransacao formaPagamentoTransacao = tuple.getT2();
-
-					DescricaoTransacaoResponseDto descricaoTransacaoResponseDto = converter.originToDestiny(descricaoTransacao,
-							DescricaoTransacaoResponseDto.class);
-					FormaPagamentoTransacaoResponseDto formaPagamentoTransacaoResponseDto = converter.originToDestiny(formaPagamentoTransacao,
-							FormaPagamentoTransacaoResponseDto.class);
+					DescricaoTransacaoResponseDto descricaoTransacaoResponseDto = tuple.getT1();
+					FormaPagamentoTransacaoResponseDto formaPagamentoTransacaoResponseDto = tuple.getT2();
 
 					return TransacaoResponseDto.builder()
 							.id(transacao.getId())

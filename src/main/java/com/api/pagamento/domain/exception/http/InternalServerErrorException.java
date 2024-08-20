@@ -18,6 +18,6 @@ public class InternalServerErrorException extends RuntimeException{
      */
     public InternalServerErrorException(Throwable cause) {
         super(cause);
-        log.error("Status: 500 - Msg: Erro interno do servidor Error: ", cause);
+        log.error("Erro interno do servidor: {}", cause.getMessage());
     }
 }

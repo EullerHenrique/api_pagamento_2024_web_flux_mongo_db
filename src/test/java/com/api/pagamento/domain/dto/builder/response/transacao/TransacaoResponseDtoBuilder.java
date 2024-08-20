@@ -1,19 +1,11 @@
 package com.api.pagamento.domain.dto.builder.response.transacao;
 
-import com.api.pagamento.domain.dto.builder.response.transacao.descricao.DescricaoResponseDtoBuilder;
-import com.api.pagamento.domain.dto.builder.response.transacao.forma_pagamento.FormaPagamentoResponseDtoBuilder;
-import com.api.pagamento.domain.dto.response.transacao.TransacaoResponseDto;
-import com.api.pagamento.domain.dto.response.transacao.descricao.DescricaoTransacaoResponseDto;
-import com.api.pagamento.domain.dto.response.transacao.forma_pagamento.FormaPagamentoTransacaoResponseDto;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
 
 /**
  * Classe responsável por definir valores padrões para a response da transação
  *
  * @author Euller Henrique
- */
+
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -36,3 +28,4 @@ public class TransacaoResponseDtoBuilder {
     }
 
 }
+ */

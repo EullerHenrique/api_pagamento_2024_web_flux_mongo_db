@@ -22,7 +22,7 @@
           1. Dto [Camada de regras de negócio]
           2. Model [Camada de acesso ao banco de dados]
           3. Util [Camada de utilitários]
-          4. Validators [Camada de validações]
+          4. Validator [Camada de validações]
     5. Config [Camada de configuração - Infraestructure]
 ```
   ├── config

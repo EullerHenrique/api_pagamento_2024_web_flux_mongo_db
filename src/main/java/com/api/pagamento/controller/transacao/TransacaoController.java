@@ -60,10 +60,10 @@ public class TransacaoController {
 	@Operation(summary = "Busca todas as transações")
 	@TransacaoApiResponses
 	@GetMapping(value = "/listar", produces = APPLICATION_JSON)
-	public Flux<ResponseEntity<Object>> listarTransacoes() {
+	public Mono<ResponseEntity<Object>> listarTransacoes() {
 
 		try {
-			return transacaoDtoService.listarTransacoes().flatMap(transacaoResponseDto -> Mono.just(ResponseEntity.ok().body(transacaoResponseDto)));
+			return transacaoDtoService.listarTransacoes().collectList().map(transacaoResponseDto -> ResponseEntity.ok().body(transacaoResponseDto));
 		} catch (NotFoundException | BadRequestException ex) {
 			throw ex;
 		} catch (Exception ex) {

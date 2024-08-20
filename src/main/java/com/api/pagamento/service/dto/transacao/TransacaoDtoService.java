@@ -14,6 +14,7 @@ import com.api.pagamento.domain.dto.request.transacao.TransacaoRequestDto;
 import com.api.pagamento.domain.dto.response.transacao.TransacaoResponseDto;
 import com.api.pagamento.domain.model.transacao.Transacao;
 import lombok.RequiredArgsConstructor;
+import org.reactivestreams.Publisher;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -44,32 +45,9 @@ public class TransacaoDtoService {
 	 */
 	public Mono<TransacaoResponseDto> buscarTransacao(String id) {
 		return transacaoModelService.buscarTransacao(id)
-				.flatMap(transacao -> {
-					String descricaoTransacaoId = transacao.getDescricaoId();
-					String formaPagamentoTransacaoId = transacao.getFormaPagamentoId();
-
-					return Mono.zip(
-									descricaoModelService.buscarDescricao(descricaoTransacaoId),
-									formaPagamentoModelService.buscarFormaPagamento(formaPagamentoTransacaoId)
-							)
-							.map(tuple -> {
-								DescricaoTransacao descricaoTransacao = tuple.getT1();
-								FormaPagamentoTransacao formaPagamentoTransacao = tuple.getT2();
-
-								DescricaoTransacaoResponseDto descricaoTransacaoResponseDto = converter.originToDestiny(descricaoTransacao,
-										DescricaoTransacaoResponseDto.class);
-								FormaPagamentoTransacaoResponseDto formaPagamentoTransacaoResponseDto = converter.originToDestiny(formaPagamentoTransacao,
-										FormaPagamentoTransacaoResponseDto.class);
-
-								return TransacaoResponseDto.builder()
-										.id(transacao.getId())
-										.cartao(transacao.getCartao())
-										.descricao(descricaoTransacaoResponseDto)
-										.formaPagamento(formaPagamentoTransacaoResponseDto)
-										.build();
-							});
-				});
+				.flatMap(this::obterTransacaoMonoComRelacionamentos);
 	}
+
 	/**
 	 * Lista as transacoes
 	 *
@@ -77,7 +55,38 @@ public class TransacaoDtoService {
 	 * @author Euller Henrique
 	 */
 	public Flux<TransacaoResponseDto> listarTransacoes() {
-		return null;
+		return transacaoModelService.listarTransacoes()
+				.flatMap(this::obterTransacaoFluxComRelacionamentos);
+	}
+
+	private Mono<? extends TransacaoResponseDto> obterTransacaoMonoComRelacionamentos(Transacao transacao) {
+		String descricaoTransacaoId = transacao.getDescricaoId();
+		String formaPagamentoTransacaoId = transacao.getFormaPagamentoId();
+
+		return Mono.zip(
+						descricaoModelService.buscarDescricao(descricaoTransacaoId),
+						formaPagamentoModelService.buscarFormaPagamento(formaPagamentoTransacaoId)
+				)
+				.map(tuple -> {
+					DescricaoTransacao descricaoTransacao = tuple.getT1();
+					FormaPagamentoTransacao formaPagamentoTransacao = tuple.getT2();
+
+					DescricaoTransacaoResponseDto descricaoTransacaoResponseDto = converter.originToDestiny(descricaoTransacao,
+							DescricaoTransacaoResponseDto.class);
+					FormaPagamentoTransacaoResponseDto formaPagamentoTransacaoResponseDto = converter.originToDestiny(formaPagamentoTransacao,
+							FormaPagamentoTransacaoResponseDto.class);
+
+					return TransacaoResponseDto.builder()
+							.id(transacao.getId())
+							.cartao(transacao.getCartao())
+							.descricao(descricaoTransacaoResponseDto)
+							.formaPagamento(formaPagamentoTransacaoResponseDto)
+							.build();
+				});
+	}
+
+	private Publisher<? extends TransacaoResponseDto> obterTransacaoFluxComRelacionamentos(Transacao transacao) {
+		return obterTransacaoMonoComRelacionamentos(transacao);
 	}
 
 	/**
@@ -131,5 +140,6 @@ public class TransacaoDtoService {
 
 		 */
 	}
+
 
 }
